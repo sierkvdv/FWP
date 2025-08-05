@@ -59,10 +59,10 @@ const ProjectDetailPage: React.FC = () => {
                 'bg-gray-500/20 text-gray-400'}`}>
                 {project.category.toUpperCase()}
               </span>
-              <div className="flex items-center gap-2 text-gray-400">
-                <Calendar size={16} />
-                <span className="text-sm">{project.date}</span>
-              </div>
+                             <div className="flex items-center gap-2 text-gray-400">
+                 <Calendar size={16} />
+                 <span className="text-sm">{project.year}</span>
+               </div>
             </div>
 
             <h1 className="text-5xl md:text-6xl font-bold mb-6">
@@ -73,21 +73,21 @@ const ProjectDetailPage: React.FC = () => {
               {project.description}
             </p>
 
-            {/* Action Buttons */}
-            <div className="flex flex-wrap gap-4">
-              {project.liveUrl && (
-                <motion.a
-                  href={project.liveUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="px-6 py-3 bg-accent text-dark font-semibold rounded-lg hover:bg-accent/90 transition-colors duration-200 flex items-center gap-2"
-                >
-                  <ExternalLink size={20} />
-                  View Live
-                </motion.a>
-              )}
+                         {/* Action Buttons */}
+             <div className="flex flex-wrap gap-4">
+               {project.demoUrl && (
+                 <motion.a
+                   href={project.demoUrl}
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   whileHover={{ scale: 1.05 }}
+                   whileTap={{ scale: 0.95 }}
+                   className="px-6 py-3 bg-accent text-dark font-semibold rounded-lg hover:bg-accent/90 transition-colors duration-200 flex items-center gap-2"
+                 >
+                   <ExternalLink size={20} />
+                   View Live
+                 </motion.a>
+               )}
               
               {project.githubUrl && (
                 <motion.a
@@ -167,11 +167,11 @@ const ProjectDetailPage: React.FC = () => {
             transition={{ duration: 0.8, delay: 0.6 }}
           >
             <h3 className="text-2xl font-bold mb-6 gradient-text">About This Project</h3>
-            <div className="prose prose-invert max-w-none">
-              <p className="text-gray-300 leading-relaxed">
-                {project.longDescription || project.description}
-              </p>
-            </div>
+                         <div className="prose prose-invert max-w-none">
+               <p className="text-gray-300 leading-relaxed">
+                 {project.description}
+               </p>
+             </div>
           </motion.div>
         </div>
       </section>
