@@ -26,29 +26,25 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, index }) => {
         <div className="relative overflow-hidden rounded-xl glass-effect hover-lift">
           {/* Project Image */}
           <div className="relative h-64 overflow-hidden">
-            {project.image ? (
+            {/* Always show fallback for now */}
+            <div className="absolute inset-0 bg-gradient-to-br from-gray-800 to-gray-900 flex items-center justify-center">
+              <span className="text-6xl opacity-20">{CATEGORY_CONFIG.icons[project.category]}</span>
+            </div>
+            
+            {/* Hidden image for debugging */}
+            {project.image && (
               <img 
                 src={project.image} 
                 alt={project.title}
-                className="w-full h-full object-cover"
+                className="w-full h-full object-cover opacity-0"
                 onError={(e) => {
                   console.error('Image failed to load:', project.image);
-                  e.currentTarget.style.display = 'none';
                 }}
                 onLoad={() => {
                   console.log('Image loaded successfully:', project.image);
                 }}
               />
-            ) : (
-              <div className="absolute inset-0 bg-gradient-to-br from-gray-800 to-gray-900 flex items-center justify-center">
-                <span className="text-6xl opacity-20">{CATEGORY_CONFIG.icons[project.category]}</span>
-              </div>
             )}
-            
-            {/* Fallback if image fails to load */}
-            <div className="absolute inset-0 bg-gradient-to-br from-gray-800 to-gray-900 flex items-center justify-center">
-              <span className="text-6xl opacity-20">{CATEGORY_CONFIG.icons[project.category]}</span>
-            </div>
             
             {/* Overlay gradient */}
             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
