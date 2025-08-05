@@ -1,16 +1,12 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { ArrowLeft, ExternalLink, Github, Play, Calendar, Tag } from 'lucide-react';
 import { projects } from '../data/projects.ts';
-import CloneboxDemo from '../components/CloneboxDemo.tsx';
-import ProjectDemo from '../components/ProjectDemo.tsx';
 
 const ProjectDetailPage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const project = projects.find(p => p.id === id);
-  const [showCloneboxDemo, setShowCloneboxDemo] = useState(false);
-  const [showProjectDemo, setShowProjectDemo] = useState(false);
 
   if (!project) {
     return (
@@ -103,19 +99,9 @@ const ProjectDetailPage: React.FC = () => {
                   </div>
                 )}
 
-                                 {/* Action buttons */}
-                 <div className="absolute bottom-4 right-4 flex gap-2">
-                   {project.id === 'first-electron-clonebox' && (
-                     <motion.button
-                       whileHover={{ scale: 1.1 }}
-                       whileTap={{ scale: 0.9 }}
-                       className="p-3 bg-accent/20 backdrop-blur-sm rounded-lg text-accent hover:bg-accent/30 transition-colors"
-                       onClick={() => setShowCloneboxDemo(true)}
-                     >
-                       <Play size={20} />
-                     </motion.button>
-                   )}
-                  {project.demoUrl && project.id !== 'first-electron-clonebox' && (
+                {/* Action buttons */}
+                <div className="absolute bottom-4 right-4 flex gap-2">
+                  {project.demoUrl && (
                     <motion.a
                       href={project.demoUrl}
                       target="_blank"
@@ -139,7 +125,7 @@ const ProjectDetailPage: React.FC = () => {
                       <Github size={20} />
                     </motion.a>
                   )}
-                  {project.video && project.id !== 'first-electron-clonebox' && (
+                  {project.video && (
                     <motion.button
                       whileHover={{ scale: 1.1 }}
                       whileTap={{ scale: 0.9 }}
@@ -201,21 +187,9 @@ const ProjectDetailPage: React.FC = () => {
                 </div>
               </div>
 
-                             {/* CTA Buttons */}
-               <div className="flex flex-wrap gap-4 pt-4">
-                 {project.id === 'first-electron-clonebox' && (
-                   <motion.button
-                     onClick={() => setShowCloneboxDemo(true)}
-                     whileHover={{ scale: 1.05 }}
-                     whileTap={{ scale: 0.95 }}
-                     className="px-6 py-3 bg-accent text-dark font-semibold rounded-lg hover:bg-accent/90 transition-colors duration-200 flex items-center gap-2"
-                   >
-                     <Play size={18} />
-                     Test Demo
-                   </motion.button>
-                 )}
-                
-                {project.demoUrl && project.id !== 'first-electron-clonebox' && (
+              {/* CTA Buttons */}
+              <div className="flex flex-wrap gap-4 pt-4">
+                {project.demoUrl && (
                   <motion.a
                     href={project.demoUrl}
                     target="_blank"
@@ -329,53 +303,9 @@ const ProjectDetailPage: React.FC = () => {
                 </div>
               </div>
             </div>
-
-            {/* Project Demo */}
-            <div>
-              <h2 className="text-3xl font-bold mb-8 gradient-text">Project Demo</h2>
-              <div className="glass-effect p-8 rounded-xl text-center">
-                <h3 className="text-xl font-semibold text-white mb-4">Test de Interface</h3>
-                <p className="text-gray-300 mb-6 max-w-2xl mx-auto">
-                  {project.id === 'first-electron-clonebox' 
-                    ? 'Test de volledige Clonebox interface met drive selectie, backup functionaliteit en real-time progress tracking.'
-                    : 'Bekijk screenshots van de UI, test de functionaliteit en ontdek de features van dit project.'
-                  }
-                </p>
-                <motion.button
-                  onClick={() => project.id === 'first-electron-clonebox' ? setShowCloneboxDemo(true) : setShowProjectDemo(true)}
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="px-8 py-4 bg-accent text-dark font-semibold rounded-lg hover:bg-accent/90 transition-colors duration-200 flex items-center gap-2 mx-auto"
-                >
-                  <Play size={20} />
-                  {project.id === 'first-electron-clonebox' ? 'Test Clonebox' : 'Bekijk Demo'}
-                </motion.button>
-              </div>
-            </div>
           </motion.div>
         </div>
       </section>
-
-      {/* Clonebox Demo Modal */}
-      <AnimatePresence>
-        {showCloneboxDemo && (
-          <CloneboxDemo onClose={() => setShowCloneboxDemo(false)} />
-        )}
-      </AnimatePresence>
-
-      {/* Project Demo Modal */}
-      <AnimatePresence>
-        {showProjectDemo && project && (
-          <ProjectDemo
-            title={project.title}
-            description={project.description}
-            demoUrl={project.demoUrl}
-            videoUrl={project.video}
-            technologies={project.technologies}
-            onClose={() => setShowProjectDemo(false)}
-          />
-        )}
-      </AnimatePresence>
     </div>
   );
 };

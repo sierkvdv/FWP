@@ -1,9 +1,8 @@
-import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import React from 'react';
+import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { ExternalLink, Github, Play } from 'lucide-react';
 import { Project } from '../types';
-import CloneboxDemo from './CloneboxDemo.tsx';
 import { CATEGORY_CONFIG, ANIMATION_DELAYS } from '../utils/constants.ts';
 import { fadeInUp } from '../utils/animations.ts';
 
@@ -13,7 +12,6 @@ interface ProjectCardProps {
 }
 
 const ProjectCard: React.FC<ProjectCardProps> = ({ project, index }) => {
-  const [showCloneboxDemo, setShowCloneboxDemo] = useState(false);
 
   return (
     <motion.div
@@ -61,20 +59,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, index }) => {
 
             {/* Action buttons */}
             <div className="absolute bottom-4 right-4 flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-              {project.id === 'first-electron-clonebox' && (
-                <motion.button
-                  whileHover={{ scale: 1.1 }}
-                  whileTap={{ scale: 0.9 }}
-                  className="p-2 bg-accent/20 backdrop-blur-sm rounded-lg text-accent hover:bg-accent/30 transition-colors"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    setShowCloneboxDemo(true);
-                  }}
-                >
-                  <Play size={16} />
-                </motion.button>
-              )}
-              {project.demoUrl && project.id !== 'first-electron-clonebox' && project.demoUrl !== 'clonebox-demo' && (
+              {project.demoUrl && (
                 <motion.button
                   whileHover={{ scale: 1.1 }}
                   whileTap={{ scale: 0.9 }}
@@ -161,13 +146,6 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, index }) => {
           </div>
         </div>
       </Link>
-
-      {/* Clonebox Demo Modal */}
-      <AnimatePresence>
-        {showCloneboxDemo && (
-          <CloneboxDemo onClose={() => setShowCloneboxDemo(false)} />
-        )}
-      </AnimatePresence>
     </motion.div>
   );
 };
