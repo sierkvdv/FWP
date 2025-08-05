@@ -1,0 +1,9 @@
+<svg width="400" height="300" viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+  <rect width="400" height="300" fill="#1e293b"/>
+  <circle cx="200" cy="150" r="50" fill="#10b981">
+    <animate attributeName="r" values="50;70;50" dur="2s" repeatCount="indefinite"/>
+  </circle>
+  <text x="200" y="280" text-anchor="middle" fill="#ffffff" font-family="Arial, sans-serif" font-size="16">
+    Test Animation
+  </text>
+</svg> 
