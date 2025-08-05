@@ -1,10 +1,10 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import Hero from '../components/Hero.tsx';
-import ProjectCard from '../components/ProjectCard.tsx';
-import { projects } from '../data/projects.ts';
-import { staggerContainer, fadeInUp } from '../utils/animations.ts';
-import { ANIMATION_DELAYS } from '../utils/constants.ts';
+import Hero from '../components/Hero';
+import ProjectCard from '../components/ProjectCard';
+import { projects } from '../data/projects';
+import { staggerContainer, fadeInUp } from '../utils/animations';
+import { ANIMATION_DELAYS } from '../utils/constants';
 
 const HomePage: React.FC = () => {
   const featuredProjects = projects.filter(project => project.featured);

@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X } from 'lucide-react';
-import { SITE_CONFIG } from '../utils/constants.ts';
-import { fadeInDown, slideInLeft } from '../utils/animations.ts';
+import { SITE_CONFIG } from '../utils/constants';
+import { fadeInDown, slideInLeft } from '../utils/animations';
 
 const Navigation: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);

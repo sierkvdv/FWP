@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import ProjectCard from '../components/ProjectCard.tsx';
-import { projects } from '../data/projects.ts';
+import ProjectCard from '../components/ProjectCard';
+import { projects } from '../data/projects';
 
 
 const ProjectsPage: React.FC = () => {

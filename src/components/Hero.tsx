@@ -1,8 +1,8 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { ArrowDown, Sparkles } from 'lucide-react';
-import { SITE_CONFIG, ANIMATION_DELAYS } from '../utils/constants.ts';
-import { fadeInUp, slideInLeft, slideInRight } from '../utils/animations.ts';
+import { SITE_CONFIG, ANIMATION_DELAYS } from '../utils/constants';
+import { fadeInUp, slideInLeft, slideInRight } from '../utils/animations';
 
 const Hero: React.FC = () => {
   const scrollToProjects = () => {

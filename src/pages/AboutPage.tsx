@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { skills } from '../data/skills.ts';
+import { skills } from '../data/skills';
 import { Mail, Github, Linkedin, Twitter, Instagram } from 'lucide-react';
 
 const AboutPage: React.FC = () => {

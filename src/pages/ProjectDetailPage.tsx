@@ -2,7 +2,7 @@ import React from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { ArrowLeft, ExternalLink, Github, Play, Calendar, Tag } from 'lucide-react';
-import { projects } from '../data/projects.ts';
+import { projects } from '../data/projects';
 
 const ProjectDetailPage: React.FC = () => {
   const { id } = useParams<{ id: string }>();

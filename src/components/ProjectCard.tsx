@@ -3,8 +3,8 @@ import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { ExternalLink, Github, Play } from 'lucide-react';
 import { Project } from '../types';
-import { CATEGORY_CONFIG, ANIMATION_DELAYS } from '../utils/constants.ts';
-import { fadeInUp } from '../utils/animations.ts';
+import { CATEGORY_CONFIG, ANIMATION_DELAYS } from '../utils/constants';
+import { fadeInUp } from '../utils/animations';
 
 interface ProjectCardProps {
   project: Project;
