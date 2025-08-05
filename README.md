@@ -2,7 +2,7 @@
 
 FWP - Fieldworks Production. Een moderne, creatieve portfolio website voor een creatief bureau.
 
-<!-- Test webhook deployment -->
+<!-- Test deployment with correct email address -->
 
 ## 🚀 Features
 
