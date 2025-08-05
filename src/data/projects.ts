@@ -50,7 +50,7 @@ export const projects: Project[] = [
     description: 'Een 30-seconden surrealistische film gegenereerd met Runway ML. Glitchy transitions en Error Instruments vibes.',
     category: 'ai',
     technologies: ['Runway ML', 'After Effects', 'AI Video Generation'],
-    image: '/images/placeholder.svg',
+    image: '/images/neural-dreams-preview.svg',
     video: '/videos/neural-dreams-teaser.mp4',
     demoUrl: undefined,
     featured: true,
