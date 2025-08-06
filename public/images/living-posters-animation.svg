@@ -1,0 +1,74 @@
+<svg width="400" height="300" viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="posterGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#ef4444;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#dc2626;stop-opacity:1" />
+    </linearGradient>
+    <radialGradient id="glowGradient" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" style="stop-color:#fbbf24;stop-opacity:0.8" />
+      <stop offset="100%" style="stop-color:#f59e0b;stop-opacity:0" />
+    </radialGradient>
+    <filter id="posterGlow">
+      <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
+      <feMerge> 
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="400" height="300" fill="#0f172a" opacity="0.1"/>
+  
+  <!-- Poster Frame -->
+  <g id="poster-frame">
+    <rect x="120" y="80" width="160" height="120" fill="url(#posterGradient)" rx="8" filter="url(#posterGlow)">
+      <animate attributeName="opacity" values="0.8;1;0.8" dur="3s" repeatCount="indefinite"/>
+    </rect>
+    <!-- Poster content -->
+    <rect x="130" y="90" width="140" height="100" fill="#1e293b" rx="4"/>
+    
+    <!-- Animated elements on poster -->
+    <circle cx="160" cy="120" r="3" fill="#fbbf24">
+      <animate attributeName="opacity" values="0.3;1;0.3" dur="2s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="200" cy="140" r="2" fill="#ef4444">
+      <animate attributeName="opacity" values="0.3;1;0.3" dur="1.8s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="240" cy="130" r="2.5" fill="#8b5cf6">
+      <animate attributeName="opacity" values="0.3;1;0.3" dur="2.2s" repeatCount="indefinite"/>
+    </circle>
+    
+    <!-- Text lines -->
+    <rect x="140" y="160" width="80" height="2" fill="#fbbf24">
+      <animate attributeName="width" values="80;120;80" dur="3s" repeatCount="indefinite"/>
+    </rect>
+    <rect x="140" y="170" width="60" height="2" fill="#ef4444">
+      <animate attributeName="width" values="60;100;60" dur="2.5s" repeatCount="indefinite"/>
+    </rect>
+  </g>
+  
+  <!-- Floating particles around poster -->
+  <g id="floating-particles">
+    <circle cx="100" cy="100" r="2" fill="url(#glowGradient)">
+      <animate attributeName="cx" values="100;300;100" dur="4s" repeatCount="indefinite"/>
+      <animate attributeName="cy" values="100;200;100" dur="4s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="0.3;1;0.3" dur="4s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="300" cy="150" r="1.5" fill="url(#glowGradient)">
+      <animate attributeName="cx" values="300;100;300" dur="3.5s" repeatCount="indefinite"/>
+      <animate attributeName="cy" values="150;100;150" dur="3.5s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="0.4;1;0.4" dur="3.5s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="150" cy="250" r="2.5" fill="url(#glowGradient)">
+      <animate attributeName="cx" values="150;250;150" dur="5s" repeatCount="indefinite"/>
+      <animate attributeName="cy" values="250;150;250" dur="5s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="0.2;0.8;0.2" dur="5s" repeatCount="indefinite"/>
+    </circle>
+  </g>
+  
+  <!-- Project title -->
+  <text x="200" y="280" text-anchor="middle" fill="#ef4444" font-family="Arial, sans-serif" font-size="16" font-weight="bold">
+    Living Posters
+  </text>
+</svg> 

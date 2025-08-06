@@ -1,0 +1,72 @@
+<svg width="400" height="300" viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="usbGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#10b981;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#059669;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="progressGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#3b82f6;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#1d4ed8;stop-opacity:1" />
+    </linearGradient>
+    <radialGradient id="glowGradient" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" style="stop-color:#10b981;stop-opacity:0.6" />
+      <stop offset="100%" style="stop-color:#10b981;stop-opacity:0" />
+    </radialGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="400" height="300" fill="#0f172a" opacity="0.1"/>
+  
+  <!-- USB Drive -->
+  <g id="usb-drive">
+    <!-- USB connector -->
+    <rect x="180" y="120" width="40" height="20" fill="url(#usbGradient)" rx="2">
+      <animate attributeName="opacity" values="0.8;1;0.8" dur="2s" repeatCount="indefinite"/>
+    </rect>
+    <!-- USB body -->
+    <rect x="190" y="140" width="20" height="40" fill="url(#usbGradient)" rx="2"/>
+    <!-- USB indicator light -->
+    <circle cx="200" cy="150" r="3" fill="#ffffff">
+      <animate attributeName="opacity" values="0.3;1;0.3" dur="1s" repeatCount="indefinite"/>
+    </circle>
+  </g>
+  
+  <!-- Progress Bar -->
+  <g id="progress">
+    <!-- Background bar -->
+    <rect x="100" y="200" width="200" height="8" fill="#374151" rx="4"/>
+    <!-- Progress fill -->
+    <rect x="100" y="200" width="0" height="8" fill="url(#progressGradient)" rx="4">
+      <animate attributeName="width" values="0;200" dur="4s" repeatCount="indefinite"/>
+    </rect>
+    <!-- Progress percentage -->
+    <text x="200" y="220" text-anchor="middle" fill="#10b981" font-family="Arial, sans-serif" font-size="12" font-weight="bold">
+      <animate attributeName="opacity" values="0;1;0" dur="4s" repeatCount="indefinite"/>
+      <tspan x="200" dy="0">Backing up...</tspan>
+    </text>
+  </g>
+  
+  <!-- Data transfer particles -->
+  <g id="data-particles">
+    <circle cx="150" cy="80" r="2" fill="url(#glowGradient)">
+      <animate attributeName="cx" values="150;250;150" dur="2s" repeatCount="indefinite"/>
+      <animate attributeName="cy" values="80;180;80" dur="2s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="0.8;0;0.8" dur="2s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="250" cy="100" r="1.5" fill="url(#glowGradient)">
+      <animate attributeName="cx" values="250;150;250" dur="1.8s" repeatCount="indefinite"/>
+      <animate attributeName="cy" values="100;180;100" dur="1.8s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="0.6;0;0.6" dur="1.8s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="200" cy="60" r="2.5" fill="url(#glowGradient)">
+      <animate attributeName="cx" values="200;200;200" dur="2.5s" repeatCount="indefinite"/>
+      <animate attributeName="cy" values="60;180;60" dur="2.5s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="0.7;0;0.7" dur="2.5s" repeatCount="indefinite"/>
+    </circle>
+  </g>
+  
+  <!-- Project title -->
+  <text x="200" y="280" text-anchor="middle" fill="#10b981" font-family="Arial, sans-serif" font-size="16" font-weight="bold">
+    Clonebox
+  </text>
+</svg> 

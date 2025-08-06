@@ -126,13 +126,25 @@ const ProjectDetailPage: React.FC = () => {
             transition={{ duration: 0.8, delay: 0.2 }}
             className="mb-12"
           >
-            <div className="relative overflow-hidden rounded-2xl">
+            <div className="relative overflow-hidden rounded-2xl bg-dark-gray p-8">
               <img
                 src={project.image}
                 alt={project.title}
-                className="w-full h-auto object-cover"
+                className="w-full h-auto object-contain max-h-96 mx-auto"
+                style={{ filter: 'drop-shadow(0 0 20px rgba(99, 102, 241, 0.3))' }}
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-dark/50 to-transparent" />
+              {project.video && (
+                <div className="mt-8">
+                  <video
+                    src={project.video}
+                    controls
+                    className="w-full rounded-lg"
+                    poster={project.image}
+                  >
+                    Your browser does not support the video tag.
+                  </video>
+                </div>
+              )}
             </div>
           </motion.div>
 

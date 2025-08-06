@@ -1,9 +1,9 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { ExternalLink, Github, Play } from 'lucide-react';
+import { ExternalLink } from 'lucide-react';
 import { Project } from '../types';
-import { CATEGORY_CONFIG, ANIMATION_DELAYS } from '../utils/constants';
+import { ANIMATION_DELAYS } from '../utils/constants';
 import { fadeInUp } from '../utils/animations';
 
 interface ProjectCardProps {
@@ -23,14 +23,19 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, index }) => {
       className="group relative"
     >
       <Link to={`/projects/${project.id}`}>
-        <div className="relative overflow-hidden rounded-xl glass-effect hover-lift">
-          {/* Project Image - SIMPLE VERSION */}
-          <div style={{ height: '256px', backgroundColor: '#1e293b', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        <div className={`relative overflow-hidden rounded-xl glass-effect-enhanced project-card-enhanced category-${project.category}`}>
+          {/* Project Image - ANIMATED VERSION */}
+          <div style={{ height: '256px', backgroundColor: '#1e293b', display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden' }}>
             {project.image ? (
               <img 
                 src={project.image} 
                 alt={project.title}
-                style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                style={{ 
+                  width: '100%', 
+                  height: '100%', 
+                  objectFit: 'contain'
+                }}
+                className="project-card-image project-svg"
               />
             ) : (
               <div style={{ textAlign: 'center', color: 'white' }}>
