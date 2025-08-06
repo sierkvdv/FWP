@@ -470,3 +470,641 @@
 .animated-border {
   animation: border-glow 2s ease-in-out infinite;
 }
+
+/* CSS Animations for Project Images */
+.animated-project-image {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+/* CursorFlow Animation */
+.cursorflow-animation {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.cursor {
+  position: absolute;
+  top: 20%;
+  left: 20%;
+  z-index: 10;
+}
+
+.cursor-arrow {
+  width: 0;
+  height: 0;
+  border-left: 8px solid #6366f1;
+  border-top: 4px solid transparent;
+  border-bottom: 4px solid transparent;
+  animation: cursor-move 8s infinite linear;
+}
+
+.cursor-glow {
+  position: absolute;
+  top: -4px;
+  left: -4px;
+  width: 16px;
+  height: 16px;
+  background: radial-gradient(circle, rgba(99, 102, 241, 0.6) 0%, transparent 70%);
+  border-radius: 50%;
+  animation: cursor-glow 1.5s infinite ease-in-out;
+}
+
+.particles {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+.particle {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background: #fbbf24;
+  border-radius: 50%;
+  animation: particle-float 3s infinite ease-in-out;
+}
+
+.audio-bars {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 2px;
+  align-items: end;
+}
+
+.audio-bar {
+  width: 3px;
+  background: linear-gradient(to top, #6366f1, #8b5cf6);
+  border-radius: 1px;
+  animation: audio-wave 0.5s infinite ease-in-out;
+}
+
+/* Clonebox Animation */
+.clonebox-animation {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.usb-drive {
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.usb-connector {
+  width: 40px;
+  height: 20px;
+  background: linear-gradient(135deg, #10b981, #059669);
+  border-radius: 4px;
+  animation: usb-pulse 2s infinite ease-in-out;
+}
+
+.usb-body {
+  width: 20px;
+  height: 40px;
+  background: linear-gradient(135deg, #10b981, #059669);
+  border-radius: 4px;
+  margin: 0 auto;
+}
+
+.usb-light {
+  position: absolute;
+  top: 5px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 6px;
+  height: 6px;
+  background: #ffffff;
+  border-radius: 50%;
+  animation: usb-light-blink 1s infinite ease-in-out;
+}
+
+.progress-bar {
+  width: 200px;
+  height: 8px;
+  background: #374151;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #3b82f6, #1d4ed8);
+  border-radius: 4px;
+  animation: progress-fill 4s infinite ease-in-out;
+}
+
+.data-particles {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+.data-particle {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background: radial-gradient(circle, #10b981 0%, transparent 70%);
+  border-radius: 50%;
+  animation: data-transfer 2s infinite ease-in-out;
+}
+
+/* Neural Dreams Animation */
+.neural-dreams-animation {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.neural-network {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+.neural-node {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  background: radial-gradient(circle, #fbbf24 0%, transparent 70%);
+  border-radius: 50%;
+  animation: neural-pulse 2s infinite ease-in-out;
+}
+
+.connections {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+.connection {
+  position: absolute;
+  height: 1px;
+  background: linear-gradient(90deg, #8b5cf6, #ec4899);
+  animation: connection-flow 3s infinite ease-in-out;
+}
+
+.dream-particles {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+.dream-particle {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  background: radial-gradient(circle, #8b5cf6 0%, transparent 70%);
+  border-radius: 50%;
+  animation: dream-float 6s infinite ease-in-out;
+}
+
+/* Living Posters Animation */
+.living-posters-animation {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.poster-frame {
+  width: 160px;
+  height: 120px;
+  background: linear-gradient(135deg, #ef4444, #dc2626);
+  border-radius: 8px;
+  position: relative;
+  animation: poster-glow 3s infinite ease-in-out;
+}
+
+.poster-content {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  right: 10px;
+  bottom: 10px;
+  background: #1e293b;
+  border-radius: 4px;
+  padding: 10px;
+}
+
+.poster-elements {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 10px;
+}
+
+.poster-element {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  animation: poster-element-pulse 2s infinite ease-in-out;
+}
+
+.poster-element:nth-child(1) { background: #fbbf24; }
+.poster-element:nth-child(2) { background: #ef4444; }
+.poster-element:nth-child(3) { background: #8b5cf6; }
+
+.poster-lines {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.poster-line {
+  height: 2px;
+  background: #fbbf24;
+  border-radius: 1px;
+  animation: poster-line-grow 3s infinite ease-in-out;
+}
+
+.poster-line.line-2 {
+  background: #ef4444;
+  animation-delay: 0.5s;
+}
+
+.floating-particles {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+.floating-particle {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background: radial-gradient(circle, #fbbf24 0%, transparent 70%);
+  border-radius: 50%;
+  animation: floating-move 4s infinite ease-in-out;
+}
+
+/* Virtual DJ Animation */
+.virtual-dj-animation {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.turntable {
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.turntable-base {
+  width: 100px;
+  height: 20px;
+  background: linear-gradient(135deg, #f59e0b, #d97706);
+  border-radius: 4px;
+}
+
+.turntable-surface {
+  position: absolute;
+  top: -35px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 70px;
+  height: 70px;
+  background: #1e293b;
+  border: 2px solid #f59e0b;
+  border-radius: 50%;
+  animation: turntable-spin 3s infinite linear;
+}
+
+.vinyl-grooves {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.vinyl-groove {
+  position: absolute;
+  border: 1px solid #4b5563;
+  border-radius: 50%;
+  animation: turntable-spin 3s infinite linear;
+}
+
+.vinyl-groove:nth-child(1) { width: 50px; height: 50px; }
+.vinyl-groove:nth-child(2) { width: 40px; height: 40px; }
+.vinyl-groove:nth-child(3) { width: 30px; height: 30px; }
+
+.sound-waves {
+  position: absolute;
+  width: 100%;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.speaker {
+  position: absolute;
+  top: 0;
+}
+
+.speaker.left { left: 20px; }
+.speaker.right { right: 20px; }
+
+.wave {
+  width: 40px;
+  height: 2px;
+  background: #f59e0b;
+  margin: 5px 0;
+  animation: sound-wave 1s infinite ease-in-out;
+}
+
+.bass-frequencies {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 2px;
+  align-items: end;
+}
+
+.bass-bar {
+  width: 4px;
+  background: #f59e0b;
+  border-radius: 1px;
+  animation: bass-pulse 0.5s infinite ease-in-out;
+}
+
+/* Modular Synth Animation */
+.modular-synth-animation {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.synth-rack {
+  width: 240px;
+  height: 120px;
+  background: #1e293b;
+  border: 2px solid #06b6d4;
+  border-radius: 4px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.module {
+  width: 60px;
+  height: 40px;
+  background: #374151;
+  border: 1px solid #06b6d4;
+  border-radius: 2px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.module-label {
+  font-size: 8px;
+  color: #22d3ee;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.waveform {
+  width: 40px;
+  height: 10px;
+  background: linear-gradient(90deg, transparent 0%, #22d3ee 25%, transparent 50%, #22d3ee 75%, transparent 100%);
+  animation: waveform-pulse 2s infinite ease-in-out;
+}
+
+.filter-curve {
+  width: 40px;
+  height: 10px;
+  background: radial-gradient(ellipse 20px 5px at center, #22d3ee 0%, transparent 70%);
+  animation: filter-pulse 1.5s infinite ease-in-out;
+}
+
+.envelope-curve {
+  width: 40px;
+  height: 10px;
+  background: linear-gradient(90deg, #22d3ee 0%, #22d3ee 30%, transparent 30%, transparent 100%);
+  animation: envelope-pulse 2.5s infinite ease-in-out;
+}
+
+.knob {
+  position: absolute;
+  bottom: 5px;
+  width: 6px;
+  height: 6px;
+  background: #06b6d4;
+  border-radius: 50%;
+  animation: knob-rotate 4s infinite linear;
+}
+
+.patch-cables {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+.cable {
+  position: absolute;
+  height: 2px;
+  background: #06b6d4;
+  border-radius: 1px;
+  animation: cable-flow 3s infinite ease-in-out;
+}
+
+.cable-1 {
+  top: 40%;
+  left: 30%;
+  width: 60px;
+  transform: rotate(15deg);
+}
+
+.cable-2 {
+  top: 40%;
+  right: 30%;
+  width: 60px;
+  transform: rotate(-15deg);
+}
+
+.audio-viz {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 2px;
+  align-items: end;
+}
+
+.viz-bar {
+  width: 4px;
+  background: #06b6d4;
+  border-radius: 1px;
+  animation: viz-pulse 0.3s infinite ease-in-out;
+}
+
+/* Default Animation */
+.default-animation {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  color: white;
+}
+
+.placeholder-icon {
+  font-size: 48px;
+  margin-bottom: 8px;
+}
+
+.placeholder-title {
+  font-size: 18px;
+  color: #9ca3af;
+}
+
+/* Keyframe Animations */
+@keyframes cursor-move {
+  0%, 100% { transform: translate(0, 0); }
+  25% { transform: translate(300px, 50px); }
+  50% { transform: translate(200px, 200px); }
+  75% { transform: translate(100px, 100px); }
+}
+
+@keyframes cursor-glow {
+  0%, 100% { transform: scale(1); opacity: 0.5; }
+  50% { transform: scale(1.5); opacity: 1; }
+}
+
+@keyframes particle-float {
+  0%, 100% { transform: translate(0, 0); opacity: 0.8; }
+  50% { transform: translate(20px, -20px); opacity: 0.3; }
+}
+
+@keyframes audio-wave {
+  0%, 100% { height: 15px; }
+  50% { height: 30px; }
+}
+
+@keyframes usb-pulse {
+  0%, 100% { opacity: 0.8; }
+  50% { opacity: 1; }
+}
+
+@keyframes usb-light-blink {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 1; }
+}
+
+@keyframes progress-fill {
+  0% { width: 0%; }
+  100% { width: 100%; }
+}
+
+@keyframes data-transfer {
+  0% { transform: translate(0, 0); opacity: 0.8; }
+  100% { transform: translate(100px, 100px); opacity: 0; }
+}
+
+@keyframes neural-pulse {
+  0%, 100% { opacity: 0.3; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.2); }
+}
+
+@keyframes connection-flow {
+  0%, 100% { opacity: 0.2; }
+  50% { opacity: 0.8; }
+}
+
+@keyframes dream-float {
+  0% { transform: translate(0, 0); opacity: 0.3; }
+  50% { transform: translate(50px, -30px); opacity: 1; }
+  100% { transform: translate(100px, 0); opacity: 0.3; }
+}
+
+@keyframes poster-glow {
+  0%, 100% { opacity: 0.8; }
+  50% { opacity: 1; }
+}
+
+@keyframes poster-element-pulse {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 1; }
+}
+
+@keyframes poster-line-grow {
+  0% { width: 40px; }
+  50% { width: 60px; }
+  100% { width: 40px; }
+}
+
+@keyframes floating-move {
+  0% { transform: translate(0, 0); opacity: 0.3; }
+  50% { transform: translate(50px, -20px); opacity: 1; }
+  100% { transform: translate(100px, 0); opacity: 0.3; }
+}
+
+@keyframes turntable-spin {
+  0% { transform: translate(-50%, -50%) rotate(0deg); }
+  100% { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+@keyframes sound-wave {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 1; }
+}
+
+@keyframes bass-pulse {
+  0%, 100% { height: 20px; }
+  50% { height: 40px; }
+}
+
+@keyframes waveform-pulse {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 1; }
+}
+
+@keyframes filter-pulse {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 1; }
+}
+
+@keyframes envelope-pulse {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 1; }
+}
+
+@keyframes knob-rotate {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes cable-flow {
+  0%, 100% { opacity: 0.2; }
+  50% { opacity: 0.8; }
+}
+
+@keyframes viz-pulse {
+  0%, 100% { height: 15px; }
+  50% { height: 30px; }
+}

@@ -5,6 +5,7 @@ import { ExternalLink } from 'lucide-react';
 import { Project } from '../types';
 import { ANIMATION_DELAYS } from '../utils/constants';
 import { fadeInUp } from '../utils/animations';
+import AnimatedProjectImage from './AnimatedProjectImage';
 
 interface ProjectCardProps {
   project: Project;
@@ -24,26 +25,9 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, index }) => {
     >
       <Link to={`/projects/${project.id}`}>
         <div className={`relative overflow-hidden rounded-xl glass-effect-enhanced project-card-enhanced category-${project.category}`}>
-          {/* Project Image - ANIMATED VERSION */}
+          {/* Project Image - CSS ANIMATED VERSION */}
           <div style={{ height: '256px', backgroundColor: '#1e293b', display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden' }}>
-            {project.image ? (
-              <img 
-                src={project.image} 
-                alt={project.title}
-                style={{ 
-                  width: '100%', 
-                  height: '100%', 
-                  objectFit: 'contain'
-                }}
-                className="project-card-image project-svg"
-              />
-            ) : (
-              <div style={{ textAlign: 'center', color: 'white' }}>
-                <div style={{ fontSize: '48px', marginBottom: '8px' }}>🌐</div>
-                <div style={{ fontSize: '18px' }}>{project.title}</div>
-                <div style={{ fontSize: '14px', color: '#9ca3af' }}>No Image</div>
-              </div>
-            )}
+            <AnimatedProjectImage projectId={project.id} title={project.title} />
           </div>
 
           {/* Content */}
