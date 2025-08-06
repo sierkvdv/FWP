@@ -24,87 +24,21 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, index }) => {
     >
       <Link to={`/projects/${project.id}`}>
         <div className="relative overflow-hidden rounded-xl glass-effect hover-lift">
-          {/* Project Image */}
-          <div className="relative h-64 overflow-hidden bg-gradient-to-br from-gray-800 to-gray-900 flex items-center justify-center">
-            {/* Simple text fallback */}
-            <div className="text-center">
-              <div className="text-4xl mb-2">🌐</div>
-              <div className="text-white text-lg">{project.title}</div>
-              <div className="text-gray-400 text-sm">Project Image</div>
-            </div>
-            
-            {/* Hidden image for debugging */}
-            {project.image && (
+          {/* Project Image - SIMPLE VERSION */}
+          <div style={{ height: '256px', backgroundColor: '#1e293b', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            {project.image ? (
               <img 
                 src={project.image} 
                 alt={project.title}
-                className="absolute inset-0 w-full h-full object-cover opacity-0"
-                onError={(e) => {
-                  console.error('Image failed to load:', project.image);
-                }}
-                onLoad={() => {
-                  console.log('Image loaded successfully:', project.image);
-                }}
+                style={{ width: '100%', height: '100%', objectFit: 'cover' }}
               />
-            )}
-            
-            {/* Overlay gradient */}
-            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-            
-            {/* Category badge */}
-            <div className="absolute top-4 left-4">
-              <span className={`px-3 py-1 text-xs font-semibold rounded-full bg-gradient-to-r ${CATEGORY_CONFIG.colors[project.category]} text-white`}>
-                {project.category.toUpperCase()}
-              </span>
-            </div>
-
-            {/* Featured badge */}
-            {project.featured && (
-              <div className="absolute top-4 right-4">
-                <span className="px-3 py-1 text-xs font-semibold rounded-full bg-accent text-dark">
-                  FEATURED
-                </span>
+            ) : (
+              <div style={{ textAlign: 'center', color: 'white' }}>
+                <div style={{ fontSize: '48px', marginBottom: '8px' }}>🌐</div>
+                <div style={{ fontSize: '18px' }}>{project.title}</div>
+                <div style={{ fontSize: '14px', color: '#9ca3af' }}>No Image</div>
               </div>
             )}
-
-            {/* Action buttons */}
-            <div className="absolute bottom-4 right-4 flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-              {project.demoUrl && (
-                <motion.button
-                  whileHover={{ scale: 1.1 }}
-                  whileTap={{ scale: 0.9 }}
-                  className="p-2 bg-accent/20 backdrop-blur-sm rounded-lg text-accent hover:bg-accent/30 transition-colors"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    window.open(project.demoUrl, '_blank');
-                  }}
-                >
-                  <ExternalLink size={16} />
-                </motion.button>
-              )}
-              {project.githubUrl && (
-                <motion.button
-                  whileHover={{ scale: 1.1 }}
-                  whileTap={{ scale: 0.9 }}
-                  className="p-2 bg-accent/20 backdrop-blur-sm rounded-lg text-accent hover:bg-accent/30 transition-colors"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    window.open(project.githubUrl, '_blank');
-                  }}
-                >
-                  <Github size={16} />
-                </motion.button>
-              )}
-              {project.video && (
-                <motion.button
-                  whileHover={{ scale: 1.1 }}
-                  whileTap={{ scale: 0.9 }}
-                  className="p-2 bg-accent/20 backdrop-blur-sm rounded-lg text-accent hover:bg-accent/30 transition-colors"
-                >
-                  <Play size={16} />
-                </motion.button>
-              )}
-            </div>
           </div>
 
           {/* Content */}
