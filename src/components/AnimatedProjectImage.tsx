@@ -11,24 +11,42 @@ const AnimatedProjectImage: React.FC<AnimatedProjectImageProps> = ({ projectId, 
     switch (projectId) {
       case 'cursorflow':
         return (
-          <div className="cursorflow-animation">
-            <div className="cursor">
-              <div className="cursor-arrow"></div>
-              <div className="cursor-glow"></div>
-            </div>
-            <div className="particles">
-              {[...Array(8)].map((_, i) => (
-                <div key={i} className="particle" style={{ animationDelay: `${i * 0.5}s` }}></div>
-              ))}
-            </div>
-            <div className="audio-bars">
-              {[...Array(20)].map((_, i) => (
+          <div style={{ 
+            position: 'relative', 
+            width: '100%', 
+            height: '100%',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            color: '#6366f1'
+          }}>
+            <div style={{ fontSize: '48px', animation: 'pulse 2s infinite' }}>🖱️</div>
+            <div style={{ 
+              position: 'absolute', 
+              top: '20%', 
+              left: '20%', 
+              width: '8px', 
+              height: '8px', 
+              background: '#fbbf24', 
+              borderRadius: '50%',
+              animation: 'bounce 1s infinite'
+            }}></div>
+            <div style={{ 
+              position: 'absolute', 
+              bottom: '20px', 
+              left: '50%', 
+              transform: 'translateX(-50%)',
+              display: 'flex',
+              gap: '2px'
+            }}>
+              {[...Array(10)].map((_, i) => (
                 <div 
                   key={i} 
-                  className="audio-bar" 
                   style={{ 
-                    animationDelay: `${i * 0.1}s`,
-                    animationDuration: `${0.3 + Math.random() * 0.7}s`
+                    width: '3px', 
+                    height: '20px', 
+                    background: '#6366f1',
+                    animation: `pulse ${0.5 + i * 0.1}s infinite`
                   }}
                 ></div>
               ))}
@@ -38,95 +56,135 @@ const AnimatedProjectImage: React.FC<AnimatedProjectImageProps> = ({ projectId, 
 
       case 'clonebox':
         return (
-          <div className="clonebox-animation">
-            <div className="usb-drive">
-              <div className="usb-connector"></div>
-              <div className="usb-body"></div>
-              <div className="usb-light"></div>
-            </div>
-            <div className="progress-bar">
-              <div className="progress-fill"></div>
-            </div>
-            <div className="data-particles">
-              {[...Array(5)].map((_, i) => (
-                <div key={i} className="data-particle" style={{ animationDelay: `${i * 0.8}s` }}></div>
-              ))}
+          <div style={{ 
+            position: 'relative', 
+            width: '100%', 
+            height: '100%',
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center',
+            color: '#10b981'
+          }}>
+            <div style={{ fontSize: '48px', animation: 'pulse 2s infinite' }}>💾</div>
+            <div style={{ 
+              width: '200px', 
+              height: '8px', 
+              background: '#374151', 
+              borderRadius: '4px',
+              marginTop: '20px',
+              overflow: 'hidden'
+            }}>
+              <div style={{ 
+                height: '100%', 
+                background: '#3b82f6',
+                borderRadius: '4px',
+                animation: 'progress 4s infinite'
+              }}></div>
             </div>
           </div>
         );
 
       case 'neural-dreams':
         return (
-          <div className="neural-dreams-animation">
-            <div className="neural-network">
-              {[...Array(10)].map((_, i) => (
-                <div key={i} className="neural-node" style={{ animationDelay: `${i * 0.2}s` }}></div>
-              ))}
-            </div>
-            <div className="connections">
-              {[...Array(6)].map((_, i) => (
-                <div key={i} className="connection" style={{ animationDelay: `${i * 0.3}s` }}></div>
-              ))}
-            </div>
-            <div className="dream-particles">
-              {[...Array(4)].map((_, i) => (
-                <div key={i} className="dream-particle" style={{ animationDelay: `${i * 1}s` }}></div>
-              ))}
-            </div>
+          <div style={{ 
+            position: 'relative', 
+            width: '100%', 
+            height: '100%',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            color: '#8b5cf6'
+          }}>
+            <div style={{ fontSize: '48px', animation: 'pulse 2s infinite' }}>🧠</div>
+            <div style={{ 
+              position: 'absolute', 
+              top: '20%', 
+              left: '30%', 
+              width: '6px', 
+              height: '6px', 
+              background: '#fbbf24', 
+              borderRadius: '50%',
+              animation: 'bounce 1.5s infinite'
+            }}></div>
+            <div style={{ 
+              position: 'absolute', 
+              top: '30%', 
+              right: '30%', 
+              width: '6px', 
+              height: '6px', 
+              background: '#ec4899', 
+              borderRadius: '50%',
+              animation: 'bounce 1.8s infinite'
+            }}></div>
           </div>
         );
 
       case 'living-posters':
         return (
-          <div className="living-posters-animation">
-            <div className="poster-frame">
-              <div className="poster-content">
-                <div className="poster-elements">
-                  {[...Array(3)].map((_, i) => (
-                    <div key={i} className="poster-element" style={{ animationDelay: `${i * 0.5}s` }}></div>
-                  ))}
-                </div>
-                <div className="poster-lines">
-                  <div className="poster-line line-1"></div>
-                  <div className="poster-line line-2"></div>
-                </div>
-              </div>
-            </div>
-            <div className="floating-particles">
-              {[...Array(3)].map((_, i) => (
-                <div key={i} className="floating-particle" style={{ animationDelay: `${i * 0.7}s` }}></div>
-              ))}
-            </div>
+          <div style={{ 
+            position: 'relative', 
+            width: '100%', 
+            height: '100%',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            color: '#ef4444'
+          }}>
+            <div style={{ fontSize: '48px', animation: 'pulse 2s infinite' }}>🎨</div>
+            <div style={{ 
+              position: 'absolute', 
+              top: '20%', 
+              left: '20%', 
+              width: '4px', 
+              height: '4px', 
+              background: '#fbbf24', 
+              borderRadius: '50%',
+              animation: 'bounce 2s infinite'
+            }}></div>
+            <div style={{ 
+              position: 'absolute', 
+              bottom: '20%', 
+              right: '20%', 
+              width: '4px', 
+              height: '4px', 
+              background: '#8b5cf6', 
+              borderRadius: '50%',
+              animation: 'bounce 2.5s infinite'
+            }}></div>
           </div>
         );
 
       case 'virtual-dj':
         return (
-          <div className="virtual-dj-animation">
-            <div className="turntable">
-              <div className="turntable-base"></div>
-              <div className="turntable-surface"></div>
-              <div className="vinyl-grooves">
-                {[...Array(3)].map((_, i) => (
-                  <div key={i} className="vinyl-groove" style={{ animationDelay: `${i * 0.1}s` }}></div>
-                ))}
-              </div>
-            </div>
-            <div className="sound-waves">
-              <div className="speaker left">
-                {[...Array(3)].map((_, i) => (
-                  <div key={i} className="wave" style={{ animationDelay: `${i * 0.2}s` }}></div>
-                ))}
-              </div>
-              <div className="speaker right">
-                {[...Array(3)].map((_, i) => (
-                  <div key={i} className="wave" style={{ animationDelay: `${i * 0.2}s` }}></div>
-                ))}
-              </div>
-            </div>
-            <div className="bass-frequencies">
-              {[...Array(5)].map((_, i) => (
-                <div key={i} className="bass-bar" style={{ animationDelay: `${i * 0.1}s` }}></div>
+          <div style={{ 
+            position: 'relative', 
+            width: '100%', 
+            height: '100%',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            color: '#f59e0b'
+          }}>
+            <div style={{ fontSize: '48px', animation: 'spin 3s linear infinite' }}>🎵</div>
+            <div style={{ 
+              position: 'absolute', 
+              bottom: '20px', 
+              left: '50%', 
+              transform: 'translateX(-50%)',
+              display: 'flex',
+              gap: '2px'
+            }}>
+              {[...Array(8)].map((_, i) => (
+                <div 
+                  key={i} 
+                  style={{ 
+                    width: '4px', 
+                    height: '20px', 
+                    background: '#f59e0b',
+                    animation: `pulse ${0.3 + i * 0.1}s infinite`
+                  }}
+                ></div>
               ))}
             </div>
           </div>
@@ -134,35 +192,32 @@ const AnimatedProjectImage: React.FC<AnimatedProjectImageProps> = ({ projectId, 
 
       case 'modular-synth':
         return (
-          <div className="modular-synth-animation">
-            <div className="synth-rack">
-              <div className="module oscillator">
-                <div className="module-label">OSC</div>
-                <div className="waveform"></div>
-                <div className="knob"></div>
-              </div>
-              <div className="module filter">
-                <div className="module-label">FILTER</div>
-                <div className="filter-curve"></div>
-                <div className="knob"></div>
-              </div>
-              <div className="module envelope">
-                <div className="module-label">ADSR</div>
-                <div className="envelope-curve"></div>
-              </div>
-            </div>
-            <div className="patch-cables">
-              <div className="cable cable-1"></div>
-              <div className="cable cable-2"></div>
-            </div>
-            <div className="audio-viz">
-              {[...Array(20)].map((_, i) => (
+          <div style={{ 
+            position: 'relative', 
+            width: '100%', 
+            height: '100%',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            color: '#06b6d4'
+          }}>
+            <div style={{ fontSize: '48px', animation: 'pulse 2s infinite' }}>🎛️</div>
+            <div style={{ 
+              position: 'absolute', 
+              bottom: '20px', 
+              left: '50%', 
+              transform: 'translateX(-50%)',
+              display: 'flex',
+              gap: '2px'
+            }}>
+              {[...Array(12)].map((_, i) => (
                 <div 
                   key={i} 
-                  className="viz-bar" 
                   style={{ 
-                    animationDelay: `${i * 0.05}s`,
-                    animationDuration: `${0.2 + Math.random() * 0.3}s`
+                    width: '4px', 
+                    height: '25px', 
+                    background: '#06b6d4',
+                    animation: `pulse ${0.2 + i * 0.05}s infinite`
                   }}
                 ></div>
               ))}
@@ -172,9 +227,16 @@ const AnimatedProjectImage: React.FC<AnimatedProjectImageProps> = ({ projectId, 
 
       default:
         return (
-          <div className="default-animation">
-            <div className="placeholder-icon">🌐</div>
-            <div className="placeholder-title">{title}</div>
+          <div style={{ 
+            display: 'flex', 
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center',
+            height: '100%',
+            color: 'white'
+          }}>
+            <div style={{ fontSize: '48px', marginBottom: '8px' }}>🌐</div>
+            <div style={{ fontSize: '18px', color: '#9ca3af' }}>{title}</div>
           </div>
         );
     }
@@ -182,7 +244,7 @@ const AnimatedProjectImage: React.FC<AnimatedProjectImageProps> = ({ projectId, 
 
   return (
     <motion.div 
-      className="animated-project-image"
+      style={{ width: '100%', height: '100%' }}
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5 }}
