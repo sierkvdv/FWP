@@ -26,8 +26,8 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, index }) => {
         <div className="relative overflow-hidden rounded-xl glass-effect hover-lift">
           {/* Project Image */}
           <div className="relative h-64 overflow-hidden bg-gradient-to-br from-gray-800 to-gray-900 flex items-center justify-center">
-            {/* Fallback icon */}
-            <span className="text-6xl opacity-20">{CATEGORY_CONFIG.icons[project.category]}</span>
+            {/* Fallback icon - always visible */}
+            <span className="text-8xl text-gray-600">{CATEGORY_CONFIG.icons[project.category]}</span>
             
             {/* Hidden image for debugging */}
             {project.image && (
