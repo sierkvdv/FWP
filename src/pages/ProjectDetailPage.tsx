@@ -3,6 +3,7 @@ import { useParams, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { ArrowLeft, ExternalLink, Github, Play, Calendar, Tag } from 'lucide-react';
 import { projects } from '../data/projects';
+import AnimatedProjectImage from '../components/AnimatedProjectImage';
 
 // Vercel deployment trigger comment
 
@@ -119,7 +120,7 @@ const ProjectDetailPage: React.FC = () => {
             </div>
           </motion.div>
 
-          {/* Project Image */}
+          {/* Project Animation */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
@@ -127,12 +128,9 @@ const ProjectDetailPage: React.FC = () => {
             className="mb-12"
           >
             <div className="relative overflow-hidden rounded-2xl bg-dark-gray p-8">
-              <img
-                src={project.image}
-                alt={project.title}
-                className="w-full h-auto object-contain max-h-96 mx-auto"
-                style={{ filter: 'drop-shadow(0 0 20px rgba(99, 102, 241, 0.3))' }}
-              />
+              <div style={{ height: '400px', backgroundColor: '#1e293b', display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden' }}>
+                <AnimatedProjectImage projectId={project.id} title={project.title} />
+              </div>
               {project.video && (
                 <div className="mt-8">
                   <video
