@@ -1,9 +1,8 @@
 import { ContactInfo } from '../types';
 
 export const contactInfo: ContactInfo = {
-  email: 'hello@creativeengineer.dev',
-  linkedin: 'https://linkedin.com/in/creativeengineer',
-  github: 'https://github.com/creativeengineer',
-  twitter: 'https://twitter.com/creativeengineer',
-  instagram: 'https://instagram.com/creativeengineer'
+  email: 'info@fwp.one', // Vervang dit met je echte email
+  linkedin: 'https://www.linkedin.com/in/FWP-one/', // Vervang met je LinkedIn
+  github: 'https://github.com/sierkvdv', // Dit klopt al
+  instagram: 'https://www.instagram.com/sierkvdv?igsh=MXg5ZmhoMm9hbG96Mg%3D%3D&utm_source=qr'  // Verwijder als je geen Instagram hebt
 }; 

@@ -25,17 +25,24 @@ const ContactPage: React.FC = () => {
     e.preventDefault();
     setIsSubmitting(true);
     
-    // Simulate form submission
-    await new Promise(resolve => setTimeout(resolve, 2000));
+    // Create email body
+    const emailBody = `
+Naam: ${formData.name}
+Email: ${formData.email}
+Onderwerp: ${formData.subject}
+
+Bericht:
+${formData.message}
+    `;
     
-    // Here you would typically send the form data to your backend
-    console.log('Form submitted:', formData);
+    // Open email client
+    const mailtoLink = `mailto:${contactInfo.email}?subject=${encodeURIComponent(formData.subject)}&body=${encodeURIComponent(emailBody)}`;
+    window.open(mailtoLink);
     
     setIsSubmitting(false);
     setFormData({ name: '', email: '', subject: '', message: '' });
     
-    // Show success message (you could add a toast notification here)
-    alert('Bericht verzonden! Ik neem zo snel mogelijk contact met je op.');
+    alert('Email client geopend! Stuur het bericht om contact met me op te nemen.');
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
