@@ -25,7 +25,7 @@ export const projects: Project[] = [
     category: 'web',
     technologies: ['React', 'TypeScript', 'Canvas API', 'Web Audio API', 'Framer Motion'],
     image: '/images/cursorflow-animation.svg',
-    demoUrl: 'https://cursor-flow-9bnzmvftu-sierks-projects.vercel.app/',
+    demoUrl: 'https://cursor-flow-cyan.vercel.app',
     githubUrl: undefined,
     featured: true,
     year: 2024
