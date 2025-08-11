@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Mail, Github, Linkedin, Twitter, Instagram, Send, MapPin, Phone } from 'lucide-react';
+import { Mail, Github, Linkedin, Instagram, Send, MapPin, Phone } from 'lucide-react';
 import { contactInfo } from '../data/contact';
 
 const ContactPage: React.FC = () => {
@@ -17,7 +17,6 @@ const ContactPage: React.FC = () => {
     { icon: <Mail size={24} />, href: `mailto:${contactInfo.email}`, label: 'Email', color: 'hover:text-red-400' },
     { icon: <Github size={24} />, href: contactInfo.github, label: 'GitHub', color: 'hover:text-gray-400' },
     { icon: <Linkedin size={24} />, href: contactInfo.linkedin, label: 'LinkedIn', color: 'hover:text-blue-400' },
-    { icon: <Twitter size={24} />, href: contactInfo.twitter, label: 'Twitter', color: 'hover:text-blue-400' },
     { icon: <Instagram size={24} />, href: contactInfo.instagram, label: 'Instagram', color: 'hover:text-pink-400' },
   ];
 
