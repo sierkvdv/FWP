@@ -3,6 +3,8 @@ import { motion } from 'framer-motion';
 import { ArrowDown, Sparkles } from 'lucide-react';
 import { SITE_CONFIG, ANIMATION_DELAYS } from '../utils/constants';
 import { fadeInUp, slideInLeft, slideInRight } from '../utils/animations';
+import ParticleBackground from './ParticleBackground';
+import MagneticCursor from './MagneticCursor';
 
 const Hero: React.FC = () => {
   const scrollToProjects = () => {
@@ -14,8 +16,11 @@ const Hero: React.FC = () => {
 
   return (
     <section className="min-h-screen flex items-center justify-center relative overflow-hidden">
+      {/* Particle Background */}
+      <ParticleBackground />
+      
       {/* Background Elements */}
-      <div className="absolute inset-0 bg-gradient-to-br from-dark via-dark-gray to-dark" />
+      <div className="absolute inset-0 bg-gradient-to-br from-dark via-dark-gray to-dark opacity-80" />
       
       {/* Animated background elements */}
       <motion.div
@@ -88,24 +93,28 @@ const Hero: React.FC = () => {
           transition={{ delay: ANIMATION_DELAYS.slow }}
           className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12"
         >
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            onClick={scrollToProjects}
-            className="px-8 py-4 bg-accent text-dark font-semibold rounded-lg hover:bg-accent/90 transition-colors duration-200 flex items-center gap-2"
-          >
-            <Sparkles size={20} />
-            View Projects
-          </motion.button>
+          <MagneticCursor strength={0.2}>
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              onClick={scrollToProjects}
+              className="px-8 py-4 bg-accent text-dark font-semibold rounded-lg hover:bg-accent/90 transition-colors duration-200 flex items-center gap-2"
+            >
+              <Sparkles size={20} />
+              View Projects
+            </motion.button>
+          </MagneticCursor>
           
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            onClick={() => window.location.href = '/contact'}
-            className="px-8 py-4 border border-accent text-accent font-semibold rounded-lg hover:bg-accent/10 transition-colors duration-200 flex items-center gap-2"
-          >
-            Get in Touch
-          </motion.button>
+          <MagneticCursor strength={0.2}>
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              onClick={() => window.location.href = '/contact'}
+              className="px-8 py-4 border border-accent text-accent font-semibold rounded-lg hover:bg-accent/10 transition-colors duration-200 flex items-center gap-2"
+            >
+              Get in Touch
+            </motion.button>
+          </MagneticCursor>
         </motion.div>
 
         {/* Scroll Indicator */}
