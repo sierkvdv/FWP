@@ -65,15 +65,21 @@ const ParticleBackground: React.FC = () => {
         if (particle.x < 0 || particle.x > canvas.width) particle.vx *= -1;
         if (particle.y < 0 || particle.y > canvas.height) particle.vy *= -1;
 
-        // Mouse interaction
+        // Mouse interaction - much stronger effect
         const dx = mouseRef.current.x - particle.x;
         const dy = mouseRef.current.y - particle.y;
         const distance = Math.sqrt(dx * dx + dy * dy);
         
-        if (distance < 100) {
-          const force = (100 - distance) / 100;
-          particle.vx += (dx / distance) * force * 0.01;
-          particle.vy += (dy / distance) * force * 0.01;
+        if (distance < 150) {
+          const force = (150 - distance) / 150;
+          particle.vx += (dx / distance) * force * 0.05; // 5x stronger
+          particle.vy += (dy / distance) * force * 0.05;
+          
+          // Make particles bigger when near mouse
+          particle.size = Math.min(particle.size + force * 2, 4);
+        } else {
+          // Reset size
+          particle.size = Math.max(particle.size - 0.1, 1);
         }
 
         // Draw particle
