@@ -20,7 +20,10 @@ const Hero: React.FC = () => {
       <ParticleBackground />
       
       {/* Background Elements */}
-      <div className="absolute inset-0 bg-gradient-to-br from-dark via-dark-gray to-dark opacity-80" />
+      <div className="absolute inset-0 bg-gradient-to-br from-dark via-dark-gray to-dark opacity-90" />
+      
+      {/* Smooth fade to parallax */}
+      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-dark to-transparent" />
       
       {/* Animated background elements */}
       <motion.div

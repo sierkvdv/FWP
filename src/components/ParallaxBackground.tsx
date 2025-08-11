@@ -14,6 +14,9 @@ const ParallaxBackground: React.FC = () => {
 
   return (
     <div ref={containerRef} className="relative w-full h-[200vh] overflow-hidden">
+      {/* Smooth fade in from top */}
+      <div className="absolute top-0 left-0 right-0 h-32 bg-gradient-to-b from-transparent to-dark z-10" />
+      
       {/* Parallax layers */}
       <motion.div
         style={{ y: y1 }}
