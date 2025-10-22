@@ -1,6 +1,6 @@
 import { Project } from '../types';
 
-// 🚀 EENVOUDIG PROJECTEN TOEVOEGEN:
+// 🚀 EENVOUDIG PROJECTEN TOEVOEGEN - Updated:
 // Voeg gewoon een nieuwe entry toe onder deze lijst met dit format:
 // {
 //   id: 'unieke-naam',
