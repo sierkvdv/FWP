@@ -6,4 +6,4 @@ export const contactInfo: ContactInfo = {
   github: 'https://github.com/sierkvdv', // Dit klopt al
   instagram: 'https://www.instagram.com/sierkvdv?igsh=MXg5ZmhoMm9hbG96Mg%3D%3D&utm_source=qr'  // Verwijder als je geen Instagram hebt
 };
-// Test comment for Vercel deployment - reconnected! 
+// Test push after deleting sierkvd account 
