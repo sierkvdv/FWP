@@ -291,6 +291,335 @@ const AnimatedProjectImage: React.FC<AnimatedProjectImageProps> = ({ projectId, 
           </div>
         );
 
+      case 'ai-album-gen':
+        return (
+          <div style={{ 
+            position: 'relative', 
+            width: '100%', 
+            height: '100%',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            color: '#6366f1'
+          }}>
+            <motion.div 
+              style={{ fontSize: '48px' }}
+              animate={{ scale: [1, 1.1, 1] }}
+              transition={{ duration: 2, repeat: Infinity }}
+            >
+              🤖
+            </motion.div>
+            <motion.div 
+              style={{ 
+                position: 'absolute', 
+                top: '20%', 
+                left: '20%', 
+                width: '8px', 
+                height: '8px', 
+                background: '#8b5cf6', 
+                borderRadius: '50%'
+              }}
+              animate={{ scale: [1, 1.5, 1] }}
+              transition={{ duration: 1.5, repeat: Infinity }}
+            />
+            <motion.div 
+              style={{ 
+                position: 'absolute', 
+                top: '30%', 
+                right: '20%', 
+                width: '6px', 
+                height: '6px', 
+                background: '#ec4899', 
+                borderRadius: '50%'
+              }}
+              animate={{ scale: [1, 1.3, 1] }}
+              transition={{ duration: 2, repeat: Infinity }}
+            />
+          </div>
+        );
+
+      case 'game-of-life':
+        return (
+          <div style={{ 
+            position: 'relative', 
+            width: '100%', 
+            height: '100%',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            color: '#10b981'
+          }}>
+            <motion.div 
+              style={{ fontSize: '48px' }}
+              animate={{ scale: [1, 1.1, 1] }}
+              transition={{ duration: 2, repeat: Infinity }}
+            >
+              🔬
+            </motion.div>
+            <div style={{ 
+              position: 'absolute', 
+              bottom: '20px', 
+              left: '50%', 
+              transform: 'translateX(-50%)',
+              display: 'grid',
+              gridTemplateColumns: 'repeat(4, 8px)',
+              gap: '2px'
+            }}>
+              {[...Array(16)].map((_, i) => (
+                <motion.div 
+                  key={i} 
+                  style={{ 
+                    width: '6px', 
+                    height: '6px', 
+                    background: '#10b981',
+                    borderRadius: '1px'
+                  }}
+                  animate={{ opacity: [0.3, 1, 0.3] }}
+                  transition={{ 
+                    duration: 1 + i * 0.1, 
+                    repeat: Infinity 
+                  }}
+                />
+              ))}
+            </div>
+          </div>
+        );
+
+      case 'codebuddy':
+        return (
+          <div style={{ 
+            position: 'relative', 
+            width: '100%', 
+            height: '100%',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            color: '#f59e0b'
+          }}>
+            <motion.div 
+              style={{ fontSize: '48px' }}
+              animate={{ scale: [1, 1.1, 1] }}
+              transition={{ duration: 2, repeat: Infinity }}
+            >
+              🤖
+            </motion.div>
+            <motion.div 
+              style={{ 
+                position: 'absolute', 
+                top: '20%', 
+                left: '20%', 
+                width: '6px', 
+                height: '6px', 
+                background: '#10b981', 
+                borderRadius: '50%'
+              }}
+              animate={{ y: [0, -10, 0] }}
+              transition={{ duration: 1.5, repeat: Infinity }}
+            />
+            <motion.div 
+              style={{ 
+                position: 'absolute', 
+                top: '30%', 
+                right: '20%', 
+                width: '6px', 
+                height: '6px', 
+                background: '#3b82f6', 
+                borderRadius: '50%'
+              }}
+              animate={{ y: [0, -10, 0] }}
+              transition={{ duration: 1.8, repeat: Infinity }}
+            />
+          </div>
+        );
+
+      case 'patch-field':
+        return (
+          <div style={{ 
+            position: 'relative', 
+            width: '100%', 
+            height: '100%',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            color: '#8b5cf6'
+          }}>
+            <motion.div 
+              style={{ fontSize: '48px' }}
+              animate={{ scale: [1, 1.1, 1] }}
+              transition={{ duration: 2, repeat: Infinity }}
+            >
+              🔌
+            </motion.div>
+            <motion.div 
+              style={{ 
+                position: 'absolute', 
+                top: '20%', 
+                left: '20%', 
+                width: '8px', 
+                height: '8px', 
+                background: '#a855f7', 
+                borderRadius: '50%'
+              }}
+              animate={{ scale: [1, 1.5, 1] }}
+              transition={{ duration: 2, repeat: Infinity }}
+            />
+            <motion.div 
+              style={{ 
+                position: 'absolute', 
+                top: '30%', 
+                right: '20%', 
+                width: '8px', 
+                height: '8px', 
+                background: '#c084fc', 
+                borderRadius: '50%'
+              }}
+              animate={{ scale: [1, 1.3, 1] }}
+              transition={{ duration: 2.5, repeat: Infinity }}
+            />
+          </div>
+        );
+
+      case 'blastfield':
+        return (
+          <div style={{ 
+            position: 'relative', 
+            width: '100%', 
+            height: '100%',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            color: '#dc2626'
+          }}>
+            <motion.div 
+              style={{ fontSize: '48px' }}
+              animate={{ scale: [1, 1.2, 1] }}
+              transition={{ duration: 1.5, repeat: Infinity }}
+            >
+              💥
+            </motion.div>
+            <motion.div 
+              style={{ 
+                position: 'absolute', 
+                top: '20%', 
+                left: '20%', 
+                width: '6px', 
+                height: '6px', 
+                background: '#ef4444', 
+                borderRadius: '50%'
+              }}
+              animate={{ scale: [1, 2, 1] }}
+              transition={{ duration: 1, repeat: Infinity }}
+            />
+            <motion.div 
+              style={{ 
+                position: 'absolute', 
+                top: '30%', 
+                right: '20%', 
+                width: '6px', 
+                height: '6px', 
+                background: '#f87171', 
+                borderRadius: '50%'
+              }}
+              animate={{ scale: [1, 1.8, 1] }}
+              transition={{ duration: 1.2, repeat: Infinity }}
+            />
+          </div>
+        );
+
+      case 'washly':
+        return (
+          <div style={{ 
+            position: 'relative', 
+            width: '100%', 
+            height: '100%',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            color: '#06b6d4'
+          }}>
+            <motion.div 
+              style={{ fontSize: '48px' }}
+              animate={{ scale: [1, 1.1, 1] }}
+              transition={{ duration: 2, repeat: Infinity }}
+            >
+              🧺
+            </motion.div>
+            <motion.div 
+              style={{ 
+                position: 'absolute', 
+                top: '20%', 
+                left: '20%', 
+                width: '6px', 
+                height: '6px', 
+                background: '#0891b2', 
+                borderRadius: '50%'
+              }}
+              animate={{ y: [0, -8, 0] }}
+              transition={{ duration: 2, repeat: Infinity }}
+            />
+            <motion.div 
+              style={{ 
+                position: 'absolute', 
+                top: '30%', 
+                right: '20%', 
+                width: '6px', 
+                height: '6px', 
+                background: '#0e7490', 
+                borderRadius: '50%'
+              }}
+              animate={{ y: [0, -8, 0] }}
+              transition={{ duration: 2.5, repeat: Infinity }}
+            />
+          </div>
+        );
+
+      case 'charge-guard':
+        return (
+          <div style={{ 
+            position: 'relative', 
+            width: '100%', 
+            height: '100%',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            color: '#f59e0b'
+          }}>
+            <motion.div 
+              style={{ fontSize: '48px' }}
+              animate={{ scale: [1, 1.1, 1] }}
+              transition={{ duration: 2, repeat: Infinity }}
+            >
+              🔋
+            </motion.div>
+            <motion.div 
+              style={{ 
+                position: 'absolute', 
+                top: '20%', 
+                left: '20%', 
+                width: '6px', 
+                height: '6px', 
+                background: '#fbbf24', 
+                borderRadius: '50%'
+              }}
+              animate={{ scale: [1, 1.5, 1] }}
+              transition={{ duration: 1.5, repeat: Infinity }}
+            />
+            <motion.div 
+              style={{ 
+                position: 'absolute', 
+                top: '30%', 
+                right: '20%', 
+                width: '6px', 
+                height: '6px', 
+                background: '#fde047', 
+                borderRadius: '50%'
+              }}
+              animate={{ scale: [1, 1.3, 1] }}
+              transition={{ duration: 2, repeat: Infinity }}
+            />
+          </div>
+        );
+
       default:
         return (
           <div style={{ 
