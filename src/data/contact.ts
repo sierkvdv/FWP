@@ -6,4 +6,4 @@ export const contactInfo: ContactInfo = {
   github: 'https://github.com/sierkvdv',
   instagram: 'https://www.instagram.com/sierkvdv?igsh=MXg5ZmhoMm9hbG96Mg%3D%3D&utm_source=qr'
 };
-// Force refresh for animations 
+// Force Vercel rebuild for animations 
