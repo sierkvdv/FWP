@@ -79,7 +79,7 @@ export const projects: Project[] = [
     image: '/images/virtual-dj-animation.svg',
     demoUrl: undefined,
     githubUrl: undefined,
-    featured: false,
+    featured: true,
     year: 2024
   },
   {
@@ -92,7 +92,7 @@ export const projects: Project[] = [
     image: '/images/modular-synth-animation.svg',
     demoUrl: undefined,
     githubUrl: undefined,
-    featured: false,
+    featured: true,
     year: 2024
   },
   {
