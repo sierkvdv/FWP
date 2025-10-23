@@ -1,0 +1,101 @@
+<svg width="200" height="200" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="buddyGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#f59e0b;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#f97316;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#ea580c;stop-opacity:1" />
+    </linearGradient>
+    <filter id="robotGlow">
+      <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+      <feMerge> 
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  
+  <!-- Background circle -->
+  <circle cx="100" cy="100" r="90" fill="url(#buddyGradient)" opacity="0.1"/>
+  
+  <!-- CodeBuddy Robot -->
+  <g transform="translate(100, 100)">
+    <!-- Robot head -->
+    <rect x="-25" y="-40" width="50" height="40" rx="8" fill="#f59e0b" filter="url(#robotGlow)">
+      <animate attributeName="y" values="-40;-42;-40" dur="2s" repeatCount="indefinite"/>
+    </rect>
+    
+    <!-- Robot eyes -->
+    <circle cx="-15" cy="-25" r="4" fill="#1f2937">
+      <animate attributeName="r" values="4;6;4" dur="1.5s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="15" cy="-25" r="4" fill="#1f2937">
+      <animate attributeName="r" values="4;6;4" dur="1.5s" repeatCount="indefinite" begin="0.2s"/>
+    </circle>
+    
+    <!-- Robot mouth -->
+    <rect x="-8" y="-15" width="16" height="3" rx="1" fill="#1f2937">
+      <animate attributeName="height" values="3;6;3" dur="1.8s" repeatCount="indefinite"/>
+    </rect>
+    
+    <!-- Robot body -->
+    <rect x="-20" y="0" width="40" height="50" rx="6" fill="#f97316" filter="url(#robotGlow)">
+      <animate attributeName="y" values="0;2;0" dur="2s" repeatCount="indefinite" begin="0.1s"/>
+    </rect>
+    
+    <!-- Robot arms -->
+    <rect x="-35" y="5" width="15" height="8" rx="4" fill="#ea580c">
+      <animateTransform attributeName="transform" type="rotate" values="0 -30 9;10 -30 9;0 -30 9" dur="2s" repeatCount="indefinite"/>
+    </rect>
+    <rect x="20" y="5" width="15" height="8" rx="4" fill="#ea580c">
+      <animateTransform attributeName="transform" type="rotate" values="0 27 9;-10 27 9;0 27 9" dur="2s" repeatCount="indefinite"/>
+    </rect>
+    
+    <!-- Code symbols floating around -->
+    <text x="-40" y="-60" fill="#f59e0b" font-family="monospace" font-size="12" opacity="0.8">
+      { }
+      <animate attributeName="opacity" values="0.8;0.3;0.8" dur="2s" repeatCount="indefinite"/>
+    </text>
+    <text x="40" y="-50" fill="#f97316" font-family="monospace" font-size="10" opacity="0.7">
+      &lt;/&gt;
+      <animate attributeName="opacity" values="0.7;0.2;0.7" dur="2.5s" repeatCount="indefinite"/>
+    </text>
+    <text x="-50" y="20" fill="#ea580c" font-family="monospace" font-size="11" opacity="0.6">
+      ( )
+      <animate attributeName="opacity" values="0.6;0.1;0.6" dur="1.8s" repeatCount="indefinite"/>
+    </text>
+    <text x="50" y="30" fill="#f59e0b" font-family="monospace" font-size="9" opacity="0.5">
+      [ ]
+      <animate attributeName="opacity" values="0.5;0.1;0.5" dur="2.2s" repeatCount="indefinite"/>
+    </text>
+    
+    <!-- XP/Level indicators -->
+    <circle cx="-30" cy="-70" r="3" fill="#10b981">
+      <animate attributeName="r" values="3;5;3" dur="1.5s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="30" cy="-70" r="2" fill="#3b82f6">
+      <animate attributeName="r" values="2;4;2" dur="1.8s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="0" cy="-80" r="2" fill="#8b5cf6">
+      <animate attributeName="r" values="2;4;2" dur="2s" repeatCount="indefinite"/>
+    </circle>
+  </g>
+  
+  <!-- Floating learning elements -->
+  <circle cx="30" cy="30" r="2" fill="#f59e0b" opacity="0.6">
+    <animate attributeName="cy" values="30;10;30" dur="3s" repeatCount="indefinite"/>
+    <animate attributeName="opacity" values="0.6;0.2;0.6" dur="3s" repeatCount="indefinite"/>
+  </circle>
+  <circle cx="170" cy="50" r="3" fill="#f97316" opacity="0.5">
+    <animate attributeName="cy" values="50;30;50" dur="2.5s" repeatCount="indefinite"/>
+    <animate attributeName="opacity" values="0.5;0.1;0.5" dur="2.5s" repeatCount="indefinite"/>
+  </circle>
+  <circle cx="50" cy="170" r="2" fill="#ea580c" opacity="0.7">
+    <animate attributeName="cy" values="170;150;170" dur="2.8s" repeatCount="indefinite"/>
+    <animate attributeName="opacity" values="0.7;0.2;0.7" dur="2.8s" repeatCount="indefinite"/>
+  </circle>
+  
+  <!-- Title -->
+  <text x="100" y="180" text-anchor="middle" fill="#f59e0b" font-family="Arial, sans-serif" font-size="14" font-weight="bold">
+    CODEBUDDY
+  </text>
+</svg>
