@@ -1,5 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 import Hero from '../components/Hero';
 import ProjectCard from '../components/ProjectCard';
 import ParallaxBackground from '../components/ParallaxBackground';
@@ -8,7 +9,7 @@ import { staggerContainer, fadeInUp } from '../utils/animations';
 import { ANIMATION_DELAYS } from '../utils/constants';
 
 const HomePage: React.FC = () => {
-  const featuredProjects = projects.filter(project => project.featured);
+  const featuredProjects = projects.filter(project => project.featured).slice(0, 6);
 
   return (
     <div className="min-h-screen relative">
@@ -60,14 +61,15 @@ const HomePage: React.FC = () => {
               transition={{ delay: ANIMATION_DELAYS.slow }}
               className="text-center mt-12"
             >
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="px-8 py-4 border border-accent text-accent font-semibold rounded-lg hover:bg-accent/10 transition-colors duration-200"
-                onClick={() => window.location.href = '/projects'}
-              >
-                View All Projects
-              </motion.button>
+              <Link to="/projects">
+                <motion.button
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="px-8 py-4 border border-accent text-accent font-semibold rounded-lg hover:bg-accent/10 transition-colors duration-200"
+                >
+                  View All Projects
+                </motion.button>
+              </Link>
             </motion.div>
           </div>
         </section>

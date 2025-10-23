@@ -105,7 +105,7 @@ export const projects: Project[] = [
     image: '/images/ai-album-gen-animation.svg',
     demoUrl: 'https://ai-album-gen.vercel.app/',
     githubUrl: undefined,
-    featured: true,
+    featured: false,
     year: 2024
   },
   {
@@ -118,7 +118,7 @@ export const projects: Project[] = [
     image: '/images/game-of-life-animation.svg',
     demoUrl: 'https://game-of-life-kappa-wine.vercel.app/',
     githubUrl: undefined,
-    featured: true,
+    featured: false,
     year: 2024
   },
   {
@@ -131,7 +131,7 @@ export const projects: Project[] = [
     image: '/images/codebuddy-animation.svg',
     demoUrl: 'https://codebuddy-mu.vercel.app/',
     githubUrl: undefined,
-    featured: true,
+    featured: false,
     year: 2024
   },
   {
@@ -144,7 +144,7 @@ export const projects: Project[] = [
     image: '/images/patch-field-animation.svg',
     demoUrl: 'https://patch-field.vercel.app/',
     githubUrl: undefined,
-    featured: true,
+    featured: false,
     year: 2024
   },
   {
@@ -157,7 +157,7 @@ export const projects: Project[] = [
     image: '/images/blastfield-animation.svg',
     demoUrl: 'https://blastfield.vercel.app/',
     githubUrl: undefined,
-    featured: true,
+    featured: false,
     year: 2024
   },
   {
@@ -170,7 +170,7 @@ export const projects: Project[] = [
     image: '/images/washly-animation.svg',
     demoUrl: 'https://washly-blond.vercel.app/',
     githubUrl: undefined,
-    featured: true,
+    featured: false,
     year: 2024
   },
   {
@@ -183,7 +183,7 @@ export const projects: Project[] = [
     image: '/images/charge-guard-animation.svg',
     demoUrl: 'https://charge-guard.vercel.app/',
     githubUrl: undefined,
-    featured: true,
+    featured: false,
     year: 2024
   }
 ]; 
