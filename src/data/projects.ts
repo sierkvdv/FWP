@@ -185,5 +185,18 @@ export const projects: Project[] = [
     githubUrl: undefined,
     featured: false,
     year: 2024
+  },
+  {
+    id: 'atelier-ai',
+    title: 'AtelierAI',
+    subtitle: 'AI Video Service Concept',
+    description: 'AI video, handcrafted in a living room. Een indy alternatief voor de grote AI video platforms. Volledig uitgewerkt merkdocument met missie, visie, doelgroep, positionering en technische capaciteit overview.',
+    category: 'design',
+    technologies: ['Branding', 'Concept Development', 'Visual Identity', 'Merkdocument', 'AI Video', 'Business Strategy'],
+    image: '/images/atelier-ai-animation.svg',
+    demoUrl: 'https://atelier-ai-merkdocument.vercel.app/',
+    githubUrl: undefined,
+    featured: false,
+    year: 2024
   }
 ]; 

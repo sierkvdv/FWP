@@ -620,6 +620,91 @@ const AnimatedProjectImage: React.FC<AnimatedProjectImageProps> = ({ projectId, 
           </div>
         );
 
+      case 'atelier-ai':
+        return (
+          <div style={{ 
+            position: 'relative', 
+            width: '100%', 
+            height: '100%',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            color: '#6ee7ff'
+          }}>
+            {/* Prisma/Diamond shape representing A+I logo concept */}
+            <motion.div
+              style={{
+                width: '60px',
+                height: '60px',
+                background: 'linear-gradient(135deg, #6ee7ff 0%, #a78bfa 100%)',
+                clipPath: 'polygon(50% 0%, 100% 38%, 82% 100%, 18% 100%, 0% 38%)',
+                position: 'relative'
+              }}
+              animate={{ 
+                rotate: [0, 360],
+                scale: [1, 1.1, 1]
+              }}
+              transition={{ 
+                rotate: { duration: 8, repeat: Infinity, ease: "linear" },
+                scale: { duration: 3, repeat: Infinity }
+              }}
+            />
+            {/* Cyan accent dots */}
+            <motion.div 
+              style={{ 
+                position: 'absolute', 
+                top: '20%', 
+                left: '20%', 
+                width: '8px', 
+                height: '8px', 
+                background: '#6ee7ff', 
+                borderRadius: '50%'
+              }}
+              animate={{ scale: [1, 1.5, 1], opacity: [0.5, 1, 0.5] }}
+              transition={{ duration: 2, repeat: Infinity }}
+            />
+            <motion.div 
+              style={{ 
+                position: 'absolute', 
+                top: '30%', 
+                right: '20%', 
+                width: '8px', 
+                height: '8px', 
+                background: '#a78bfa', 
+                borderRadius: '50%'
+              }}
+              animate={{ scale: [1, 1.3, 1], opacity: [0.5, 1, 0.5] }}
+              transition={{ duration: 2.5, repeat: Infinity }}
+            />
+            {/* Bottom particles representing video motion */}
+            <div style={{ 
+              position: 'absolute', 
+              bottom: '20px', 
+              left: '50%', 
+              transform: 'translateX(-50%)',
+              display: 'flex',
+              gap: '3px'
+            }}>
+              {[...Array(6)].map((_, i) => (
+                <motion.div 
+                  key={i} 
+                  style={{ 
+                    width: '4px', 
+                    height: '15px', 
+                    background: i % 2 === 0 ? '#6ee7ff' : '#a78bfa',
+                    borderRadius: '2px'
+                  }}
+                  animate={{ scaleY: [0.3, 1, 0.3] }}
+                  transition={{ 
+                    duration: 0.6 + i * 0.1, 
+                    repeat: Infinity 
+                  }}
+                />
+              ))}
+            </div>
+          </div>
+        );
+
       default:
         return (
           <div style={{ 
