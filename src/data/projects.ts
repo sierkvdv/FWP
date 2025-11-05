@@ -254,5 +254,19 @@ export const projects: Project[] = [
     githubUrl: undefined,
     featured: true,
     year: 2024
+  },
+  {
+    id: 'farli',
+    title: 'Färli',
+    subtitle: 'Eerlijk delen zonder schaamte',
+    description: 'Färli ontstond vanuit het verlangen om het ongemak rond gezamenlijke rekeningen weg te nemen. Niet iedereen verdient hetzelfde, dus waarom zou iedereen evenveel betalen? Met Färli verdeel je kosten eerlijk – op basis van wat iemand kan dragen – zonder je exacte inkomen publiek te maken.',
+    category: 'web',
+    technologies: ['Web Development', 'Concept Design', 'UX Design', 'Fairness Engine', 'Privacy-First', 'Cost Sharing'],
+    image: '/images/placeholder.svg',
+    video: undefined,
+    demoUrl: 'https://f-rli.vercel.app/',
+    githubUrl: undefined,
+    featured: true,
+    year: 2024
   }
 ]; 
