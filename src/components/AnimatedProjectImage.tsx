@@ -795,7 +795,7 @@ const AnimatedProjectImage: React.FC<AnimatedProjectImageProps> = ({ projectId, 
                 }} />
               </motion.div>
               
-              {/* Right scale - at x=90px (right end of beam) */}
+              {/* Right scale - at x=90px (right end of beam), but center aligned */}
               <motion.div
                 style={{
                   position: 'absolute',
@@ -804,7 +804,7 @@ const AnimatedProjectImage: React.FC<AnimatedProjectImageProps> = ({ projectId, 
                   display: 'flex',
                   flexDirection: 'column',
                   alignItems: 'center',
-                  transform: 'translateX(-50%)'
+                  transform: 'translateX(-100%)'
                 }}
                 animate={{
                   y: [1, -1, 1]
