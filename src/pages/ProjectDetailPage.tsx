@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import { ArrowLeft, ExternalLink, Github, Play, Calendar, Tag } from 'lucide-react';
 import { projects } from '../data/projects';
 import AnimatedProjectImage from '../components/AnimatedProjectImage';
+import VideoPreview from '../components/VideoPreview';
 
 // Vercel deployment trigger comment
 
@@ -120,7 +121,7 @@ const ProjectDetailPage: React.FC = () => {
             </div>
           </motion.div>
 
-          {/* Project Animation */}
+          {/* Project Video or Animation */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
@@ -128,19 +129,19 @@ const ProjectDetailPage: React.FC = () => {
             className="mb-12"
           >
             <div className="relative overflow-hidden rounded-2xl bg-dark-gray p-8">
-              <div style={{ height: '400px', backgroundColor: '#1e293b', display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden' }}>
-                <AnimatedProjectImage projectId={project.id} title={project.title} />
-              </div>
-              {project.video && (
-                <div className="mt-8">
-                  <video
-                    src={project.video}
-                    controls
-                    className="w-full rounded-lg"
-                    poster={project.image}
-                  >
-                    Your browser does not support the video tag.
-                  </video>
+              {project.video ? (
+                <div style={{ height: '500px', backgroundColor: '#1e293b', display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden', position: 'relative' }}>
+                  <VideoPreview
+                    videoUrl={project.video}
+                    autoplay={true}
+                    muted={true}
+                    loop={true}
+                    className="absolute inset-0"
+                  />
+                </div>
+              ) : (
+                <div style={{ height: '400px', backgroundColor: '#1e293b', display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden' }}>
+                  <AnimatedProjectImage projectId={project.id} title={project.title} />
                 </div>
               )}
             </div>

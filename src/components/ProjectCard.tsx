@@ -6,6 +6,7 @@ import { Project } from '../types';
 import { ANIMATION_DELAYS } from '../utils/constants';
 import { fadeInUp } from '../utils/animations';
 import AnimatedProjectImage from './AnimatedProjectImage';
+import VideoPreview from './VideoPreview';
 
 interface ProjectCardProps {
   project: Project;
@@ -25,9 +26,19 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, index }) => {
     >
       <Link to={`/projects/${project.id}`}>
         <div className={`relative overflow-hidden rounded-xl glass-effect-enhanced project-card-enhanced category-${project.category}`}>
-          {/* Project Image - CSS ANIMATED VERSION */}
-          <div style={{ height: '256px', backgroundColor: '#1e293b', display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden' }}>
-            <AnimatedProjectImage projectId={project.id} title={project.title} />
+          {/* Project Video or Image - CSS ANIMATED VERSION */}
+          <div style={{ height: '256px', backgroundColor: '#1e293b', display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden', position: 'relative' }}>
+            {project.video ? (
+              <VideoPreview
+                videoUrl={project.video}
+                autoplay={true}
+                muted={true}
+                loop={true}
+                className="absolute inset-0"
+              />
+            ) : (
+              <AnimatedProjectImage projectId={project.id} title={project.title} />
+            )}
           </div>
 
           {/* Content */}

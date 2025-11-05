@@ -198,5 +198,19 @@ export const projects: Project[] = [
     githubUrl: undefined,
     featured: false,
     year: 2024
+  },
+  {
+    id: 'video-project-1',
+    title: 'Video Project 1',
+    subtitle: 'Video Showcase',
+    description: 'Een video showcase project. Bekijk de video om meer te zien.',
+    category: 'design',
+    technologies: ['Video Production', 'Creative Content'],
+    image: '/images/placeholder.svg',
+    video: 'https://www.youtube.com/watch?v=zC-BARbjyIg',
+    demoUrl: undefined,
+    githubUrl: undefined,
+    featured: false,
+    year: 2024
   }
 ]; 
