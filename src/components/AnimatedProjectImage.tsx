@@ -538,7 +538,12 @@ const AnimatedProjectImage: React.FC<AnimatedProjectImageProps> = ({ projectId, 
             color: '#06b6d4'
           }}>
             <motion.div 
-              style={{ fontSize: '48px' }}
+              style={{ 
+                fontSize: '48px',
+                display: 'inline-block',
+                transformOrigin: 'center center',
+                willChange: 'transform'
+              }}
               animate={{ scale: [1, 1.1, 1] }}
               transition={{ duration: 2, repeat: Infinity }}
             >
