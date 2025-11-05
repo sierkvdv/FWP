@@ -159,7 +159,7 @@ const ProjectDetailPage: React.FC = () => {
                     >
                       <div className="flex items-center gap-2 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-200">
                         <Play size={32} />
-                        <span className="text-lg font-medium">Bekijk op YouTube met geluid</span>
+                        <span className="text-lg font-medium">Bekijk op YouTube</span>
                       </div>
                     </a>
                   )}
