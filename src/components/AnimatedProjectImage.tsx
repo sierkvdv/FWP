@@ -716,36 +716,37 @@ const AnimatedProjectImage: React.FC<AnimatedProjectImageProps> = ({ projectId, 
             justifyContent: 'center',
             color: '#10b981'
           }}>
-            {/* Scale of Justice - Färli Logo - More recognizable scale */}
-            <div style={{ position: 'relative', width: '100px', height: '100px' }}>
-              {/* Vertical stand */}
+            {/* Scale of Justice - Färli Logo - Properly centered and balanced */}
+            <div style={{ position: 'relative', width: '120px', height: '100px' }}>
+              {/* Vertical stand - centered at bottom */}
               <div style={{
                 position: 'absolute',
-                bottom: '5px',
+                bottom: '0px',
                 left: '50%',
                 transform: 'translateX(-50%)',
-                width: '8px',
-                height: '50px',
+                width: '10px',
+                height: '45px',
                 background: '#475569',
-                borderRadius: '4px',
+                borderRadius: '5px 5px 0 0',
                 zIndex: 1
               }} />
               
-              {/* Horizontal beam */}
+              {/* Horizontal beam - perfectly centered on stand, rotating around center */}
               <motion.div
                 style={{
                   position: 'absolute',
                   top: '50%',
                   left: '50%',
                   transform: 'translate(-50%, -50%)',
-                  width: '90px',
-                  height: '10px',
+                  width: '100px',
+                  height: '12px',
                   background: '#f97316',
-                  borderRadius: '5px',
-                  zIndex: 2
+                  borderRadius: '6px',
+                  zIndex: 2,
+                  transformOrigin: 'center center'
                 }}
                 animate={{ 
-                  rotate: [-1.5, 1.5, -1.5]
+                  rotate: [-2, 2, -2]
                 }}
                 transition={{ 
                   duration: 3, 
@@ -753,32 +754,33 @@ const AnimatedProjectImage: React.FC<AnimatedProjectImageProps> = ({ projectId, 
                   ease: "easeInOut"
                 }}
               >
-                {/* Connection point to stand */}
+                {/* Connection point to stand - exactly in center */}
                 <div style={{
                   position: 'absolute',
                   left: '50%',
                   top: '50%',
                   transform: 'translate(-50%, -50%)',
-                  width: '8px',
-                  height: '8px',
+                  width: '10px',
+                  height: '10px',
                   background: '#475569',
                   borderRadius: '50%'
                 }} />
               </motion.div>
               
-              {/* Left scale - hanging from chain */}
+              {/* Left scale - hanging from left end of beam */}
               <motion.div
                 style={{
                   position: 'absolute',
-                  left: '5px',
+                  left: '50%',
                   top: '50%',
-                  transform: 'translateY(-50%)',
+                  transform: 'translate(-50%, -50%) translateX(-50px)',
                   display: 'flex',
                   flexDirection: 'column',
-                  alignItems: 'center'
+                  alignItems: 'center',
+                  zIndex: 3
                 }}
                 animate={{
-                  y: [-3, 3, -3]
+                  y: [-2, 2, -2]
                 }}
                 transition={{
                   duration: 2.5,
@@ -793,12 +795,12 @@ const AnimatedProjectImage: React.FC<AnimatedProjectImageProps> = ({ projectId, 
                   borderLeft: '6px solid transparent',
                   borderRight: '6px solid transparent',
                   borderBottom: '10px solid #475569',
-                  marginBottom: '2px'
+                  marginBottom: '1px'
                 }} />
                 {/* Scale bowl */}
                 <div style={{
-                  width: '20px',
-                  height: '12px',
+                  width: '22px',
+                  height: '14px',
                   background: '#10b981',
                   borderRadius: '50% 50% 0 0',
                   border: '2px solid #475569',
@@ -806,19 +808,20 @@ const AnimatedProjectImage: React.FC<AnimatedProjectImageProps> = ({ projectId, 
                 }} />
               </motion.div>
               
-              {/* Right scale - hanging from chain */}
+              {/* Right scale - hanging from right end of beam */}
               <motion.div
                 style={{
                   position: 'absolute',
-                  right: '5px',
+                  left: '50%',
                   top: '50%',
-                  transform: 'translateY(-50%)',
+                  transform: 'translate(-50%, -50%) translateX(50px)',
                   display: 'flex',
                   flexDirection: 'column',
-                  alignItems: 'center'
+                  alignItems: 'center',
+                  zIndex: 3
                 }}
                 animate={{
-                  y: [3, -3, 3]
+                  y: [2, -2, 2]
                 }}
                 transition={{
                   duration: 2.5,
@@ -834,12 +837,12 @@ const AnimatedProjectImage: React.FC<AnimatedProjectImageProps> = ({ projectId, 
                   borderLeft: '6px solid transparent',
                   borderRight: '6px solid transparent',
                   borderBottom: '10px solid #475569',
-                  marginBottom: '2px'
+                  marginBottom: '1px'
                 }} />
                 {/* Scale bowl */}
                 <div style={{
-                  width: '20px',
-                  height: '12px',
+                  width: '22px',
+                  height: '14px',
                   background: '#10b981',
                   borderRadius: '50% 50% 0 0',
                   border: '2px solid #475569',
