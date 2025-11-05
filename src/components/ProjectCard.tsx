@@ -36,13 +36,15 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, index }) => {
           {/* Project Video or Image - CSS ANIMATED VERSION */}
           <div style={{ height: '256px', backgroundColor: '#1e293b', display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden', position: 'relative' }}>
             {project.video && isYouTubeUrl(project.video) ? (
-              <VideoPreview
-                videoUrl={project.video}
-                autoplay={true}
-                muted={true}
-                loop={true}
-                className="absolute inset-0"
-              />
+              <div style={{ pointerEvents: 'none', width: '100%', height: '100%', position: 'relative' }}>
+                <VideoPreview
+                  videoUrl={project.video}
+                  autoplay={true}
+                  muted={true}
+                  loop={true}
+                  className="absolute inset-0"
+                />
+              </div>
             ) : (
               <AnimatedProjectImage projectId={project.id} title={project.title} />
             )}

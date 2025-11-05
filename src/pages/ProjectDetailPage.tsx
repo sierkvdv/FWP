@@ -145,6 +145,24 @@ const ProjectDetailPage: React.FC = () => {
                     loop={true}
                     className="absolute inset-0"
                   />
+                  {/* Clickable overlay to go to YouTube */}
+                  {isYouTubeUrl(project.video) && (
+                    <a
+                      href={project.video}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="absolute inset-0 flex items-center justify-center bg-black/0 hover:bg-black/20 transition-colors duration-200 group cursor-pointer z-20"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        window.open(project.video, '_blank', 'noopener,noreferrer');
+                      }}
+                    >
+                      <div className="flex items-center gap-2 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+                        <Play size={32} />
+                        <span className="text-lg font-medium">Bekijk op YouTube met geluid</span>
+                      </div>
+                    </a>
+                  )}
                 </div>
               ) : (
                 <div style={{ height: '400px', backgroundColor: '#1e293b', display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden' }}>
