@@ -100,6 +100,14 @@ const VideoPreview: React.FC<VideoPreviewProps> = ({
           className="w-full h-full object-cover"
           style={{ pointerEvents: 'none' }}
         />
+        {/* Dark blue overlay filter */}
+        <div 
+          className="absolute inset-0 pointer-events-none"
+          style={{ 
+            backgroundColor: 'rgba(30, 41, 59, 0.6)',
+            mixBlendMode: 'multiply'
+          }}
+        />
       </div>
     );
   }
@@ -109,7 +117,16 @@ const VideoPreview: React.FC<VideoPreviewProps> = ({
     <div
       ref={containerRef}
       className={`relative w-full h-full overflow-hidden bg-black ${className}`}
-    />
+    >
+      {/* Dark blue overlay filter */}
+      <div 
+        className="absolute inset-0 pointer-events-none z-10"
+        style={{ 
+          backgroundColor: 'rgba(30, 41, 59, 0.6)',
+          mixBlendMode: 'multiply'
+        }}
+      />
+    </div>
   );
 };
 
