@@ -756,7 +756,7 @@ const AnimatedProjectImage: React.FC<AnimatedProjectImageProps> = ({ projectId, 
                 }}
               />
               
-              {/* Left scale - at x=10px (left end of beam) */}
+              {/* Left scale - at x=10px (left end of beam), aligned to start */}
               <motion.div
                 style={{
                   position: 'absolute',
@@ -765,7 +765,7 @@ const AnimatedProjectImage: React.FC<AnimatedProjectImageProps> = ({ projectId, 
                   display: 'flex',
                   flexDirection: 'column',
                   alignItems: 'center',
-                  transform: 'translateX(-50%)'
+                  transform: 'translateX(0)'
                 }}
                 animate={{
                   y: [-1, 1, -1]
@@ -776,13 +776,14 @@ const AnimatedProjectImage: React.FC<AnimatedProjectImageProps> = ({ projectId, 
                   ease: "easeInOut"
                 }}
               >
-                {/* Triangle connection */}
+                {/* Triangle connection - centered at left end */}
                 <div style={{
                   width: '0',
                   height: '0',
                   borderLeft: '5px solid transparent',
                   borderRight: '5px solid transparent',
-                  borderBottom: '8px solid #475569'
+                  borderBottom: '8px solid #475569',
+                  marginLeft: '0px'
                 }} />
                 {/* Scale bowl */}
                 <div style={{
@@ -791,11 +792,12 @@ const AnimatedProjectImage: React.FC<AnimatedProjectImageProps> = ({ projectId, 
                   background: '#10b981',
                   borderRadius: '50% 50% 0 0',
                   border: '2px solid #475569',
-                  borderBottom: 'none'
+                  borderBottom: 'none',
+                  marginLeft: '0px'
                 }} />
               </motion.div>
               
-              {/* Right scale - at x=90px (right end of beam), but center aligned */}
+              {/* Right scale - at x=90px (right end of beam), aligned to end */}
               <motion.div
                 style={{
                   position: 'absolute',
