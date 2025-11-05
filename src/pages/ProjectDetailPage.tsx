@@ -6,6 +6,13 @@ import { projects } from '../data/projects';
 import AnimatedProjectImage from '../components/AnimatedProjectImage';
 import VideoPreview from '../components/VideoPreview';
 
+/**
+ * Checks if URL is a YouTube URL
+ */
+const isYouTubeUrl = (url: string): boolean => {
+  return /youtube\.com|youtu\.be/.test(url);
+};
+
 // Vercel deployment trigger comment
 
 const ProjectDetailPage: React.FC = () => {
@@ -178,11 +185,38 @@ const ProjectDetailPage: React.FC = () => {
             transition={{ duration: 0.8, delay: 0.6 }}
           >
             <h3 className="text-2xl font-bold mb-6 gradient-text">About This Project</h3>
-                         <div className="prose prose-invert max-w-none">
-               <p className="text-gray-300 leading-relaxed">
-                 {project.description}
-               </p>
-             </div>
+            <div className="prose prose-invert max-w-none">
+              <p className="text-gray-300 leading-relaxed mb-6">
+                {project.description}
+              </p>
+              
+              {/* Demo Video Preview (for YouTube URLs) */}
+              {project.demoUrl && isYouTubeUrl(project.demoUrl) && (
+                <div className="mt-6">
+                  <h4 className="text-lg font-semibold text-white mb-3">Eerste versie (2018)</h4>
+                  <div className="relative w-full max-w-md h-48 rounded-lg overflow-hidden bg-black">
+                    <VideoPreview
+                      videoUrl={project.demoUrl}
+                      autoplay={true}
+                      muted={true}
+                      loop={true}
+                      className="w-full h-full"
+                    />
+                    <a
+                      href={project.demoUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="absolute inset-0 flex items-center justify-center bg-black/30 hover:bg-black/20 transition-colors duration-200 group"
+                    >
+                      <div className="flex items-center gap-2 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+                        <Play size={24} />
+                        <span className="text-sm font-medium">Bekijk op YouTube</span>
+                      </div>
+                    </a>
+                  </div>
+                </div>
+              )}
+            </div>
           </motion.div>
         </div>
       </section>
