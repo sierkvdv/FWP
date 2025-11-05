@@ -74,12 +74,13 @@ const VideoPreview: React.FC<VideoPreviewProps> = ({
     iframe.style.position = 'absolute';
     iframe.style.top = '50%';
     iframe.style.left = '50%';
-    iframe.style.transform = 'translate(-50%, -50%)';
+    iframe.style.transform = 'translate(-50%, -50%) scale(1.2)';
     iframe.style.minWidth = '100%';
     iframe.style.minHeight = '100%';
-    iframe.style.width = 'auto';
-    iframe.style.height = 'auto';
+    iframe.style.width = '177.77vh';
+    iframe.style.height = '100vh';
     iframe.style.border = 'none';
+    iframe.style.objectFit = 'cover';
 
     container.appendChild(iframe);
 
