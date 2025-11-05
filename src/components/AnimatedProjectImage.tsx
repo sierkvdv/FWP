@@ -716,18 +716,19 @@ const AnimatedProjectImage: React.FC<AnimatedProjectImageProps> = ({ projectId, 
             justifyContent: 'center',
             color: '#10b981'
           }}>
-            {/* Scale of Justice - Färli Logo */}
-            <div style={{ position: 'relative', width: '80px', height: '80px' }}>
+            {/* Scale of Justice - Färli Logo - More recognizable scale */}
+            <div style={{ position: 'relative', width: '100px', height: '100px' }}>
               {/* Vertical stand */}
               <div style={{
                 position: 'absolute',
-                bottom: '10px',
+                bottom: '5px',
                 left: '50%',
                 transform: 'translateX(-50%)',
-                width: '6px',
-                height: '40px',
+                width: '8px',
+                height: '50px',
                 background: '#475569',
-                borderRadius: '3px'
+                borderRadius: '4px',
+                zIndex: 1
               }} />
               
               {/* Horizontal beam */}
@@ -737,14 +738,14 @@ const AnimatedProjectImage: React.FC<AnimatedProjectImageProps> = ({ projectId, 
                   top: '50%',
                   left: '50%',
                   transform: 'translate(-50%, -50%)',
-                  width: '70px',
-                  height: '8px',
+                  width: '90px',
+                  height: '10px',
                   background: '#f97316',
-                  borderRadius: '4px',
-                  originY: '50%'
+                  borderRadius: '5px',
+                  zIndex: 2
                 }}
                 animate={{ 
-                  rotate: [-2, 2, -2]
+                  rotate: [-1.5, 1.5, -1.5]
                 }}
                 transition={{ 
                   duration: 3, 
@@ -752,93 +753,98 @@ const AnimatedProjectImage: React.FC<AnimatedProjectImageProps> = ({ projectId, 
                   ease: "easeInOut"
                 }}
               >
-                {/* Left scale */}
-                <motion.div
-                  style={{
-                    position: 'absolute',
-                    left: '-20px',
-                    top: '50%',
-                    transform: 'translateY(-50%)',
-                    width: '0',
-                    height: '0',
-                    borderLeft: '8px solid transparent',
-                    borderRight: '8px solid transparent',
-                    borderBottom: '12px solid #475569'
-                  }}
-                  animate={{
-                    y: [-2, 2, -2]
-                  }}
-                  transition={{
-                    duration: 2.5,
-                    repeat: Infinity,
-                    ease: "easeInOut"
-                  }}
-                />
-                <motion.div
-                  style={{
-                    position: 'absolute',
-                    left: '-18px',
-                    top: '50%',
-                    transform: 'translateY(-50%) translateY(12px)',
-                    width: '16px',
-                    height: '8px',
-                    background: '#10b981',
-                    borderRadius: '50% 50% 0 0'
-                  }}
-                  animate={{
-                    y: [-2, 2, -2]
-                  }}
-                  transition={{
-                    duration: 2.5,
-                    repeat: Infinity,
-                    ease: "easeInOut"
-                  }}
-                />
-                
-                {/* Right scale */}
-                <motion.div
-                  style={{
-                    position: 'absolute',
-                    right: '-20px',
-                    top: '50%',
-                    transform: 'translateY(-50%)',
-                    width: '0',
-                    height: '0',
-                    borderLeft: '8px solid transparent',
-                    borderRight: '8px solid transparent',
-                    borderBottom: '12px solid #475569'
-                  }}
-                  animate={{
-                    y: [2, -2, 2]
-                  }}
-                  transition={{
-                    duration: 2.5,
-                    repeat: Infinity,
-                    ease: "easeInOut",
-                    delay: 0.1
-                  }}
-                />
-                <motion.div
-                  style={{
-                    position: 'absolute',
-                    right: '-18px',
-                    top: '50%',
-                    transform: 'translateY(-50%) translateY(12px)',
-                    width: '16px',
-                    height: '8px',
-                    background: '#10b981',
-                    borderRadius: '50% 50% 0 0'
-                  }}
-                  animate={{
-                    y: [2, -2, 2]
-                  }}
-                  transition={{
-                    duration: 2.5,
-                    repeat: Infinity,
-                    ease: "easeInOut",
-                    delay: 0.1
-                  }}
-                />
+                {/* Connection point to stand */}
+                <div style={{
+                  position: 'absolute',
+                  left: '50%',
+                  top: '50%',
+                  transform: 'translate(-50%, -50%)',
+                  width: '8px',
+                  height: '8px',
+                  background: '#475569',
+                  borderRadius: '50%'
+                }} />
+              </motion.div>
+              
+              {/* Left scale - hanging from chain */}
+              <motion.div
+                style={{
+                  position: 'absolute',
+                  left: '5px',
+                  top: '50%',
+                  transform: 'translateY(-50%)',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'center'
+                }}
+                animate={{
+                  y: [-3, 3, -3]
+                }}
+                transition={{
+                  duration: 2.5,
+                  repeat: Infinity,
+                  ease: "easeInOut"
+                }}
+              >
+                {/* Chain/triangle connection */}
+                <div style={{
+                  width: '0',
+                  height: '0',
+                  borderLeft: '6px solid transparent',
+                  borderRight: '6px solid transparent',
+                  borderBottom: '10px solid #475569',
+                  marginBottom: '2px'
+                }} />
+                {/* Scale bowl */}
+                <div style={{
+                  width: '20px',
+                  height: '12px',
+                  background: '#10b981',
+                  borderRadius: '50% 50% 0 0',
+                  border: '2px solid #475569',
+                  borderBottom: 'none'
+                }} />
+              </motion.div>
+              
+              {/* Right scale - hanging from chain */}
+              <motion.div
+                style={{
+                  position: 'absolute',
+                  right: '5px',
+                  top: '50%',
+                  transform: 'translateY(-50%)',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'center'
+                }}
+                animate={{
+                  y: [3, -3, 3]
+                }}
+                transition={{
+                  duration: 2.5,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                  delay: 0.1
+                }}
+              >
+                {/* Chain/triangle connection */}
+                <div style={{
+                  width: '0',
+                  height: '0',
+                  borderLeft: '6px solid transparent',
+                  borderRight: '6px solid transparent',
+                  borderBottom: '10px solid #475569',
+                  marginBottom: '2px'
+                }} />
+                {/* Scale bowl */}
+                <div style={{
+                  width: '20px',
+                  height: '12px',
+                  background: '#10b981',
+                  borderRadius: '50% 50% 0 0',
+                  border: '2px solid #475569',
+                  borderBottom: 'none'
+                }} />
               </motion.div>
             </div>
             
