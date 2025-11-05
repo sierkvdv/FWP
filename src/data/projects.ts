@@ -226,5 +226,19 @@ export const projects: Project[] = [
     githubUrl: undefined,
     featured: true,
     year: 2024
+  },
+  {
+    id: 'maya-character-creation',
+    title: 'Maya Character Creation',
+    subtitle: '3D Character Animation Progress',
+    description: 'Een 3D character die ik gecreëerd heb na een paar maanden oefenen met Maya. Dit project toont mijn groei in 3D modeling en character animation. De eerste versie die ik ooit maakte in 2018 is te zien als voorbeeld van mijn begin: https://youtu.be/To62HeynREA',
+    category: 'design',
+    technologies: ['Maya', '3D Modeling', 'Character Animation', '3D Art', 'Rigging'],
+    image: '/images/placeholder.svg',
+    video: 'https://www.youtube.com/watch?v=vrhM9isLsHQ',
+    demoUrl: 'https://www.youtube.com/watch?v=To62HeynREA',
+    githubUrl: undefined,
+    featured: true,
+    year: 2024
   }
 ]; 
