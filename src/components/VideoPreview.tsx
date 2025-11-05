@@ -44,7 +44,8 @@ const VideoPreview: React.FC<VideoPreviewProps> = ({
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (!containerRef.current || !isYouTubeUrl(videoUrl)) return;
+    const container = containerRef.current;
+    if (!container || !isYouTubeUrl(videoUrl)) return;
 
     const videoId = extractYouTubeId(videoUrl);
     if (!videoId) return;
@@ -77,11 +78,11 @@ const VideoPreview: React.FC<VideoPreviewProps> = ({
     iframe.style.left = '0';
     iframe.style.border = 'none';
 
-    containerRef.current.appendChild(iframe);
+    container.appendChild(iframe);
 
     return () => {
-      if (containerRef.current && containerRef.current.contains(iframe)) {
-        containerRef.current.removeChild(iframe);
+      if (container && container.contains(iframe)) {
+        container.removeChild(iframe);
       }
     };
   }, [videoUrl, autoplay, muted, loop]);
