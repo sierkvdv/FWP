@@ -137,7 +137,7 @@ const ProjectDetailPage: React.FC = () => {
           >
             <div className="relative overflow-hidden rounded-2xl bg-dark-gray p-8">
               {project.video ? (
-                <div style={{ height: '500px', backgroundColor: '#1e293b', display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden', position: 'relative' }}>
+                <div style={{ height: '600px', backgroundColor: '#1e293b', display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden', position: 'relative' }}>
                   <VideoPreview
                     videoUrl={project.video}
                     autoplay={true}

@@ -34,7 +34,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, index }) => {
       <Link to={`/projects/${project.id}`}>
         <div className={`relative overflow-hidden rounded-xl glass-effect-enhanced project-card-enhanced category-${project.category}`}>
           {/* Project Video or Image - CSS ANIMATED VERSION */}
-          <div style={{ height: '256px', backgroundColor: '#1e293b', display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden', position: 'relative' }}>
+          <div style={{ height: '200px', backgroundColor: '#1e293b', display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden', position: 'relative' }}>
             {project.video && isYouTubeUrl(project.video) ? (
               <div style={{ pointerEvents: 'none', width: '100%', height: '100%', position: 'relative' }}>
                 <VideoPreview
