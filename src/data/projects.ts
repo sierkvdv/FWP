@@ -41,7 +41,7 @@ export const projects: Project[] = [
     demoUrl: undefined,
     githubUrl: 'https://github.com/sierkvdv/First-Electron-Clonebox',
     featured: true,
-    year: 2024
+    year: 2023
   },
   {
     id: 'neural-dreams',
@@ -54,7 +54,7 @@ export const projects: Project[] = [
     video: '/videos/neural-dreams-teaser.mp4',
     demoUrl: undefined,
     featured: true,
-    year: 2024
+    year: 2023
   },
   {
     id: 'living-posters',
@@ -67,7 +67,7 @@ export const projects: Project[] = [
     demoUrl: undefined,
     githubUrl: undefined,
     featured: true,
-    year: 2024
+    year: 2021
   },
   {
     id: 'virtual-dj',
@@ -80,7 +80,7 @@ export const projects: Project[] = [
     demoUrl: undefined,
     githubUrl: undefined,
     featured: true,
-    year: 2024
+    year: 2022
   },
   {
     id: 'modular-synth',
@@ -93,7 +93,7 @@ export const projects: Project[] = [
     demoUrl: undefined,
     githubUrl: undefined,
     featured: true,
-    year: 2024
+    year: 2022
   },
   {
     id: 'ai-album-gen',
@@ -106,7 +106,7 @@ export const projects: Project[] = [
     demoUrl: 'https://ai-album-gen.vercel.app/',
     githubUrl: undefined,
     featured: false,
-    year: 2024
+    year: 2023
   },
   {
     id: 'game-of-life',
@@ -119,7 +119,7 @@ export const projects: Project[] = [
     demoUrl: 'https://game-of-life-kappa-wine.vercel.app/',
     githubUrl: undefined,
     featured: false,
-    year: 2024
+    year: 2018
   },
   {
     id: 'codebuddy',
@@ -132,7 +132,7 @@ export const projects: Project[] = [
     demoUrl: 'https://codebuddy-mu.vercel.app/',
     githubUrl: undefined,
     featured: false,
-    year: 2024
+    year: 2021
   },
   {
     id: 'patch-field',
@@ -145,7 +145,7 @@ export const projects: Project[] = [
     demoUrl: 'https://patch-field.vercel.app/',
     githubUrl: undefined,
     featured: false,
-    year: 2024
+    year: 2020
   },
   {
     id: 'blastfield',
@@ -158,7 +158,7 @@ export const projects: Project[] = [
     demoUrl: 'https://blastfield.vercel.app/',
     githubUrl: undefined,
     featured: false,
-    year: 2024
+    year: 2020
   },
   {
     id: 'washly',
@@ -171,7 +171,7 @@ export const projects: Project[] = [
     demoUrl: 'https://washly-blond.vercel.app/',
     githubUrl: undefined,
     featured: false,
-    year: 2024
+    year: 2019
   },
   {
     id: 'charge-guard',
@@ -184,7 +184,7 @@ export const projects: Project[] = [
     demoUrl: 'https://charge-guard.vercel.app/',
     githubUrl: undefined,
     featured: false,
-    year: 2024
+    year: 2019
   },
   {
     id: 'atelier-ai',
@@ -197,7 +197,7 @@ export const projects: Project[] = [
     demoUrl: 'https://atelier-ai-merkdocument.vercel.app/',
     githubUrl: undefined,
     featured: false,
-    year: 2024
+    year: 2025
   },
   {
     id: 'kartent-circular-webshop',
@@ -211,7 +211,7 @@ export const projects: Project[] = [
     demoUrl: undefined,
     githubUrl: undefined,
     featured: true,
-    year: 2024
+    year: 2020
   },
   {
     id: 'the-sluisbox',
@@ -225,7 +225,7 @@ export const projects: Project[] = [
     demoUrl: undefined,
     githubUrl: undefined,
     featured: true,
-    year: 2024
+    year: 2019
   },
   {
     id: 'maya-character-creation',
@@ -239,7 +239,7 @@ export const projects: Project[] = [
     demoUrl: 'https://www.youtube.com/watch?v=To62HeynREA',
     githubUrl: undefined,
     featured: true,
-    year: 2024
+    year: 2019
   },
   {
     id: 'free-resources-documentary',
@@ -267,6 +267,6 @@ export const projects: Project[] = [
     demoUrl: 'https://f-rli.vercel.app/',
     githubUrl: undefined,
     featured: true,
-    year: 2024
+    year: 2025
   }
 ]; 
