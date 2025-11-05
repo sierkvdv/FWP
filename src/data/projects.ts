@@ -200,17 +200,17 @@ export const projects: Project[] = [
     year: 2024
   },
   {
-    id: 'video-project-1',
-    title: 'Video Project 1',
-    subtitle: 'Video Showcase',
-    description: 'Een video showcase project. Bekijk de video om meer te zien.',
-    category: 'design',
-    technologies: ['Video Production', 'Creative Content'],
+    id: 'kartent-circular-webshop',
+    title: 'KarTent Circular Webshop',
+    subtitle: 'Circular Cardboard Technology',
+    description: 'From this day forward, the KarTent can be called fully circular. Our latest cardboard technology gives us the opportunity to cut the material in any desired shape, thus giving the KarTent a second life! The KarTent starts it\'s life at a festival, after which it is taken back to our warehouse. Tents that can no longer be used still hold valuable material. Too good to recycle, but great to upcycle!',
+    category: 'web',
+    technologies: ['Web Development', 'Circular Design', 'Sustainability', 'E-commerce'],
     image: '/images/placeholder.svg',
     video: 'https://www.youtube.com/watch?v=zC-BARbjyIg',
     demoUrl: undefined,
     githubUrl: undefined,
-    featured: false,
+    featured: true,
     year: 2024
   }
 ]; 
