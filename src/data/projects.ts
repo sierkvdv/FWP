@@ -240,5 +240,19 @@ export const projects: Project[] = [
     githubUrl: undefined,
     featured: true,
     year: 2024
+  },
+  {
+    id: 'free-resources-documentary',
+    title: 'Free Resources Documentary',
+    subtitle: 'Gratis Bronnen & AI Video Production',
+    description: 'Een kleine YouTube documentaire die laat zien hoe ver je kan komen met gratis bronnen en videostocks. Gecombineerd met Adobe AI, After Effects en Premiere Pro. Ik heb zelf animaties gemaakt en AI gebruikt om video\'s up te scalen naar 4K pixels en meer frames te genereren.',
+    category: 'design',
+    technologies: ['Adobe AI', 'After Effects', 'Premiere Pro', 'AI Upscaling', 'Video Editing', '4K Production', 'Frame Generation', 'Free Resources'],
+    image: '/images/placeholder.svg',
+    video: 'https://www.youtube.com/watch?v=hP9IBnE0HOg',
+    demoUrl: undefined,
+    githubUrl: undefined,
+    featured: true,
+    year: 2024
   }
 ]; 
