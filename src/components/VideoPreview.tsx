@@ -71,11 +71,14 @@ const VideoPreview: React.FC<VideoPreviewProps> = ({
     iframe.frameBorder = '0';
     iframe.allow = 'autoplay; encrypted-media; accelerometer; gyroscope; picture-in-picture';
     iframe.allowFullscreen = true;
-    iframe.style.width = '100%';
-    iframe.style.height = '100%';
     iframe.style.position = 'absolute';
-    iframe.style.top = '0';
-    iframe.style.left = '0';
+    iframe.style.top = '50%';
+    iframe.style.left = '50%';
+    iframe.style.transform = 'translate(-50%, -50%)';
+    iframe.style.minWidth = '100%';
+    iframe.style.minHeight = '100%';
+    iframe.style.width = 'auto';
+    iframe.style.height = 'auto';
     iframe.style.border = 'none';
 
     container.appendChild(iframe);
@@ -104,8 +107,7 @@ const VideoPreview: React.FC<VideoPreviewProps> = ({
         <div 
           className="absolute inset-0 pointer-events-none"
           style={{ 
-            backgroundColor: 'rgba(30, 41, 59, 0.6)',
-            mixBlendMode: 'multiply'
+            backgroundColor: 'rgba(30, 41, 59, 0.5)'
           }}
         />
       </div>
@@ -122,8 +124,7 @@ const VideoPreview: React.FC<VideoPreviewProps> = ({
       <div 
         className="absolute inset-0 pointer-events-none z-10"
         style={{ 
-          backgroundColor: 'rgba(30, 41, 59, 0.6)',
-          mixBlendMode: 'multiply'
+          backgroundColor: 'rgba(30, 41, 59, 0.5)'
         }}
       />
     </div>
