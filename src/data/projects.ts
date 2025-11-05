@@ -212,5 +212,19 @@ export const projects: Project[] = [
     githubUrl: undefined,
     featured: true,
     year: 2024
+  },
+  {
+    id: 'the-sluisbox',
+    title: 'The Sluisbox',
+    subtitle: 'CGI Video Concept',
+    description: 'Een CGI video concept gemaakt voor school. Een creatieve combinatie van 3D modeling, motion graphics en video editing. Gemaakt met Maya voor de 3D modellen en animaties, gecombineerd met After Effects voor compositing en visuele effecten, Premiere voor video editing en Illustrator voor graphics.',
+    category: 'design',
+    technologies: ['Maya', 'After Effects', 'Premiere Pro', 'Illustrator', '3D Modeling', 'Motion Graphics', 'Video Editing'],
+    image: '/images/placeholder.svg',
+    video: 'https://www.youtube.com/watch?v=y1FPY6RpBv8',
+    demoUrl: undefined,
+    githubUrl: undefined,
+    featured: true,
+    year: 2024
   }
 ]; 
