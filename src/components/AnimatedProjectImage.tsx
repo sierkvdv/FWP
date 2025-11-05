@@ -705,6 +705,173 @@ const AnimatedProjectImage: React.FC<AnimatedProjectImageProps> = ({ projectId, 
           </div>
         );
 
+      case 'farli':
+        return (
+          <div style={{ 
+            position: 'relative', 
+            width: '100%', 
+            height: '100%',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            color: '#10b981'
+          }}>
+            {/* Scale of Justice - Färli Logo */}
+            <div style={{ position: 'relative', width: '80px', height: '80px' }}>
+              {/* Vertical stand */}
+              <div style={{
+                position: 'absolute',
+                bottom: '10px',
+                left: '50%',
+                transform: 'translateX(-50%)',
+                width: '6px',
+                height: '40px',
+                background: '#475569',
+                borderRadius: '3px'
+              }} />
+              
+              {/* Horizontal beam */}
+              <motion.div
+                style={{
+                  position: 'absolute',
+                  top: '50%',
+                  left: '50%',
+                  transform: 'translate(-50%, -50%)',
+                  width: '70px',
+                  height: '8px',
+                  background: '#f97316',
+                  borderRadius: '4px',
+                  originY: '50%'
+                }}
+                animate={{ 
+                  rotate: [-2, 2, -2]
+                }}
+                transition={{ 
+                  duration: 3, 
+                  repeat: Infinity,
+                  ease: "easeInOut"
+                }}
+              >
+                {/* Left scale */}
+                <motion.div
+                  style={{
+                    position: 'absolute',
+                    left: '-20px',
+                    top: '50%',
+                    transform: 'translateY(-50%)',
+                    width: '0',
+                    height: '0',
+                    borderLeft: '8px solid transparent',
+                    borderRight: '8px solid transparent',
+                    borderBottom: '12px solid #475569'
+                  }}
+                  animate={{
+                    y: [-2, 2, -2]
+                  }}
+                  transition={{
+                    duration: 2.5,
+                    repeat: Infinity,
+                    ease: "easeInOut"
+                  }}
+                />
+                <motion.div
+                  style={{
+                    position: 'absolute',
+                    left: '-18px',
+                    top: '50%',
+                    transform: 'translateY(-50%) translateY(12px)',
+                    width: '16px',
+                    height: '8px',
+                    background: '#10b981',
+                    borderRadius: '50% 50% 0 0'
+                  }}
+                  animate={{
+                    y: [-2, 2, -2]
+                  }}
+                  transition={{
+                    duration: 2.5,
+                    repeat: Infinity,
+                    ease: "easeInOut"
+                  }}
+                />
+                
+                {/* Right scale */}
+                <motion.div
+                  style={{
+                    position: 'absolute',
+                    right: '-20px',
+                    top: '50%',
+                    transform: 'translateY(-50%)',
+                    width: '0',
+                    height: '0',
+                    borderLeft: '8px solid transparent',
+                    borderRight: '8px solid transparent',
+                    borderBottom: '12px solid #475569'
+                  }}
+                  animate={{
+                    y: [2, -2, 2]
+                  }}
+                  transition={{
+                    duration: 2.5,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                    delay: 0.1
+                  }}
+                />
+                <motion.div
+                  style={{
+                    position: 'absolute',
+                    right: '-18px',
+                    top: '50%',
+                    transform: 'translateY(-50%) translateY(12px)',
+                    width: '16px',
+                    height: '8px',
+                    background: '#10b981',
+                    borderRadius: '50% 50% 0 0'
+                  }}
+                  animate={{
+                    y: [2, -2, 2]
+                  }}
+                  transition={{
+                    duration: 2.5,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                    delay: 0.1
+                  }}
+                />
+              </motion.div>
+            </div>
+            
+            {/* Accent particles */}
+            <motion.div 
+              style={{ 
+                position: 'absolute', 
+                top: '20%', 
+                left: '20%', 
+                width: '6px', 
+                height: '6px', 
+                background: '#10b981', 
+                borderRadius: '50%'
+              }}
+              animate={{ scale: [1, 1.5, 1], opacity: [0.5, 1, 0.5] }}
+              transition={{ duration: 2, repeat: Infinity }}
+            />
+            <motion.div 
+              style={{ 
+                position: 'absolute', 
+                top: '30%', 
+                right: '20%', 
+                width: '6px', 
+                height: '6px', 
+                background: '#f97316', 
+                borderRadius: '50%'
+              }}
+              animate={{ scale: [1, 1.3, 1], opacity: [0.5, 1, 0.5] }}
+              transition={{ duration: 2.5, repeat: Infinity }}
+            />
+          </div>
+        );
+
       default:
         return (
           <div style={{ 
