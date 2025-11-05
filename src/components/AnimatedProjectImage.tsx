@@ -716,38 +716,34 @@ const AnimatedProjectImage: React.FC<AnimatedProjectImageProps> = ({ projectId, 
             justifyContent: 'center',
             color: '#10b981'
           }}>
-            {/* Scale of Justice - CLEAR and PROPER */}
+            {/* Scale of Justice - SIMPLE, CLEAR, SYMMETRIC */}
             <div style={{ 
               position: 'relative', 
-              width: '120px', 
-              height: '90px',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center'
+              width: '100px', 
+              height: '80px',
+              margin: '0 auto'
             }}>
-              {/* Vertical stand - EXACTLY CENTERED */}
+              {/* Vertical stand - CENTER */}
               <div style={{
                 position: 'absolute',
                 bottom: '0',
-                left: '50%',
-                transform: 'translateX(-50%)',
-                width: '10px',
-                height: '55px',
+                left: '46px', // (100px - 8px) / 2 = 46px to center an 8px wide element
+                width: '8px',
+                height: '50px',
                 background: '#475569',
-                borderRadius: '5px 5px 0 0'
+                borderRadius: '4px'
               }} />
               
-              {/* Horizontal beam - PERFECTLY CENTERED and HORIZONTAL */}
+              {/* Horizontal beam - CENTERED, 80px wide, centered at x=50px */}
               <motion.div
                 style={{
                   position: 'absolute',
-                  top: '50px',
-                  left: '50%',
-                  transform: 'translateX(-50%)',
-                  width: '90px',
-                  height: '12px',
+                  top: '45px',
+                  left: '10px', // (100px - 80px) / 2 = 10px
+                  width: '80px',
+                  height: '10px',
                   background: '#f97316',
-                  borderRadius: '6px',
+                  borderRadius: '5px',
                   transformOrigin: '50% 50%'
                 }}
                 animate={{ 
@@ -760,12 +756,12 @@ const AnimatedProjectImage: React.FC<AnimatedProjectImageProps> = ({ projectId, 
                 }}
               />
               
-              {/* Left scale - EXACTLY 45px LEFT from center */}
+              {/* Left scale - at x=10px (left end of beam) */}
               <motion.div
                 style={{
                   position: 'absolute',
-                  top: '62px',
-                  left: 'calc(50% - 45px)',
+                  top: '55px',
+                  left: '10px',
                   display: 'flex',
                   flexDirection: 'column',
                   alignItems: 'center',
@@ -784,14 +780,14 @@ const AnimatedProjectImage: React.FC<AnimatedProjectImageProps> = ({ projectId, 
                 <div style={{
                   width: '0',
                   height: '0',
-                  borderLeft: '6px solid transparent',
-                  borderRight: '6px solid transparent',
-                  borderBottom: '10px solid #475569'
+                  borderLeft: '5px solid transparent',
+                  borderRight: '5px solid transparent',
+                  borderBottom: '8px solid #475569'
                 }} />
                 {/* Scale bowl */}
                 <div style={{
-                  width: '22px',
-                  height: '14px',
+                  width: '20px',
+                  height: '12px',
                   background: '#10b981',
                   borderRadius: '50% 50% 0 0',
                   border: '2px solid #475569',
@@ -799,12 +795,12 @@ const AnimatedProjectImage: React.FC<AnimatedProjectImageProps> = ({ projectId, 
                 }} />
               </motion.div>
               
-              {/* Right scale - EXACTLY 45px RIGHT from center */}
+              {/* Right scale - at x=90px (right end of beam) */}
               <motion.div
                 style={{
                   position: 'absolute',
-                  top: '62px',
-                  left: 'calc(50% + 45px)',
+                  top: '55px',
+                  left: '90px',
                   display: 'flex',
                   flexDirection: 'column',
                   alignItems: 'center',
@@ -824,14 +820,14 @@ const AnimatedProjectImage: React.FC<AnimatedProjectImageProps> = ({ projectId, 
                 <div style={{
                   width: '0',
                   height: '0',
-                  borderLeft: '6px solid transparent',
-                  borderRight: '6px solid transparent',
-                  borderBottom: '10px solid #475569'
+                  borderLeft: '5px solid transparent',
+                  borderRight: '5px solid transparent',
+                  borderBottom: '8px solid #475569'
                 }} />
                 {/* Scale bowl */}
                 <div style={{
-                  width: '22px',
-                  height: '14px',
+                  width: '20px',
+                  height: '12px',
                   background: '#10b981',
                   borderRadius: '50% 50% 0 0',
                   border: '2px solid #475569',
