@@ -144,14 +144,15 @@ const ProjectDetailPage: React.FC = () => {
                     muted={true}
                     loop={true}
                     className="absolute inset-0"
+                    interactive={true}
                   />
-                  {/* Clickable overlay to go to YouTube */}
+                  {/* Clickable overlay to go to YouTube - only on desktop (not touch devices) */}
                   {isYouTubeUrl(project.video) && (
                     <a
                       href={project.video}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="absolute inset-0 flex items-center justify-center bg-black/0 hover:bg-black/20 transition-colors duration-200 group cursor-pointer z-20"
+                      className="hidden md:flex absolute inset-0 items-center justify-center bg-black/0 hover:bg-black/20 transition-colors duration-200 group cursor-pointer z-20"
                       onClick={(e) => {
                         e.preventDefault();
                         window.open(project.video, '_blank', 'noopener,noreferrer');
@@ -219,12 +220,13 @@ const ProjectDetailPage: React.FC = () => {
                       muted={true}
                       loop={true}
                       className="w-full h-full"
+                      interactive={true}
                     />
                     <a
                       href={project.demoUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="absolute inset-0 flex items-center justify-center bg-black/30 hover:bg-black/20 transition-colors duration-200 group"
+                      className="hidden md:flex absolute inset-0 items-center justify-center bg-black/30 hover:bg-black/20 transition-colors duration-200 group"
                     >
                       <div className="flex items-center gap-2 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-200">
                         <Play size={24} />

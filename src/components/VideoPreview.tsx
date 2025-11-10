@@ -1,4 +1,5 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
+import { Play } from 'lucide-react';
 
 interface VideoPreviewProps {
   videoUrl: string;
@@ -6,7 +7,17 @@ interface VideoPreviewProps {
   muted?: boolean;
   loop?: boolean;
   className?: string;
+  onClick?: () => void;
+  interactive?: boolean; // If true, shows play button on iOS. If false, just shows thumbnail (for cards)
 }
+
+/**
+ * Detects if the user is on iOS
+ */
+const isIOS = (): boolean => {
+  return /iPad|iPhone|iPod/.test(navigator.userAgent) || 
+    (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+};
 
 /**
  * Extracts YouTube video ID from various YouTube URL formats
@@ -40,25 +51,39 @@ const VideoPreview: React.FC<VideoPreviewProps> = ({
   muted = true,
   loop = true,
   className = '',
+  onClick,
+  interactive = false,
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
+  const iframeRef = useRef<HTMLIFrameElement | null>(null);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [isIOSDevice, setIsIOSDevice] = useState(false);
+
+  useEffect(() => {
+    setIsIOSDevice(isIOS());
+  }, []);
 
   useEffect(() => {
     const container = containerRef.current;
     if (!container || !isYouTubeUrl(videoUrl)) return;
+    
+    // On iOS, don't autoplay - show thumbnail instead
+    if (isIOSDevice && !isPlaying) return;
 
     const videoId = extractYouTubeId(videoUrl);
     if (!videoId) return;
 
     // Create iframe for YouTube embed
     const iframe = document.createElement('iframe');
+    iframeRef.current = iframe;
+    
     // YouTube embed parameters: autoplay, mute, loop, controls off, no related videos
     const params = new URLSearchParams({
-      autoplay: autoplay ? '1' : '0',
+      autoplay: (isIOSDevice && isPlaying) || (!isIOSDevice && autoplay) ? '1' : '0',
       mute: muted ? '1' : '0',
       loop: loop ? '1' : '0',
       playlist: loop ? videoId : '',
-      controls: '0',
+      controls: isIOSDevice ? '1' : '0', // Show controls on iOS for better UX
       modestbranding: '1',
       rel: '0',
       showinfo: '0',
@@ -88,8 +113,18 @@ const VideoPreview: React.FC<VideoPreviewProps> = ({
       if (container && container.contains(iframe)) {
         container.removeChild(iframe);
       }
+      iframeRef.current = null;
     };
-  }, [videoUrl, autoplay, muted, loop]);
+  }, [videoUrl, autoplay, muted, loop, isIOSDevice, isPlaying]);
+
+  const handlePlayClick = () => {
+    if (isIOSDevice) {
+      setIsPlaying(true);
+      if (onClick) {
+        onClick();
+      }
+    }
+  };
 
   // If it's a local video file, use HTML5 video element
   if (!isYouTubeUrl(videoUrl)) {
@@ -116,6 +151,58 @@ const VideoPreview: React.FC<VideoPreviewProps> = ({
   }
 
   // YouTube embed container
+  const videoId = extractYouTubeId(videoUrl);
+  const thumbnailUrl = videoId 
+    ? `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`
+    : '';
+
+  // On iOS, show thumbnail (with or without play button depending on interactive prop)
+  if (isIOSDevice && !isPlaying && videoId) {
+    return (
+      <div
+        className={`relative w-full h-full overflow-hidden bg-black ${className}`}
+        style={{ 
+          cursor: interactive ? 'pointer' : 'default',
+          pointerEvents: interactive ? 'auto' : 'none'
+        }}
+        onClick={interactive ? handlePlayClick : undefined}
+      >
+        {/* Thumbnail image */}
+        <img
+          src={thumbnailUrl}
+          alt="Video thumbnail"
+          style={{
+            position: 'absolute',
+            top: '50%',
+            left: '50%',
+            transform: 'translate(-50%, -50%) scale(1.05)',
+            minWidth: '100%',
+            minHeight: '100%',
+            width: '177.77vh',
+            height: '100vh',
+            objectFit: 'cover',
+            pointerEvents: 'none',
+          }}
+        />
+        {/* Dark blue overlay filter */}
+        <div 
+          className="absolute inset-0 pointer-events-none z-10"
+          style={{ 
+            backgroundColor: 'rgba(30, 41, 59, 0.5)'
+          }}
+        />
+        {/* Play button overlay - only show if interactive */}
+        {interactive && (
+          <div className="absolute inset-0 flex items-center justify-center z-20 pointer-events-none">
+            <div className="bg-black/40 hover:bg-black/60 rounded-full p-4 transition-colors duration-200">
+              <Play size={48} className="text-white fill-white" style={{ marginLeft: '4px' }} />
+            </div>
+          </div>
+        )}
+      </div>
+    );
+  }
+
   return (
     <div
       ref={containerRef}
