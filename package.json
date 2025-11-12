@@ -4,6 +4,7 @@
   "description": "FWP - Fieldworks Production. Een moderne, creatieve portfolio website voor een creatief bureau",
   "private": true,
   "dependencies": {
+    "@supabase/supabase-js": "^2.81.1",
     "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^13.3.0",
     "@testing-library/user-event": "^13.5.0",

@@ -7,9 +7,11 @@ import { useLanguage } from '../contexts/LanguageContext';
 import ParticleBackground from './ParticleBackground';
 import MagneticCursor from './MagneticCursor';
 import VideoBackground from './VideoBackground';
+import { useVideoUrls } from '../hooks/useVideoUrls';
 
 const Hero: React.FC = () => {
   const { t } = useLanguage();
+  const { videoUrls, isLoading } = useVideoUrls();
   
   const scrollToProjects = () => {
     const projectsSection = document.getElementById('projects');
@@ -18,22 +20,21 @@ const Hero: React.FC = () => {
     }
   };
 
-  // Video URLs - Replace these with your Supabase Storage URLs or YouTube playlist
-  // Example Supabase URL format: https://[project-id].supabase.co/storage/v1/object/public/[bucket-name]/[video-file].mp4
-  const backgroundVideos = SITE_CONFIG.backgroundVideos || [];
+  // Use video URLs from Supabase Storage
+  const backgroundVideos = videoUrls || [];
 
   return (
     <section className="min-h-screen flex items-center justify-center relative overflow-hidden">
-      {/* Video Background - if videos are configured */}
-      {backgroundVideos.length > 0 && (
+      {/* Video Background - if videos are configured and loaded */}
+      {!isLoading && backgroundVideos.length > 0 && (
         <VideoBackground videoUrls={backgroundVideos} className="z-0" />
       )}
       
-      {/* Particle Background - only show if no videos */}
-      {backgroundVideos.length === 0 && <ParticleBackground />}
+      {/* Particle Background - show while loading or if no videos */}
+      {(isLoading || backgroundVideos.length === 0) && <ParticleBackground />}
       
       {/* Background Elements - lighter overlay if videos are playing */}
-      <div className={`absolute inset-0 bg-gradient-to-br from-dark via-dark-gray to-dark ${backgroundVideos.length > 0 ? 'opacity-60' : 'opacity-90'}`} />
+      <div className={`absolute inset-0 bg-gradient-to-br from-dark via-dark-gray to-dark ${!isLoading && backgroundVideos.length > 0 ? 'opacity-60' : 'opacity-90'}`} />
       
       {/* Smooth fade to parallax */}
       <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-dark to-transparent" />
