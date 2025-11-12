@@ -14,13 +14,17 @@ const VideoBackground: React.FC<VideoBackgroundProps> = ({
   const [currentIndex, setCurrentIndex] = useState(0);
   const [activeLayer, setActiveLayer] = useState<'video1' | 'video2'>('video1');
 
-  // Get URLs based on current index
-  const video1Url = videoUrls[currentIndex % videoUrls.length];
-  const video2Url = videoUrls.length > 1 ? videoUrls[(currentIndex + 1) % videoUrls.length] : undefined;
+  // Track which video is in which layer
+  const [video1Index, setVideo1Index] = useState(0);
+  const [video2Index, setVideo2Index] = useState(videoUrls.length > 1 ? 1 : 0);
 
-  // Handle video transitions
+  // Get URLs - keep video1 stable for iOS autoplay
+  const video1Url = videoUrls[video1Index];
+  const video2Url = videoUrls.length > 1 ? videoUrls[video2Index] : undefined;
+
+  // Update video2 when transitioning
   useEffect(() => {
-    if (videoUrls.length === 0 || videoUrls.length === 1) return;
+    if (videoUrls.length <= 1) return;
 
     const activeRef = activeLayer === 'video1' ? video1Ref : video2Ref;
     const nextRef = activeLayer === 'video1' ? video2Ref : video1Ref;
@@ -33,53 +37,76 @@ const VideoBackground: React.FC<VideoBackgroundProps> = ({
     const handleTimeUpdate = () => {
       const timeRemaining = activeVideo.duration - activeVideo.currentTime;
       if (timeRemaining <= 2) {
-        const nextIndex = (currentIndex + 1) % videoUrls.length;
-        const nextSrc = videoUrls[nextIndex];
+        const activeIdx = activeLayer === 'video1' ? video1Index : video2Index;
+        const nextIdx = (activeIdx + 1) % videoUrls.length;
         
         // Update next video src if needed
-        if (nextVideo.src !== nextSrc) {
-          nextVideo.src = nextSrc;
-          nextVideo.muted = true;
-          nextVideo.playsInline = true;
-          nextVideo.load();
+        if (activeLayer === 'video1') {
+          if (video2Index !== nextIdx) {
+            setVideo2Index(nextIdx);
+            // Update src directly
+            nextVideo.src = videoUrls[nextIdx];
+            nextVideo.muted = true;
+            nextVideo.playsInline = true;
+            nextVideo.load();
+          }
+        } else {
+          if (video1Index !== nextIdx) {
+            setVideo1Index(nextIdx);
+            // Update src directly
+            nextVideo.src = videoUrls[nextIdx];
+            nextVideo.muted = true;
+            nextVideo.playsInline = true;
+            nextVideo.load();
+          }
         }
       }
     };
 
     // Handle video end - start crossfade
     const handleEnded = () => {
-      const nextIndex = (currentIndex + 1) % videoUrls.length;
+      const activeIdx = activeLayer === 'video1' ? video1Index : video2Index;
+      const nextIdx = (activeIdx + 1) % videoUrls.length;
       const nextLayer = activeLayer === 'video1' ? 'video2' : 'video1';
 
       // Fade out active video
       activeVideo.style.transition = 'opacity 0.8s ease-in-out';
       activeVideo.style.opacity = '0';
 
-      // Start next video
-      if (nextVideo.readyState >= 2) {
+      // Ensure next video has correct src and start playing
+      if (nextLayer === 'video1') {
+        if (video1Index !== nextIdx) {
+          nextVideo.src = videoUrls[nextIdx];
+          nextVideo.load();
+        }
+        setVideo1Index(nextIdx);
+      } else {
+        if (video2Index !== nextIdx) {
+          nextVideo.src = videoUrls[nextIdx];
+          nextVideo.load();
+        }
+        setVideo2Index(nextIdx);
+      }
+
+      // Start next video when ready
+      const startNext = () => {
         nextVideo.currentTime = 0;
         nextVideo.play().catch(() => {
-          // On iOS, autoplay may be blocked - that's OK for transitions
-          console.log('Autoplay blocked during transition');
+          console.log('Autoplay blocked during transition on iOS');
         });
         nextVideo.style.transition = 'opacity 0.8s ease-in-out';
         nextVideo.style.opacity = '1';
+      };
+
+      if (nextVideo.readyState >= 2) {
+        startNext();
       } else {
-        // Wait for video to be ready
-        const startNext = () => {
-          nextVideo.currentTime = 0;
-          nextVideo.play().catch(() => {
-            console.log('Autoplay blocked during transition');
-          });
-          nextVideo.style.transition = 'opacity 0.8s ease-in-out';
-          nextVideo.style.opacity = '1';
-        };
         nextVideo.addEventListener('canplay', startNext, { once: true });
       }
 
       // Update state after transition
       setTimeout(() => {
-        setCurrentIndex(nextIndex);
+        setCurrentIndex(nextIdx);
         setActiveLayer(nextLayer);
         activeVideo.style.opacity = '1';
         activeVideo.style.transition = '';
@@ -93,7 +120,7 @@ const VideoBackground: React.FC<VideoBackgroundProps> = ({
       activeVideo.removeEventListener('timeupdate', handleTimeUpdate);
       activeVideo.removeEventListener('ended', handleEnded);
     };
-  }, [currentIndex, activeLayer, videoUrls]);
+  }, [activeLayer, video1Index, video2Index, videoUrls]);
 
   if (videoUrls.length === 0 || !video1Url) {
     return null;
@@ -101,7 +128,7 @@ const VideoBackground: React.FC<VideoBackgroundProps> = ({
 
   return (
     <div className={`absolute inset-0 overflow-hidden ${className}`}>
-      {/* Video 1 - First video with src in JSX for iOS autoplay */}
+      {/* Video 1 - First video, src directly in JSX for iOS autoplay */}
       <video
         ref={video1Ref}
         src={video1Url}
@@ -121,11 +148,12 @@ const VideoBackground: React.FC<VideoBackgroundProps> = ({
         }}
       />
       
-      {/* Video 2 - Next video for smooth transitions */}
+      {/* Video 2 - Next video for smooth transitions, also has autoplay for iOS */}
       {videoUrls.length > 1 && video2Url && (
         <video
           ref={video2Ref}
           src={video2Url}
+          autoPlay
           muted
           playsInline
           loop={false}
