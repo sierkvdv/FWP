@@ -210,7 +210,7 @@ const VideoPreview: React.FC<VideoPreviewProps> = ({
     );
   }
 
-  // YouTube embed container
+  // Extract video ID once for all YouTube operations
   const videoId = extractYouTubeId(videoUrl);
   const thumbnailUrl = videoId 
     ? `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`
@@ -288,11 +288,6 @@ const VideoPreview: React.FC<VideoPreviewProps> = ({
   }
 
   // Show thumbnail in background while iframe loads (for iOS)
-  const videoId = extractYouTubeId(videoUrl);
-  const thumbnailUrl = videoId 
-    ? `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`
-    : '';
-
   return (
     <div
       ref={containerRef}
