@@ -5,17 +5,62 @@ interface VideoBackgroundProps {
   className?: string;
 }
 
+/**
+ * Detects if the user is on iOS
+ */
+const isIOS = (): boolean => {
+  return /iPad|iPhone|iPod/.test(navigator.userAgent) || 
+    (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+};
+
 const VideoBackground: React.FC<VideoBackgroundProps> = ({ 
   videoUrls, 
   className = '' 
 }) => {
   const video1Ref = useRef<HTMLVideoElement>(null);
   const video2Ref = useRef<HTMLVideoElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
   const [activeLayer, setActiveLayer] = useState<'video1' | 'video2'>('video1');
+  const [hasUserInteracted, setHasUserInteracted] = useState(false);
+  const [isIOSDevice, setIsIOSDevice] = useState(false);
   
   // Track which video index is in each layer
   const [video1Index, setVideo1Index] = useState(0);
   const [video2Index, setVideo2Index] = useState(1);
+
+  // Detect iOS on mount
+  useEffect(() => {
+    setIsIOSDevice(isIOS());
+  }, []);
+
+  // Handle user interaction for iOS autoplay
+  useEffect(() => {
+    if (!isIOSDevice || hasUserInteracted) return;
+
+    const handleUserInteraction = () => {
+      setHasUserInteracted(true);
+      
+      // Start playing the active video
+      const activeVideo = activeLayer === 'video1' ? video1Ref.current : video2Ref.current;
+      if (activeVideo) {
+        activeVideo.play().catch((error) => {
+          console.log('Error starting video after user interaction:', error);
+        });
+      }
+    };
+
+    // Listen for any user interaction
+    const events = ['click', 'touchstart', 'touchend'];
+    events.forEach(event => {
+      document.addEventListener(event, handleUserInteraction, { once: true, passive: true });
+    });
+
+    return () => {
+      events.forEach(event => {
+        document.removeEventListener(event, handleUserInteraction);
+      });
+    };
+  }, [isIOSDevice, hasUserInteracted, activeLayer]);
 
   // Handle video transitions
   useEffect(() => {
@@ -141,12 +186,18 @@ const VideoBackground: React.FC<VideoBackgroundProps> = ({
   const video2Url = videoUrls.length > 1 ? videoUrls[video2Index] : undefined;
 
   return (
-    <div className={`absolute inset-0 overflow-hidden ${className}`}>
+    <div 
+      ref={containerRef}
+      className={`absolute inset-0 overflow-hidden ${className}`}
+      style={{
+        cursor: isIOSDevice && !hasUserInteracted ? 'pointer' : 'default',
+      }}
+    >
       {/* Video 1 - src directly in JSX for iOS autoplay compatibility */}
       <video
         ref={video1Ref}
         src={video1Url}
-        autoPlay
+        autoPlay={!isIOSDevice || hasUserInteracted}
         muted
         playsInline
         loop={false}
@@ -167,7 +218,7 @@ const VideoBackground: React.FC<VideoBackgroundProps> = ({
         <video
           ref={video2Ref}
           src={video2Url}
-          autoPlay
+          autoPlay={!isIOSDevice || hasUserInteracted}
           muted
           playsInline
           loop={false}
@@ -182,6 +233,38 @@ const VideoBackground: React.FC<VideoBackgroundProps> = ({
             zIndex: activeLayer === 'video2' ? 2 : 1,
           }}
         />
+      )}
+      
+      {/* iOS tap overlay - shows when user hasn't interacted yet */}
+      {isIOSDevice && !hasUserInteracted && (
+        <div 
+          className="absolute inset-0 z-50 flex items-center justify-center bg-black/20"
+          style={{
+            pointerEvents: 'auto',
+          }}
+          onClick={(e) => {
+            e.stopPropagation();
+            setHasUserInteracted(true);
+            const activeVideo = activeLayer === 'video1' ? video1Ref.current : video2Ref.current;
+            if (activeVideo) {
+              activeVideo.play().catch((error) => {
+                console.log('Error starting video:', error);
+              });
+            }
+          }}
+        >
+          <div className="bg-black/60 rounded-full p-4 opacity-80">
+            <svg
+              width="48"
+              height="48"
+              viewBox="0 0 24 24"
+              fill="white"
+              className="ml-1"
+            >
+              <path d="M8 5v14l11-7z" />
+            </svg>
+          </div>
+        </div>
       )}
       
       {/* Dark overlay for better text readability */}

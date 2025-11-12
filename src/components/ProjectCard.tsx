@@ -31,27 +31,43 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, index }) => {
       whileHover={{ y: -10 }}
       className="group relative"
     >
-      <Link to={`/projects/${project.id}`}>
-        <div className={`relative overflow-hidden rounded-xl glass-effect-enhanced project-card-enhanced category-${project.category}`}>
-          {/* Project Video or Image - CSS ANIMATED VERSION */}
-          <div style={{ height: '200px', backgroundColor: '#1e293b', display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden', position: 'relative' }}>
-            {project.video && isYouTubeUrl(project.video) ? (
-              <div style={{ pointerEvents: 'none', width: '100%', height: '100%', position: 'relative' }}>
-                <VideoPreview
-                  videoUrl={project.video}
-                  autoplay={true}
-                  muted={true}
-                  loop={true}
-                  className="absolute inset-0"
-                  overlayOpacity={0.2}
-                />
-              </div>
-            ) : (
-              <AnimatedProjectImage projectId={project.id} title={project.title} />
-            )}
-          </div>
+      <div className={`relative overflow-hidden rounded-xl glass-effect-enhanced project-card-enhanced category-${project.category}`}>
+        {/* Project Video or Image - Clickable to YouTube if video, otherwise just display */}
+        <div style={{ height: '200px', backgroundColor: '#1e293b', display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden', position: 'relative' }}>
+          {project.video && isYouTubeUrl(project.video) ? (
+            <div style={{ width: '100%', height: '100%', position: 'relative' }}>
+              <VideoPreview
+                videoUrl={project.video}
+                autoplay={true}
+                muted={true}
+                loop={true}
+                className="absolute inset-0"
+                overlayOpacity={0.2}
+                showYouTubeButton={true}
+                interactive={false}
+              />
+              {/* Clickable overlay to go to YouTube - stops propagation to Link */}
+              <a
+                href={project.video}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="absolute inset-0 z-40"
+                onClick={(e) => {
+                  e.stopPropagation();
+                }}
+                style={{
+                  pointerEvents: 'auto',
+                  cursor: 'pointer',
+                }}
+              />
+            </div>
+          ) : (
+            <AnimatedProjectImage projectId={project.id} title={project.title} />
+          )}
+        </div>
 
-          {/* Content */}
+        {/* Content - Link to project detail page */}
+        <Link to={`/projects/${project.id}`} className="block">
           <div className="p-6">
             <div className="mb-3">
               <h3 className="text-xl font-bold text-white mb-2 group-hover:text-accent transition-colors duration-200">
@@ -98,10 +114,10 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, index }) => {
               </motion.div>
             </div>
           </div>
-        </div>
-      </Link>
+        </Link>
+      </div>
     </motion.div>
   );
 };
 
-export default ProjectCard; 
+export default ProjectCard;
