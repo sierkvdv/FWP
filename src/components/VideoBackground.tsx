@@ -14,28 +14,9 @@ const VideoBackground: React.FC<VideoBackgroundProps> = ({
   const [currentIndex, setCurrentIndex] = useState(0);
   const [activeLayer, setActiveLayer] = useState<'video1' | 'video2'>('video1');
 
-  // Initialize first video when videoUrls are available
-  useEffect(() => {
-    if (videoUrls.length === 0) return;
-
-    const video1 = video1Ref.current;
-    if (!video1) return;
-
-    // Load first video - this should work on iOS with autoplay attribute
-    video1.src = videoUrls[0];
-    video1.muted = true;
-    video1.playsInline = true;
-    
-    // Preload second video if available
-    if (videoUrls.length > 1) {
-      const video2 = video2Ref.current;
-      if (video2) {
-        video2.src = videoUrls[1];
-        video2.muted = true;
-        video2.playsInline = true;
-      }
-    }
-  }, [videoUrls]);
+  // Get URLs based on current index
+  const video1Url = videoUrls[currentIndex % videoUrls.length];
+  const video2Url = videoUrls.length > 1 ? videoUrls[(currentIndex + 1) % videoUrls.length] : undefined;
 
   // Handle video transitions
   useEffect(() => {
@@ -53,8 +34,11 @@ const VideoBackground: React.FC<VideoBackgroundProps> = ({
       const timeRemaining = activeVideo.duration - activeVideo.currentTime;
       if (timeRemaining <= 2) {
         const nextIndex = (currentIndex + 1) % videoUrls.length;
-        if (nextVideo.src !== videoUrls[nextIndex]) {
-          nextVideo.src = videoUrls[nextIndex];
+        const nextSrc = videoUrls[nextIndex];
+        
+        // Update next video src if needed
+        if (nextVideo.src !== nextSrc) {
+          nextVideo.src = nextSrc;
           nextVideo.muted = true;
           nextVideo.playsInline = true;
           nextVideo.load();
@@ -67,17 +51,31 @@ const VideoBackground: React.FC<VideoBackgroundProps> = ({
       const nextIndex = (currentIndex + 1) % videoUrls.length;
       const nextLayer = activeLayer === 'video1' ? 'video2' : 'video1';
 
-      // Start crossfade
+      // Fade out active video
       activeVideo.style.transition = 'opacity 0.8s ease-in-out';
       activeVideo.style.opacity = '0';
 
       // Start next video
-      nextVideo.currentTime = 0;
-      nextVideo.play().catch(() => {
-        console.log('Autoplay blocked during transition - iOS may require user interaction');
-      });
-      nextVideo.style.transition = 'opacity 0.8s ease-in-out';
-      nextVideo.style.opacity = '1';
+      if (nextVideo.readyState >= 2) {
+        nextVideo.currentTime = 0;
+        nextVideo.play().catch(() => {
+          // On iOS, autoplay may be blocked - that's OK for transitions
+          console.log('Autoplay blocked during transition');
+        });
+        nextVideo.style.transition = 'opacity 0.8s ease-in-out';
+        nextVideo.style.opacity = '1';
+      } else {
+        // Wait for video to be ready
+        const startNext = () => {
+          nextVideo.currentTime = 0;
+          nextVideo.play().catch(() => {
+            console.log('Autoplay blocked during transition');
+          });
+          nextVideo.style.transition = 'opacity 0.8s ease-in-out';
+          nextVideo.style.opacity = '1';
+        };
+        nextVideo.addEventListener('canplay', startNext, { once: true });
+      }
 
       // Update state after transition
       setTimeout(() => {
@@ -97,15 +95,16 @@ const VideoBackground: React.FC<VideoBackgroundProps> = ({
     };
   }, [currentIndex, activeLayer, videoUrls]);
 
-  if (videoUrls.length === 0) {
+  if (videoUrls.length === 0 || !video1Url) {
     return null;
   }
 
   return (
     <div className={`absolute inset-0 overflow-hidden ${className}`}>
-      {/* Video 1 - First video, always has autoplay */}
+      {/* Video 1 - First video with src in JSX for iOS autoplay */}
       <video
         ref={video1Ref}
+        src={video1Url}
         autoPlay
         muted
         playsInline
@@ -122,10 +121,11 @@ const VideoBackground: React.FC<VideoBackgroundProps> = ({
         }}
       />
       
-      {/* Video 2 - Next video, only render if we have multiple videos */}
-      {videoUrls.length > 1 && (
+      {/* Video 2 - Next video for smooth transitions */}
+      {videoUrls.length > 1 && video2Url && (
         <video
           ref={video2Ref}
+          src={video2Url}
           muted
           playsInline
           loop={false}
