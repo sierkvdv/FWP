@@ -35,6 +35,8 @@ export const VIDEO_BUCKET_NAME = 'hero-videos';
  */
 export async function getVideoUrls(): Promise<string[]> {
   try {
+    console.log(`Attempting to fetch videos from bucket: ${VIDEO_BUCKET_NAME}`);
+    
     const { data, error } = await supabase.storage
       .from(VIDEO_BUCKET_NAME)
       .list('', {
@@ -44,14 +46,36 @@ export async function getVideoUrls(): Promise<string[]> {
       });
 
     if (error) {
-      console.error('Error fetching videos from Supabase:', error);
+      console.error('❌ Error fetching videos from Supabase:', error);
+      console.error('Error details:', {
+        message: error.message,
+        statusCode: error.statusCode,
+        error: error.error
+      });
+      
+      // Common errors
+      if (error.message?.includes('not found') || error.statusCode === '404') {
+        console.error(`⚠️ Bucket "${VIDEO_BUCKET_NAME}" not found. Please check if the bucket exists in Supabase.`);
+      } else if (error.message?.includes('permission') || error.statusCode === '403') {
+        console.error(`⚠️ Permission denied. Please check if bucket "${VIDEO_BUCKET_NAME}" is public.`);
+      }
+      
       return [];
     }
 
+    console.log(`📁 Found ${data?.length || 0} files in bucket "${VIDEO_BUCKET_NAME}"`);
+
     if (!data || data.length === 0) {
-      console.log('No videos found in Supabase storage');
+      console.warn(`⚠️ No files found in bucket "${VIDEO_BUCKET_NAME}"`);
+      console.warn('Please check:');
+      console.warn('1. Does the bucket exist?');
+      console.warn('2. Is the bucket name exactly "' + VIDEO_BUCKET_NAME + '"?');
+      console.warn('3. Are there any files uploaded to the bucket?');
       return [];
     }
+
+    // Log all files found
+    console.log('Files found:', data.map(f => f.name));
 
     // Filter for video files only
     const videoFiles = data.filter(file => {
@@ -59,17 +83,26 @@ export async function getVideoUrls(): Promise<string[]> {
       return ['mp4', 'webm', 'ogg', 'mov'].includes(extension || '');
     });
 
+    console.log(`🎥 Found ${videoFiles.length} video files:`, videoFiles.map(f => f.name));
+
+    if (videoFiles.length === 0) {
+      console.warn('⚠️ No video files found. Only video files (.mp4, .webm, .ogg, .mov) are supported.');
+      return [];
+    }
+
     // Get public URLs for each video
     const videoUrls = videoFiles.map(file => {
       const { data } = supabase.storage
         .from(VIDEO_BUCKET_NAME)
         .getPublicUrl(file.name);
+      console.log(`✅ Generated URL for ${file.name}:`, data.publicUrl);
       return data.publicUrl;
     });
 
+    console.log(`✅ Successfully loaded ${videoUrls.length} video URL(s)`);
     return videoUrls;
   } catch (error) {
-    console.error('Error getting video URLs:', error);
+    console.error('❌ Error getting video URLs:', error);
     return [];
   }
 }
