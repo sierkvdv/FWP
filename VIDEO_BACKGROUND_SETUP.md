@@ -2,28 +2,37 @@
 
 ## Optie 1: Supabase Storage (Aanbevolen)
 
-### Stap 1: Supabase Project Aanmaken (als je dit nog niet hebt)
+### Stap 1: Supabase Project Aanmaken (BELANGRIJK: Direct via Supabase, NIET via Vercel!)
 
-1. **Ga naar Supabase Dashboard**
-   - Ga naar https://supabase.com
-   - Log in met je account
-   - Je ziet nu je dashboard met je bestaande projecten (bijv. "supabase-codebuddy", "supabase-open-ai-gen")
+**⚠️ LET OP: Maak het project DIRECT op Supabase.com, NIET via Vercel Marketplace!**
+
+1. **Ga DIRECT naar Supabase (omzeil Vercel)**
+   - Open een NIEUWE TAB in je browser
+   - Ga DIRECT naar: **https://app.supabase.com** (of https://supabase.com/dashboard)
+   - Log in met je Supabase account
+   - **NIET via Vercel gaan!**
 
 2. **Maak een nieuw project**
-   - Kijk rechtsboven in je dashboard
-   - Klik op de knop **"New Project"** (of "New" → "Project")
-   - Je ziet nu een formulier om een nieuw project aan te maken
-   
+   - In je Supabase dashboard, kijk naar de projectenlijst
+   - Klik op **"New Project"** (rechtsboven, grote groene knop)
+   - **NIET** op "Add Project" of via Vercel Marketplace!
+
 3. **Vul het formulier in:**
-   - **Name**: Bijv. `fwp-website` of `FWP Website`
-   - **Database Password**: Kies een sterk wachtwoord (sla dit op in een wachtwoord manager!)
+   - **Organization**: Kies je bestaande organisatie (of maak een nieuwe)
+   - **Name**: Bijv. `fwp-website` of `fwp-videos`
+   - **Database Password**: Kies een sterk wachtwoord (sla dit op!)
    - **Region**: Kies het dichtstbijzijnde (bijv. "West EU (Ireland)" voor Nederland)
-   - **Pricing Plan**: Kies "Free" (gratis tier is genoeg voor video storage)
+   - **Pricing Plan**: Kies **"Free"** (gratis tier is genoeg voor video storage)
    
 4. **Maak het project aan**
-   - Klik op **"Create new project"**
+   - Klik op **"Create new project"** (onderaan het formulier)
    - ⏳ Wacht 1-2 minuten tot het project is aangemaakt
    - Je ziet nu je nieuwe project in de lijst!
+
+**Als je nog steeds in een loop komt:**
+- Gebruik een incognito/private browser window
+- Of log uit bij Vercel en ga direct naar Supabase
+- Het project hoeft NIET gekoppeld te zijn aan Vercel voor Storage te werken!
 
 ### Stap 2: Storage Bucket Aanmaken
 
@@ -99,8 +108,22 @@
 
 ---
 
-## Optie 2: YouTube Playlist (Alternatief)
+## Optie 2: Alternatieve Oplossingen (als Supabase niet werkt)
 
+### A. Cloudinary (Gratis tier beschikbaar)
+- Ga naar https://cloudinary.com
+- Maak gratis account
+- Upload video's naar Media Library
+- Gebruik de "Auto" delivery URL's
+- Voeg URLs toe aan `backgroundVideos`
+
+### B. Bunny.net (Goedkoop CDN)
+- Ga naar https://bunny.net
+- Maak account (gratis tier)
+- Upload video's naar Storage
+- Gebruik de CDN URLs
+
+### C. YouTube (Eenvoudig maar minder controle)
 Als je YouTube wilt gebruiken, kun je een playlist maken en de video IDs gebruiken. Dit vereist wel wat extra code aanpassingen.
 
 **Nadelen van YouTube:**
