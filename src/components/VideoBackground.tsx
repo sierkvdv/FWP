@@ -13,19 +13,27 @@ const VideoBackground: React.FC<VideoBackgroundProps> = ({
   const video2Ref = useRef<HTMLVideoElement>(null);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [activeLayer, setActiveLayer] = useState<'video1' | 'video2'>('video1');
-  const [video1Src, setVideo1Src] = useState<string | undefined>(videoUrls[0]);
-  const [video2Src, setVideo2Src] = useState<string | undefined>(videoUrls.length > 1 ? videoUrls[1] : undefined);
 
-  // Update sources when videoUrls change
+  // Initialize first video when videoUrls are available
   useEffect(() => {
-    if (videoUrls.length === 0) {
-      setVideo1Src(undefined);
-      setVideo2Src(undefined);
-      return;
-    }
-    setVideo1Src(videoUrls[0]);
+    if (videoUrls.length === 0) return;
+
+    const video1 = video1Ref.current;
+    if (!video1) return;
+
+    // Load first video - this should work on iOS with autoplay attribute
+    video1.src = videoUrls[0];
+    video1.muted = true;
+    video1.playsInline = true;
+    
+    // Preload second video if available
     if (videoUrls.length > 1) {
-      setVideo2Src(videoUrls[1]);
+      const video2 = video2Ref.current;
+      if (video2) {
+        video2.src = videoUrls[1];
+        video2.muted = true;
+        video2.playsInline = true;
+      }
     }
   }, [videoUrls]);
 
@@ -45,17 +53,11 @@ const VideoBackground: React.FC<VideoBackgroundProps> = ({
       const timeRemaining = activeVideo.duration - activeVideo.currentTime;
       if (timeRemaining <= 2) {
         const nextIndex = (currentIndex + 1) % videoUrls.length;
-        const nextSrc = videoUrls[nextIndex];
-        
-        // Update src in state so it updates in JSX
-        if (activeLayer === 'video1') {
-          if (video2Src !== nextSrc) {
-            setVideo2Src(nextSrc);
-          }
-        } else {
-          if (video1Src !== nextSrc) {
-            setVideo1Src(nextSrc);
-          }
+        if (nextVideo.src !== videoUrls[nextIndex]) {
+          nextVideo.src = videoUrls[nextIndex];
+          nextVideo.muted = true;
+          nextVideo.playsInline = true;
+          nextVideo.load();
         }
       }
     };
@@ -69,26 +71,13 @@ const VideoBackground: React.FC<VideoBackgroundProps> = ({
       activeVideo.style.transition = 'opacity 0.8s ease-in-out';
       activeVideo.style.opacity = '0';
 
-      // Ensure next video is ready
-      if (nextVideo.readyState >= 2) {
-        nextVideo.currentTime = 0;
-        nextVideo.play().catch(() => {
-          console.log('Autoplay blocked during transition');
-        });
-        nextVideo.style.transition = 'opacity 0.8s ease-in-out';
-        nextVideo.style.opacity = '1';
-      } else {
-        // Wait for video to load
-        const startNextVideo = () => {
-          nextVideo.currentTime = 0;
-          nextVideo.play().catch(() => {
-            console.log('Autoplay blocked during transition');
-          });
-          nextVideo.style.transition = 'opacity 0.8s ease-in-out';
-          nextVideo.style.opacity = '1';
-        };
-        nextVideo.addEventListener('canplay', startNextVideo, { once: true });
-      }
+      // Start next video
+      nextVideo.currentTime = 0;
+      nextVideo.play().catch(() => {
+        console.log('Autoplay blocked during transition - iOS may require user interaction');
+      });
+      nextVideo.style.transition = 'opacity 0.8s ease-in-out';
+      nextVideo.style.opacity = '1';
 
       // Update state after transition
       setTimeout(() => {
@@ -96,14 +85,6 @@ const VideoBackground: React.FC<VideoBackgroundProps> = ({
         setActiveLayer(nextLayer);
         activeVideo.style.opacity = '1';
         activeVideo.style.transition = '';
-        
-        // Preload next video for next transition
-        const nextNextIndex = (nextIndex + 1) % videoUrls.length;
-        if (nextLayer === 'video1') {
-          setVideo2Src(videoUrls[nextNextIndex]);
-        } else {
-          setVideo1Src(videoUrls[nextNextIndex]);
-        }
       }, 800);
     };
 
@@ -114,7 +95,7 @@ const VideoBackground: React.FC<VideoBackgroundProps> = ({
       activeVideo.removeEventListener('timeupdate', handleTimeUpdate);
       activeVideo.removeEventListener('ended', handleEnded);
     };
-  }, [currentIndex, activeLayer, videoUrls, video1Src, video2Src]);
+  }, [currentIndex, activeLayer, videoUrls]);
 
   if (videoUrls.length === 0) {
     return null;
@@ -122,10 +103,9 @@ const VideoBackground: React.FC<VideoBackgroundProps> = ({
 
   return (
     <div className={`absolute inset-0 overflow-hidden ${className}`}>
-      {/* Video 1 - Always render if we have videos, always has autoplay for iOS */}
+      {/* Video 1 - First video, always has autoplay */}
       <video
         ref={video1Ref}
-        src={video1Src}
         autoPlay
         muted
         playsInline
@@ -136,19 +116,16 @@ const VideoBackground: React.FC<VideoBackgroundProps> = ({
           minWidth: '100%',
           minHeight: '100%',
           objectFit: 'cover',
-          opacity: activeLayer === 'video1' && video1Src ? 1 : 0,
+          opacity: activeLayer === 'video1' ? 1 : 0,
           transition: 'opacity 0.8s ease-in-out',
           zIndex: activeLayer === 'video1' ? 2 : 1,
-          pointerEvents: 'none',
         }}
       />
       
-      {/* Video 2 - Always render if we have multiple videos, also has autoplay */}
+      {/* Video 2 - Next video, only render if we have multiple videos */}
       {videoUrls.length > 1 && (
         <video
           ref={video2Ref}
-          src={video2Src}
-          autoPlay
           muted
           playsInline
           loop={false}
@@ -158,10 +135,9 @@ const VideoBackground: React.FC<VideoBackgroundProps> = ({
             minWidth: '100%',
             minHeight: '100%',
             objectFit: 'cover',
-            opacity: activeLayer === 'video2' && video2Src ? 1 : 0,
+            opacity: activeLayer === 'video2' ? 1 : 0,
             transition: 'opacity 0.8s ease-in-out',
             zIndex: activeLayer === 'video2' ? 2 : 1,
-            pointerEvents: 'none',
           }}
         />
       )}
