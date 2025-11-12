@@ -16,11 +16,21 @@ const supabaseAnonKey =
   '';
 
 if (!supabaseUrl || !supabaseAnonKey) {
-  console.warn('Supabase URL or Anon Key is missing. Video background may not work.');
+  console.warn('❌ Supabase URL or Anon Key is missing. Video background may not work.');
   console.warn('Looking for: REACT_APP_SUPABASE_URL, NEXT_PUBLIC_SUPABASE_URL, or SUPABASE_URL');
   console.warn('And: REACT_APP_SUPABASE_ANON_KEY, NEXT_PUBLIC_SUPABASE_ANON_KEY, or SUPABASE_ANON_KEY');
+  console.warn('Available env vars:', {
+    REACT_APP_SUPABASE_URL: process.env.REACT_APP_SUPABASE_URL ? '✅ SET' : '❌ NOT SET',
+    NEXT_PUBLIC_SUPABASE_URL: process.env.NEXT_PUBLIC_SUPABASE_URL ? '✅ SET' : '❌ NOT SET',
+    SUPABASE_URL: process.env.SUPABASE_URL ? '✅ SET' : '❌ NOT SET',
+    REACT_APP_SUPABASE_ANON_KEY: process.env.REACT_APP_SUPABASE_ANON_KEY ? '✅ SET' : '❌ NOT SET',
+    NEXT_PUBLIC_SUPABASE_ANON_KEY: process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ? '✅ SET' : '❌ NOT SET',
+    SUPABASE_ANON_KEY: process.env.SUPABASE_ANON_KEY ? '✅ SET' : '❌ NOT SET',
+  });
 } else {
-  console.log('Supabase configured successfully');
+  console.log('✅ Supabase configured successfully');
+  console.log('🔗 Supabase URL:', supabaseUrl.substring(0, 30) + '...');
+  console.log('🔑 Anon Key:', supabaseAnonKey.substring(0, 20) + '...');
 }
 
 // Create Supabase client
@@ -35,8 +45,33 @@ export const VIDEO_BUCKET_NAME = 'hero-videos';
  */
 export async function getVideoUrls(): Promise<string[]> {
   try {
-    console.log(`Attempting to fetch videos from bucket: ${VIDEO_BUCKET_NAME}`);
+    console.log('🔍 ===== VIDEO LOADING DEBUG =====');
+    console.log(`📦 Attempting to fetch videos from bucket: "${VIDEO_BUCKET_NAME}"`);
+    console.log(`🌐 Supabase URL: ${supabaseUrl ? supabaseUrl.substring(0, 40) + '...' : 'NOT SET'}`);
+    console.log(`🔑 Anon Key: ${supabaseAnonKey ? 'SET (' + supabaseAnonKey.substring(0, 10) + '...)' : 'NOT SET'}`);
     
+    // Try to test Supabase connection (this might fail with anon key, that's OK)
+    console.log('🔍 Testing Supabase connection...');
+    try {
+      const { data: buckets, error: bucketsError } = await supabase.storage.listBuckets();
+      if (bucketsError) {
+        console.warn('⚠️ Cannot list all buckets (this is normal with anon key):', bucketsError.message);
+      } else if (buckets && buckets.length > 0) {
+        console.log(`✅ Found ${buckets.length} bucket(s):`, buckets.map(b => b.name));
+        const targetBucket = buckets.find(b => b.name === VIDEO_BUCKET_NAME);
+        if (targetBucket) {
+          console.log(`✅ Target bucket "${VIDEO_BUCKET_NAME}" found in list!`);
+          console.log(`   - Public: ${targetBucket.public ? '✅ YES' : '❌ NO (THIS IS THE PROBLEM!)'}`);
+        } else {
+          console.warn(`⚠️ Bucket "${VIDEO_BUCKET_NAME}" not in list, but continuing anyway...`);
+          console.warn('Available buckets:', buckets.map(b => b.name));
+        }
+      }
+    } catch (e) {
+      console.warn('⚠️ Could not list buckets (this is OK, continuing...)');
+    }
+    
+    console.log(`📂 Attempting to list files in bucket "${VIDEO_BUCKET_NAME}"...`);
     const { data, error } = await supabase.storage
       .from(VIDEO_BUCKET_NAME)
       .list('', {
