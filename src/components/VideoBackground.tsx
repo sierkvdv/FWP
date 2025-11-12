@@ -15,6 +15,10 @@ const VideoBackground: React.FC<VideoBackgroundProps> = ({
   const [activeLayer, setActiveLayer] = useState<'video1' | 'video2'>('video1');
   const [isLoading, setIsLoading] = useState(true);
   const hasPreloadedRef = useRef(false);
+  
+  // Track video sources for JSX (iOS compatibility)
+  const [video1Src, setVideo1Src] = useState<string | undefined>(videoUrls.length > 0 ? videoUrls[0] : undefined);
+  const [video2Src, setVideo2Src] = useState<string | undefined>(videoUrls.length > 1 ? videoUrls[1] : undefined);
 
   // Get next video index
   const getNextIndex = useCallback((index: number) => {
@@ -27,58 +31,71 @@ const VideoBackground: React.FC<VideoBackgroundProps> = ({
     const video = videoRef.current;
     if (!video || !videoUrls[index]) return;
 
-    // For iOS, ensure video is properly configured
-    video.src = videoUrls[index];
-    video.muted = true;
-    video.volume = 0;
-    video.setAttribute('playsinline', 'true');
-    video.setAttribute('webkit-playsinline', 'true');
-    video.setAttribute('x5-playsinline', 'true');
-    video.load();
+    // Only update src if it's different (to avoid interrupting playback on iOS)
+    if (video.src !== videoUrls[index]) {
+      video.src = videoUrls[index];
+      video.muted = true;
+      video.volume = 0;
+      video.setAttribute('playsinline', 'true');
+      video.setAttribute('webkit-playsinline', 'true');
+      video.setAttribute('x5-playsinline', 'true');
+      video.load();
+    }
   }, [videoUrls]);
 
-  // Initialize first video
+  // Update video sources when videoUrls change
   useEffect(() => {
-    if (videoUrls.length === 0) return;
+    if (videoUrls.length === 0) {
+      setVideo1Src(undefined);
+      setVideo2Src(undefined);
+      return;
+    }
+    
+    // Set initial sources
+    setVideo1Src(videoUrls[0]);
+    if (videoUrls.length > 1) {
+      setVideo2Src(videoUrls[1]);
+    }
+  }, [videoUrls]);
+
+  // Initialize first video - src is now set directly in JSX for iOS compatibility
+  useEffect(() => {
+    if (videoUrls.length === 0 || !video1Src) return;
 
     const video1 = video1Ref.current;
     if (!video1) return;
 
-    // Load first video into video1
-    loadVideoIntoLayer('video1', 0);
+    // Ensure video is configured for iOS
+    video1.muted = true;
+    video1.volume = 0;
     
-    // Preload second video into video2 immediately
-    if (videoUrls.length > 1) {
-      loadVideoIntoLayer('video2', getNextIndex(0));
-    }
-
-    // iOS-compatible: Let autoplay attribute handle playback, only assist if needed
+    // iOS-compatible: Let autoplay attribute handle playback
+    // Since src is set directly in JSX, autoplay should work on iOS
     const handleVideoReady = () => {
       setIsLoading(false);
       
-      // On iOS, the autoplay attribute should handle playback
-      // Only try programmatically if video is not playing after a delay
+      // On iOS, if autoplay attribute is present and video is muted/playsinline,
+      // it should play automatically. Only assist if needed.
       if (video1.paused) {
-        // Wait a bit for autoplay to kick in (iOS sometimes needs this)
+        // Small delay to let autoplay attribute work
         setTimeout(() => {
           if (video1.paused) {
-            // Only then try programmatically as fallback
+            // Fallback: try programmatically
             video1.play().catch((error) => {
-              console.log('Autoplay blocked on iOS - this is expected behavior');
-              // On iOS, autoplay may be blocked, but the video element
-              // with autoplay attribute will attempt to play when visible
+              console.log('Autoplay may be blocked on iOS - video will play when user interacts');
             });
           }
-        }, 300);
+        }, 500);
+      } else {
+        setIsLoading(false);
       }
     };
 
-    // Listen for when video is ready to play
-    // On iOS, we want the autoplay attribute to work naturally
+    // Listen for when video is ready
     video1.addEventListener('loadeddata', handleVideoReady, { once: true });
     video1.addEventListener('canplay', handleVideoReady, { once: true });
     
-    // Also check if video is already loaded
+    // If video is already loaded
     if (video1.readyState >= 2) {
       handleVideoReady();
     }
@@ -87,7 +104,7 @@ const VideoBackground: React.FC<VideoBackgroundProps> = ({
       video1.removeEventListener('loadeddata', handleVideoReady);
       video1.removeEventListener('canplay', handleVideoReady);
     };
-  }, [videoUrls, loadVideoIntoLayer, getNextIndex]);
+  }, [videoUrls, video1Src]);
 
   // Handle video transitions
   useEffect(() => {
@@ -169,6 +186,19 @@ const VideoBackground: React.FC<VideoBackgroundProps> = ({
           setCurrentIndex(nextIndex);
           setActiveLayer(nextLayer);
           
+          // Update video sources for next transition
+          if (nextLayer === 'video1') {
+            setVideo1Src(videoUrls[nextIndex]);
+            // Preload next video in video2
+            const nextNextIndex = getNextIndex(nextIndex);
+            setVideo2Src(videoUrls[nextNextIndex]);
+          } else {
+            setVideo2Src(videoUrls[nextIndex]);
+            // Preload next video in video1
+            const nextNextIndex = getNextIndex(nextIndex);
+            setVideo1Src(videoUrls[nextNextIndex]);
+          }
+          
           // Reset active video for next transition
           activeVideo.style.opacity = '1';
           activeVideo.style.transition = '';
@@ -202,9 +232,10 @@ const VideoBackground: React.FC<VideoBackgroundProps> = ({
 
   return (
     <div className={`absolute inset-0 overflow-hidden ${className}`}>
-      {/* Video 1 */}
+      {/* Video 1 - Set src directly for iOS autoplay compatibility */}
       <video
         ref={video1Ref}
+        src={video1Src}
         autoPlay
         muted
         playsInline
@@ -218,6 +249,7 @@ const VideoBackground: React.FC<VideoBackgroundProps> = ({
           opacity: activeLayer === 'video1' ? 1 : 0,
           transition: 'opacity 0.8s ease-in-out',
           zIndex: activeLayer === 'video1' ? 2 : 1,
+          pointerEvents: 'none',
         }}
         {...({
           'webkit-playsinline': true,
@@ -225,9 +257,10 @@ const VideoBackground: React.FC<VideoBackgroundProps> = ({
         } as any)}
       />
       
-      {/* Video 2 */}
+      {/* Video 2 - Preload next video for smooth transition */}
       <video
         ref={video2Ref}
+        src={video2Src}
         autoPlay
         muted
         playsInline
@@ -241,6 +274,7 @@ const VideoBackground: React.FC<VideoBackgroundProps> = ({
           opacity: activeLayer === 'video2' ? 1 : 0,
           transition: 'opacity 0.8s ease-in-out',
           zIndex: activeLayer === 'video2' ? 2 : 1,
+          pointerEvents: 'none',
         }}
         {...({
           'webkit-playsinline': true,
