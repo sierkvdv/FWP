@@ -84,15 +84,21 @@ export async function getVideoUrls(): Promise<string[]> {
       console.error('❌ Error fetching videos from Supabase:', error);
       console.error('Error details:', {
         message: error.message,
-        statusCode: error.statusCode,
-        error: error.error
+        name: error.name,
+        statusCode: (error as any).statusCode || (error as any).status || 'unknown'
       });
       
       // Common errors
-      if (error.message?.includes('not found') || error.statusCode === '404') {
+      const errorMessage = error.message?.toLowerCase() || '';
+      const statusCode = String((error as any).statusCode || (error as any).status || '');
+      
+      if (errorMessage.includes('not found') || statusCode === '404') {
         console.error(`⚠️ Bucket "${VIDEO_BUCKET_NAME}" not found. Please check if the bucket exists in Supabase.`);
-      } else if (error.message?.includes('permission') || error.statusCode === '403') {
+      } else if (errorMessage.includes('permission') || errorMessage.includes('forbidden') || statusCode === '403') {
         console.error(`⚠️ Permission denied. Please check if bucket "${VIDEO_BUCKET_NAME}" is public.`);
+        console.error('   Make sure the bucket has "Public bucket" enabled in Supabase Storage settings.');
+      } else if (errorMessage.includes('unauthorized') || statusCode === '401') {
+        console.error(`⚠️ Unauthorized. Please check your Supabase credentials in Vercel environment variables.`);
       }
       
       return [];
