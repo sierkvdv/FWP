@@ -3,7 +3,11 @@ export const SITE_CONFIG = {
   fullName: 'Fieldworks Production',
   description: 'Creative engineering and AI-powered solutions',
   accentColor: '#00ff88',
-  contactEmail: 'hello@fwp.com'
+  contactEmail: 'hello@fwp.com',
+  // Background videos for homepage hero section
+  // Add your Supabase Storage URLs here, or leave empty array to use particle background
+  // Example: ['https://your-project.supabase.co/storage/v1/object/public/videos/video1.mp4', ...]
+  backgroundVideos: [] as string[],
 };
 
 export const CATEGORY_CONFIG = {

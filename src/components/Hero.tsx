@@ -6,6 +6,7 @@ import { fadeInUp, slideInLeft, slideInRight } from '../utils/animations';
 import { useLanguage } from '../contexts/LanguageContext';
 import ParticleBackground from './ParticleBackground';
 import MagneticCursor from './MagneticCursor';
+import VideoBackground from './VideoBackground';
 
 const Hero: React.FC = () => {
   const { t } = useLanguage();
@@ -17,13 +18,22 @@ const Hero: React.FC = () => {
     }
   };
 
+  // Video URLs - Replace these with your Supabase Storage URLs or YouTube playlist
+  // Example Supabase URL format: https://[project-id].supabase.co/storage/v1/object/public/[bucket-name]/[video-file].mp4
+  const backgroundVideos = SITE_CONFIG.backgroundVideos || [];
+
   return (
     <section className="min-h-screen flex items-center justify-center relative overflow-hidden">
-      {/* Particle Background */}
-      <ParticleBackground />
+      {/* Video Background - if videos are configured */}
+      {backgroundVideos.length > 0 && (
+        <VideoBackground videoUrls={backgroundVideos} className="z-0" />
+      )}
       
-      {/* Background Elements */}
-      <div className="absolute inset-0 bg-gradient-to-br from-dark via-dark-gray to-dark opacity-90" />
+      {/* Particle Background - only show if no videos */}
+      {backgroundVideos.length === 0 && <ParticleBackground />}
+      
+      {/* Background Elements - lighter overlay if videos are playing */}
+      <div className={`absolute inset-0 bg-gradient-to-br from-dark via-dark-gray to-dark ${backgroundVideos.length > 0 ? 'opacity-60' : 'opacity-90'}`} />
       
       {/* Smooth fade to parallax */}
       <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-dark to-transparent" />
