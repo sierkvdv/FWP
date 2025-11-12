@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useLanguage } from '../contexts/LanguageContext';
+import { useProjects } from '../hooks/useProjects';
 import ProjectCard from '../components/ProjectCard';
-import { projects } from '../data/projects';
 
 
 const ProjectsPage: React.FC = () => {
   const { t } = useLanguage();
+  const projects = useProjects();
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const [searchTerm, setSearchTerm] = useState('');
 

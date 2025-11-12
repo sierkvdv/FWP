@@ -3,7 +3,7 @@ import { useParams, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { ArrowLeft, ExternalLink, Github, Play, Calendar, Tag } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
-import { projects } from '../data/projects';
+import { useProjects } from '../hooks/useProjects';
 import AnimatedProjectImage from '../components/AnimatedProjectImage';
 import VideoPreview from '../components/VideoPreview';
 
@@ -18,6 +18,7 @@ const isYouTubeUrl = (url: string): boolean => {
 
 const ProjectDetailPage: React.FC = () => {
   const { t } = useLanguage();
+  const projects = useProjects();
   const { id } = useParams<{ id: string }>();
   const project = projects.find(p => p.id === id);
 

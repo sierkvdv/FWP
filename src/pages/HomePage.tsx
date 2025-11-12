@@ -2,15 +2,16 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { useLanguage } from '../contexts/LanguageContext';
+import { useProjects } from '../hooks/useProjects';
 import Hero from '../components/Hero';
 import ProjectCard from '../components/ProjectCard';
 import ParallaxBackground from '../components/ParallaxBackground';
-import { projects } from '../data/projects';
 import { staggerContainer, fadeInUp } from '../utils/animations';
 import { ANIMATION_DELAYS } from '../utils/constants';
 
 const HomePage: React.FC = () => {
   const { t } = useLanguage();
+  const projects = useProjects();
   const featuredProjects = projects.filter(project => project.featured).slice(0, 6);
 
   return (
