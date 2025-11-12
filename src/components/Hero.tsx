@@ -3,10 +3,13 @@ import { motion } from 'framer-motion';
 import { ArrowDown, Sparkles } from 'lucide-react';
 import { SITE_CONFIG, ANIMATION_DELAYS } from '../utils/constants';
 import { fadeInUp, slideInLeft, slideInRight } from '../utils/animations';
+import { useLanguage } from '../contexts/LanguageContext';
 import ParticleBackground from './ParticleBackground';
 import MagneticCursor from './MagneticCursor';
 
 const Hero: React.FC = () => {
+  const { t } = useLanguage();
+  
   const scrollToProjects = () => {
     const projectsSection = document.getElementById('projects');
     if (projectsSection) {
@@ -61,7 +64,7 @@ const Hero: React.FC = () => {
           transition={{ delay: ANIMATION_DELAYS.fast }}
           className="mb-6"
         >
-          <span className="text-accent text-lg font-mono">Welcome to</span>
+          <span className="text-accent text-lg font-mono">{t('hero.welcome')}</span>
         </motion.div>
 
         {/* Main Title */}
@@ -104,7 +107,7 @@ const Hero: React.FC = () => {
               className="px-8 py-4 bg-accent text-dark font-semibold rounded-lg hover:bg-accent/90 transition-colors duration-200 flex items-center gap-2"
             >
               <Sparkles size={20} />
-              View Projects
+              {t('hero.viewProjects')}
             </motion.button>
           </MagneticCursor>
           
@@ -115,7 +118,7 @@ const Hero: React.FC = () => {
               onClick={() => window.location.href = '/contact'}
               className="px-8 py-4 border border-accent text-accent font-semibold rounded-lg hover:bg-accent/10 transition-colors duration-200 flex items-center gap-2"
             >
-              Get in Touch
+              {t('hero.getInTouch')}
             </motion.button>
           </MagneticCursor>
         </motion.div>

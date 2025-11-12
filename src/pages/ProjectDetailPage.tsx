@@ -2,6 +2,7 @@ import React from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { ArrowLeft, ExternalLink, Github, Play, Calendar, Tag } from 'lucide-react';
+import { useLanguage } from '../contexts/LanguageContext';
 import { projects } from '../data/projects';
 import AnimatedProjectImage from '../components/AnimatedProjectImage';
 import VideoPreview from '../components/VideoPreview';
@@ -16,6 +17,7 @@ const isYouTubeUrl = (url: string): boolean => {
 // Vercel deployment trigger comment
 
 const ProjectDetailPage: React.FC = () => {
+  const { t } = useLanguage();
   const { id } = useParams<{ id: string }>();
   const project = projects.find(p => p.id === id);
 
@@ -23,9 +25,9 @@ const ProjectDetailPage: React.FC = () => {
     return (
       <div className="min-h-screen pt-20 flex items-center justify-center">
         <div className="text-center">
-          <h1 className="text-4xl font-bold text-white mb-4">Project Not Found</h1>
+          <h1 className="text-4xl font-bold text-white mb-4">{t('project.notFound')}</h1>
           <Link to="/projects" className="text-accent hover:underline">
-            ← Back to Projects
+            ← {t('project.back')}
           </Link>
         </div>
       </div>
@@ -49,7 +51,7 @@ const ProjectDetailPage: React.FC = () => {
               className="inline-flex items-center gap-2 text-accent hover:text-accent/80 transition-colors duration-200"
             >
               <ArrowLeft size={20} />
-              Back to Projects
+              {t('project.back')}
             </Link>
           </motion.div>
 
@@ -93,10 +95,10 @@ const ProjectDetailPage: React.FC = () => {
                    whileTap={{ scale: 0.95 }}
                    className="px-6 py-3 bg-accent text-dark font-semibold rounded-lg hover:bg-accent/90 transition-colors duration-200 flex items-center gap-2"
                  >
-                   <ExternalLink size={20} />
-                   View Live
-                 </motion.a>
-               )}
+                  <ExternalLink size={20} />
+                  {t('project.viewLive')}
+                </motion.a>
+              )}
               
               {project.githubUrl && (
                 <motion.a
@@ -108,7 +110,7 @@ const ProjectDetailPage: React.FC = () => {
                   className="px-6 py-3 border border-accent text-accent font-semibold rounded-lg hover:bg-accent/10 transition-colors duration-200 flex items-center gap-2"
                 >
                   <Github size={20} />
-                  View Code
+                  {t('project.viewCode')}
                 </motion.a>
               )}
 
@@ -122,7 +124,7 @@ const ProjectDetailPage: React.FC = () => {
                   className="px-6 py-3 border border-accent text-accent font-semibold rounded-lg hover:bg-accent/10 transition-colors duration-200 flex items-center gap-2"
                 >
                   <Play size={20} />
-                  Watch Demo
+                  {t('project.watchDemo')}
                 </motion.a>
               )}
             </div>
@@ -145,25 +147,9 @@ const ProjectDetailPage: React.FC = () => {
                     loop={true}
                     className="absolute inset-0"
                     interactive={true}
+                    showYouTubeButton={isYouTubeUrl(project.video)}
+                    overlayOpacity={0.2}
                   />
-                  {/* Clickable overlay to go to YouTube - only on desktop (not touch devices) */}
-                  {isYouTubeUrl(project.video) && (
-                    <a
-                      href={project.video}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="hidden md:flex absolute inset-0 items-center justify-center bg-black/0 hover:bg-black/20 transition-colors duration-200 group cursor-pointer z-20"
-                      onClick={(e) => {
-                        e.preventDefault();
-                        window.open(project.video, '_blank', 'noopener,noreferrer');
-                      }}
-                    >
-                      <div className="flex items-center gap-2 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-200">
-                        <Play size={32} />
-                        <span className="text-lg font-medium">Bekijk op YouTube</span>
-                      </div>
-                    </a>
-                  )}
                 </div>
               ) : (
                 <div style={{ height: '400px', backgroundColor: '#1e293b', display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden' }}>
@@ -180,7 +166,7 @@ const ProjectDetailPage: React.FC = () => {
             transition={{ duration: 0.8, delay: 0.4 }}
             className="mb-12"
           >
-            <h3 className="text-2xl font-bold mb-6 gradient-text">Technologies Used</h3>
+            <h3 className="text-2xl font-bold mb-6 gradient-text">{t('project.technologies')}</h3>
             <div className="flex flex-wrap gap-3">
               {project.technologies.map((tech, index) => (
                 <motion.span
@@ -203,7 +189,7 @@ const ProjectDetailPage: React.FC = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.6 }}
           >
-            <h3 className="text-2xl font-bold mb-6 gradient-text">About This Project</h3>
+            <h3 className="text-2xl font-bold mb-6 gradient-text">{t('project.about')}</h3>
             <div className="prose prose-invert max-w-none">
               <p className="text-gray-300 leading-relaxed mb-6">
                 {project.description}
@@ -212,7 +198,7 @@ const ProjectDetailPage: React.FC = () => {
               {/* Demo Video Preview (for YouTube URLs) */}
               {project.demoUrl && isYouTubeUrl(project.demoUrl) && (
                 <div className="mt-6">
-                  <h4 className="text-lg font-semibold text-white mb-3">Eerste versie (2018)</h4>
+                  <h4 className="text-lg font-semibold text-white mb-3">{t('project.firstVersion')}</h4>
                   <div className="relative w-full max-w-md h-48 rounded-lg overflow-hidden bg-black">
                     <VideoPreview
                       videoUrl={project.demoUrl}
@@ -221,18 +207,9 @@ const ProjectDetailPage: React.FC = () => {
                       loop={true}
                       className="w-full h-full"
                       interactive={true}
+                      showYouTubeButton={true}
+                      overlayOpacity={0.2}
                     />
-                    <a
-                      href={project.demoUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="hidden md:flex absolute inset-0 items-center justify-center bg-black/30 hover:bg-black/20 transition-colors duration-200 group"
-                    >
-                      <div className="flex items-center gap-2 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-200">
-                        <Play size={24} />
-                        <span className="text-sm font-medium">Bekijk op YouTube</span>
-                      </div>
-                    </a>
                   </div>
                 </div>
               )}

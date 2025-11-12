@@ -4,11 +4,14 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X } from 'lucide-react';
 import { SITE_CONFIG } from '../utils/constants';
 import { fadeInDown, slideInLeft } from '../utils/animations';
+import { useLanguage } from '../contexts/LanguageContext';
+import LanguageSwitcher from './LanguageSwitcher';
 
 const Navigation: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
+  const { t } = useLanguage();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -20,10 +23,10 @@ const Navigation: React.FC = () => {
   }, []);
 
   const navItems = [
-    { path: '/', label: 'Home' },
-    { path: '/projects', label: 'Projects' },
-    { path: '/about', label: 'About' },
-    { path: '/contact', label: 'Contact' },
+    { path: '/', label: t('nav.home') },
+    { path: '/projects', label: t('nav.projects') },
+    { path: '/about', label: t('nav.about') },
+    { path: '/contact', label: t('nav.contact') },
   ];
 
   return (
@@ -74,6 +77,13 @@ const Navigation: React.FC = () => {
                 </Link>
               </motion.div>
             ))}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.4, duration: 0.5, ease: "easeOut" }}
+            >
+              <LanguageSwitcher />
+            </motion.div>
           </div>
 
           {/* Mobile menu button */}
@@ -118,6 +128,9 @@ const Navigation: React.FC = () => {
                   </Link>
                 </motion.div>
               ))}
+              <div className="px-3 py-2">
+                <LanguageSwitcher />
+              </div>
             </div>
           </motion.div>
         )}

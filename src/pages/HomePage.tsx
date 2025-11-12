@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
+import { useLanguage } from '../contexts/LanguageContext';
 import Hero from '../components/Hero';
 import ProjectCard from '../components/ProjectCard';
 import ParallaxBackground from '../components/ParallaxBackground';
@@ -9,6 +10,7 @@ import { staggerContainer, fadeInUp } from '../utils/animations';
 import { ANIMATION_DELAYS } from '../utils/constants';
 
 const HomePage: React.FC = () => {
+  const { t } = useLanguage();
   const featuredProjects = projects.filter(project => project.featured).slice(0, 6);
 
   return (
@@ -32,10 +34,10 @@ const HomePage: React.FC = () => {
               className="text-center mb-16"
             >
               <h2 className="text-4xl md:text-5xl font-bold gradient-text mb-4">
-                Featured Projects
+                {t('home.featuredProjects')}
               </h2>
               <p className="text-xl text-gray-400 max-w-2xl mx-auto">
-                A showcase of our most innovative and creative work
+                {t('home.featuredDescription')}
               </p>
             </motion.div>
 
@@ -67,7 +69,7 @@ const HomePage: React.FC = () => {
                   whileTap={{ scale: 0.95 }}
                   className="px-8 py-4 border border-accent text-accent font-semibold rounded-lg hover:bg-accent/10 transition-colors duration-200"
                 >
-                  View All Projects
+                  {t('home.viewAllProjects')}
                 </motion.button>
               </Link>
             </motion.div>

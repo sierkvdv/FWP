@@ -1,9 +1,11 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import { useLanguage } from '../contexts/LanguageContext';
 import { skills } from '../data/skills';
 import { Mail, Github, Linkedin, Twitter, Instagram } from 'lucide-react';
 
 const AboutPage: React.FC = () => {
+  const { t } = useLanguage();
   const skillCategories = [
     { id: 'frontend', name: 'Frontend Development', color: 'from-blue-500 to-cyan-500' },
     { id: 'backend', name: 'Backend Development', color: 'from-green-500 to-emerald-500' },
@@ -32,11 +34,10 @@ const AboutPage: React.FC = () => {
             className="text-center mb-16"
           >
             <h1 className="text-5xl md:text-6xl font-bold mb-6">
-              <span className="gradient-text">About</span> Me
+              <span className="gradient-text">{t('about.title')}</span> {t('about.me')}
             </h1>
             <p className="text-xl text-gray-400 max-w-3xl mx-auto leading-relaxed">
-              FWP is een creatief bureau dat de grenzen tussen technologie en kunst vervaagt. 
-              Onze passie ligt in het creëren van digitale ervaringen die zowel functioneel als esthetisch zijn.
+              {t('about.description')}
             </p>
           </motion.div>
 
@@ -48,20 +49,16 @@ const AboutPage: React.FC = () => {
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
             >
-              <h2 className="text-3xl font-bold mb-6 gradient-text">Ons Verhaal</h2>
+              <h2 className="text-3xl font-bold mb-6 gradient-text">{t('about.story')}</h2>
               <div className="space-y-4 text-gray-300 leading-relaxed">
                 <p>
-                  FWP is ontstaan uit een fascinatie voor de combinatie van technologie en creativiteit. 
-                  Wat begon als experimenten met muziek en code, groeide uit tot een passie voor 
-                  het creëren van digitale ervaringen die mensen raken.
+                  {t('about.story1')}
                 </p>
                 <p>
-                  We specialiseren ons in frontend development, AI-technologieën en muziekproductie. 
-                  Ons werk varieert van interactieve websites tot AI-gegenereerde films en elektronische muziek.
+                  {t('about.story2')}
                 </p>
                 <p>
-                  We geloven dat de beste digitale producten ontstaan wanneer technologie en creativiteit 
-                  samenkomen. Elk project is een kans om iets nieuws te ontdekken en te leren.
+                  {t('about.story3')}
                 </p>
               </div>
             </motion.div>
@@ -73,13 +70,13 @@ const AboutPage: React.FC = () => {
               transition={{ duration: 0.8, delay: 0.4 }}
               className="space-y-6"
             >
-              <h2 className="text-3xl font-bold mb-6 gradient-text">Experience</h2>
+              <h2 className="text-3xl font-bold mb-6 gradient-text">{t('about.experience')}</h2>
               
               {[
-                { label: 'Years of Experience', value: '5+', icon: '🚀' },
-                { label: 'Projects Completed', value: '50+', icon: '💼' },
-                { label: 'Technologies Mastered', value: '20+', icon: '⚡' },
-                { label: 'Happy Clients', value: '25+', icon: '😊' },
+                { label: t('about.years'), value: '5+', icon: '🚀' },
+                { label: t('about.projectsCompleted'), value: '50+', icon: '💼' },
+                { label: t('about.technologiesMastered'), value: '20+', icon: '⚡' },
+                { label: t('about.happyClients'), value: '25+', icon: '😊' },
               ].map((stat, index) => (
                 <motion.div
                   key={stat.label}
@@ -113,10 +110,10 @@ const AboutPage: React.FC = () => {
             className="text-center mb-16"
           >
             <h2 className="text-4xl md:text-5xl font-bold mb-6">
-              <span className="gradient-text">Skills</span> & Expertise
+              <span className="gradient-text">{t('about.skills')}</span> {t('about.and')} {t('about.expertise')}
             </h2>
             <p className="text-xl text-gray-400 max-w-2xl mx-auto">
-              Een overzicht van mijn technische vaardigheden en expertise
+              {t('about.skillsDescription')}
             </p>
           </motion.div>
 
@@ -183,10 +180,10 @@ const AboutPage: React.FC = () => {
             viewport={{ once: true }}
           >
             <h2 className="text-4xl font-bold mb-6">
-              <span className="gradient-text">Let's</span> Connect
+              <span className="gradient-text">{t('about.connect')}</span>
             </h2>
             <p className="text-xl text-gray-400 mb-8">
-              Ben je geïnteresseerd in samenwerking? Neem contact op!
+              {t('about.connectDescription')}
             </p>
 
             {/* Social Links */}
@@ -214,7 +211,7 @@ const AboutPage: React.FC = () => {
               whileTap={{ scale: 0.95 }}
               className="px-8 py-4 bg-accent text-dark font-semibold rounded-lg hover:bg-accent/90 transition-colors duration-200"
             >
-              Stuur een Bericht
+              {t('about.sendMessage')}
             </motion.button>
           </motion.div>
         </div>

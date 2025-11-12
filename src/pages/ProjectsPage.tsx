@@ -1,20 +1,22 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useLanguage } from '../contexts/LanguageContext';
 import ProjectCard from '../components/ProjectCard';
 import { projects } from '../data/projects';
 
 
 const ProjectsPage: React.FC = () => {
+  const { t } = useLanguage();
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const [searchTerm, setSearchTerm] = useState('');
 
   const categories = [
-    { id: 'all', name: 'All Projects', icon: '🚀' },
-    { id: 'ai', name: 'AI & ML', icon: '🤖' },
-    { id: 'web', name: 'Web Development', icon: '🌐' },
-    { id: 'music', name: 'Music & Audio', icon: '🎵' },
-    { id: 'design', name: 'Design', icon: '🎨' },
-    { id: 'software', name: 'Software', icon: '⚡' },
+    { id: 'all', name: t('projects.allProjects'), icon: '🚀' },
+    { id: 'ai', name: t('projects.ai'), icon: '🤖' },
+    { id: 'web', name: t('projects.web'), icon: '🌐' },
+    { id: 'music', name: t('projects.music'), icon: '🎵' },
+    { id: 'design', name: t('projects.design'), icon: '🎨' },
+    { id: 'software', name: t('projects.software'), icon: '⚡' },
   ];
 
   const filteredProjects = projects.filter(project => {
@@ -38,10 +40,10 @@ const ProjectsPage: React.FC = () => {
             className="text-center mb-16"
           >
             <h1 className="text-5xl md:text-6xl font-bold mb-6">
-              <span className="gradient-text">Projects</span> Portfolio
+              <span className="gradient-text">{t('projects.title')}</span>
             </h1>
             <p className="text-xl text-gray-400 max-w-2xl mx-auto">
-              Een overzicht van mijn creatieve werk, van AI-gegenereerde films tot interactieve websites
+              {t('projects.description')}
             </p>
           </motion.div>
 
@@ -56,7 +58,7 @@ const ProjectsPage: React.FC = () => {
             <div className="max-w-md mx-auto mb-8">
               <input
                 type="text"
-                placeholder="Zoek projecten..."
+                placeholder={t('projects.searchPlaceholder')}
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 className="w-full px-4 py-3 bg-dark-gray border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-accent transition-colors"
@@ -92,7 +94,7 @@ const ProjectsPage: React.FC = () => {
             className="text-center mb-8"
           >
             <p className="text-gray-400">
-              {filteredProjects.length} project{filteredProjects.length !== 1 ? 'en' : ''} gevonden
+              {filteredProjects.length} {filteredProjects.length !== 1 ? t('projects.found') : t('projects.foundOne')}
             </p>
           </motion.div>
 
@@ -118,9 +120,9 @@ const ProjectsPage: React.FC = () => {
                 className="text-center py-20"
               >
                 <div className="text-6xl mb-4">🔍</div>
-                <h3 className="text-2xl font-semibold text-white mb-2">Geen projecten gevonden</h3>
+                <h3 className="text-2xl font-semibold text-white mb-2">{t('projects.notFound')}</h3>
                 <p className="text-gray-400">
-                  Probeer andere zoektermen of filters
+                  {t('projects.tryOther')}
                 </p>
               </motion.div>
             )}

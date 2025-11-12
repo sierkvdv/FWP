@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Play } from 'lucide-react';
+import { Play, ExternalLink } from 'lucide-react';
+import { useLanguage } from '../contexts/LanguageContext';
 
 interface VideoPreviewProps {
   videoUrl: string;
@@ -9,6 +10,8 @@ interface VideoPreviewProps {
   className?: string;
   onClick?: () => void;
   interactive?: boolean; // If true, shows play button on iOS. If false, just shows thumbnail (for cards)
+  showYouTubeButton?: boolean; // If true, shows a button to open video on YouTube
+  overlayOpacity?: number; // Overlay opacity (0-1), default 0.3
 }
 
 /**
@@ -53,15 +56,27 @@ const VideoPreview: React.FC<VideoPreviewProps> = ({
   className = '',
   onClick,
   interactive = false,
+  showYouTubeButton = false,
+  overlayOpacity = 0.3,
 }) => {
+  const { t } = useLanguage();
   const containerRef = useRef<HTMLDivElement>(null);
   const iframeRef = useRef<HTMLIFrameElement | null>(null);
+  const videoRef = useRef<HTMLVideoElement | null>(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [isIOSDevice, setIsIOSDevice] = useState(false);
+  const [iframeLoaded, setIframeLoaded] = useState(false);
 
   useEffect(() => {
     setIsIOSDevice(isIOS());
   }, []);
+
+  // Reset iframe loaded state when playing state changes
+  useEffect(() => {
+    if (!isPlaying) {
+      setIframeLoaded(false);
+    }
+  }, [isPlaying]);
 
   useEffect(() => {
     const container = containerRef.current;
@@ -106,6 +121,11 @@ const VideoPreview: React.FC<VideoPreviewProps> = ({
     iframe.style.height = '100vh';
     iframe.style.border = 'none';
     iframe.style.objectFit = 'cover';
+    iframe.style.zIndex = '30';
+    
+    iframe.onload = () => {
+      setIframeLoaded(true);
+    };
 
     container.appendChild(iframe);
 
@@ -117,7 +137,9 @@ const VideoPreview: React.FC<VideoPreviewProps> = ({
     };
   }, [videoUrl, autoplay, muted, loop, isIOSDevice, isPlaying]);
 
-  const handlePlayClick = () => {
+  const handlePlayClick = (e: React.MouseEvent | React.TouchEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
     if (isIOSDevice) {
       setIsPlaying(true);
       if (onClick) {
@@ -131,21 +153,59 @@ const VideoPreview: React.FC<VideoPreviewProps> = ({
     return (
       <div className={`relative w-full h-full overflow-hidden ${className}`}>
         <video
+          ref={videoRef}
           src={videoUrl}
-          autoPlay={autoplay}
+          autoPlay={autoplay && !isIOSDevice}
           muted={muted}
           loop={loop}
           playsInline
           className="w-full h-full object-cover"
-          style={{ pointerEvents: 'none' }}
+          style={{ pointerEvents: isIOSDevice && !isPlaying ? 'auto' : 'none' }}
+          onClick={isIOSDevice && !isPlaying ? () => {
+            if (videoRef.current) {
+              videoRef.current.play();
+              setIsPlaying(true);
+            }
+          } : undefined}
         />
-        {/* Dark blue overlay filter */}
+        {/* Dark blue overlay filter - lighter */}
         <div 
           className="absolute inset-0 pointer-events-none"
           style={{ 
-            backgroundColor: 'rgba(30, 41, 59, 0.5)'
+            backgroundColor: `rgba(30, 41, 59, ${overlayOpacity})`
           }}
         />
+        {/* Play button for iOS local videos */}
+        {isIOSDevice && !isPlaying && (
+          <div 
+            className="absolute inset-0 flex items-center justify-center z-20"
+            style={{ pointerEvents: 'none' }}
+          >
+            <div 
+              className="bg-black/60 rounded-full p-6 transition-all duration-200 active:scale-95"
+              style={{
+                boxShadow: '0 4px 20px rgba(0, 0, 0, 0.5)',
+              }}
+            >
+              <Play size={56} className="text-white fill-white" style={{ marginLeft: '6px' }} />
+            </div>
+          </div>
+        )}
+        {/* YouTube button - always visible if showYouTubeButton is true */}
+        {showYouTubeButton && isYouTubeUrl(videoUrl) && (
+          <a
+            href={videoUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="absolute bottom-4 right-4 z-30 flex items-center gap-2 bg-black/70 hover:bg-black/90 text-white px-4 py-2 rounded-lg transition-all duration-200 active:scale-95"
+            onClick={(e) => {
+              e.stopPropagation();
+            }}
+          >
+            <ExternalLink size={18} />
+            <span className="text-sm font-medium">{t('common.youtube')}</span>
+          </a>
+        )}
       </div>
     );
   }
@@ -163,9 +223,10 @@ const VideoPreview: React.FC<VideoPreviewProps> = ({
         className={`relative w-full h-full overflow-hidden bg-black ${className}`}
         style={{ 
           cursor: interactive ? 'pointer' : 'default',
-          pointerEvents: interactive ? 'auto' : 'none'
+          WebkitTapHighlightColor: 'transparent',
         }}
         onClick={interactive ? handlePlayClick : undefined}
+        onTouchEnd={interactive ? handlePlayClick : undefined}
       >
         {/* Thumbnail image */}
         <img
@@ -184,37 +245,101 @@ const VideoPreview: React.FC<VideoPreviewProps> = ({
             pointerEvents: 'none',
           }}
         />
-        {/* Dark blue overlay filter */}
+        {/* Dark blue overlay filter - lighter */}
         <div 
           className="absolute inset-0 pointer-events-none z-10"
           style={{ 
-            backgroundColor: 'rgba(30, 41, 59, 0.5)'
+            backgroundColor: `rgba(30, 41, 59, ${overlayOpacity})`
           }}
         />
         {/* Play button overlay - only show if interactive */}
         {interactive && (
-          <div className="absolute inset-0 flex items-center justify-center z-20 pointer-events-none">
-            <div className="bg-black/40 hover:bg-black/60 rounded-full p-4 transition-colors duration-200">
-              <Play size={48} className="text-white fill-white" style={{ marginLeft: '4px' }} />
+          <div 
+            className="absolute inset-0 flex items-center justify-center z-20"
+            style={{ pointerEvents: 'none' }}
+          >
+            <div 
+              className="bg-black/60 rounded-full p-6 transition-all duration-200 active:scale-95"
+              style={{
+                boxShadow: '0 4px 20px rgba(0, 0, 0, 0.5)',
+              }}
+            >
+              <Play size={56} className="text-white fill-white" style={{ marginLeft: '6px' }} />
             </div>
           </div>
+        )}
+        {/* YouTube button - always visible if showYouTubeButton is true */}
+        {showYouTubeButton && (
+          <a
+            href={videoUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="absolute bottom-4 right-4 z-30 flex items-center gap-2 bg-black/70 hover:bg-black/90 text-white px-4 py-2 rounded-lg transition-all duration-200 active:scale-95"
+            onClick={(e) => {
+              e.stopPropagation();
+            }}
+          >
+            <ExternalLink size={18} />
+            <span className="text-sm font-medium">{t('common.youtube')}</span>
+          </a>
         )}
       </div>
     );
   }
+
+  // Show thumbnail in background while iframe loads (for iOS)
+  const videoId = extractYouTubeId(videoUrl);
+  const thumbnailUrl = videoId 
+    ? `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`
+    : '';
 
   return (
     <div
       ref={containerRef}
       className={`relative w-full h-full overflow-hidden bg-black ${className}`}
     >
-      {/* Dark blue overlay filter */}
+      {/* Thumbnail background - show while iframe loads on iOS */}
+      {isIOSDevice && !iframeLoaded && thumbnailUrl && (
+        <img
+          src={thumbnailUrl}
+          alt="Video thumbnail"
+          style={{
+            position: 'absolute',
+            top: '50%',
+            left: '50%',
+            transform: 'translate(-50%, -50%) scale(1.05)',
+            minWidth: '100%',
+            minHeight: '100%',
+            width: '177.77vh',
+            height: '100vh',
+            objectFit: 'cover',
+            pointerEvents: 'none',
+            zIndex: 20,
+          }}
+        />
+      )}
+      {/* Dark blue overlay filter - lighter */}
       <div 
         className="absolute inset-0 pointer-events-none z-10"
         style={{ 
-          backgroundColor: 'rgba(30, 41, 59, 0.5)'
+          backgroundColor: `rgba(30, 41, 59, ${overlayOpacity})`
         }}
       />
+      {/* YouTube button - always visible if showYouTubeButton is true */}
+      {showYouTubeButton && isYouTubeUrl(videoUrl) && (
+        <a
+          href={videoUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="absolute bottom-4 right-4 z-30 flex items-center gap-2 bg-black/70 hover:bg-black/90 text-white px-4 py-2 rounded-lg transition-all duration-200 active:scale-95"
+          onClick={(e) => {
+            e.stopPropagation();
+          }}
+        >
+          <ExternalLink size={18} />
+          <span className="text-sm font-medium">YouTube</span>
+        </a>
+      )}
     </div>
   );
 };

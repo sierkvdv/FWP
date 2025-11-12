@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
+import { LanguageProvider } from './contexts/LanguageContext';
 import Navigation from './components/Navigation';
 import HomePage from './pages/HomePage';
 import ProjectsPage from './pages/ProjectsPage';
@@ -33,9 +34,11 @@ function AppContent() {
 
 function App() {
   return (
-    <Router>
-      <AppContent />
-    </Router>
+    <LanguageProvider>
+      <Router>
+        <AppContent />
+      </Router>
+    </LanguageProvider>
   );
 }
 

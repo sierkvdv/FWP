@@ -43,6 +43,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, index }) => {
                   muted={true}
                   loop={true}
                   className="absolute inset-0"
+                  overlayOpacity={0.2}
                 />
               </div>
             ) : (

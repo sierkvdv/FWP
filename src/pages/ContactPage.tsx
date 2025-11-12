@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Mail, Github, Linkedin, Instagram, Send, MapPin, Phone } from 'lucide-react';
+import { useLanguage } from '../contexts/LanguageContext';
 import { contactInfo } from '../data/contact';
 
 const ContactPage: React.FC = () => {
+  const { t } = useLanguage();
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -26,11 +28,11 @@ const ContactPage: React.FC = () => {
     
     // Create email body
     const emailBody = `
-Naam: ${formData.name}
-Email: ${formData.email}
-Onderwerp: ${formData.subject}
+${t('contact.name')}: ${formData.name}
+${t('contact.email')}: ${formData.email}
+${t('contact.subject')}: ${formData.subject}
 
-Bericht:
+${t('contact.message')}:
 ${formData.message}
     `;
     
@@ -41,7 +43,7 @@ ${formData.message}
     setIsSubmitting(false);
     setFormData({ name: '', email: '', subject: '', message: '' });
     
-    alert('Email client geopend! Stuur het bericht om contact met me op te nemen.');
+    alert(t('contact.emailOpened'));
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -63,11 +65,10 @@ ${formData.message}
             className="text-center mb-16"
           >
             <h1 className="text-5xl md:text-6xl font-bold mb-6">
-              <span className="gradient-text">Let's</span> Connect
+              <span className="gradient-text">{t('contact.title')}</span> {t('contact.connect')}
             </h1>
             <p className="text-xl text-gray-400 max-w-2xl mx-auto">
-              Ben je geïnteresseerd in samenwerking? Heb je een project in gedachten? 
-              Ik hoor graag van je!
+              {t('contact.description')}
             </p>
           </motion.div>
 
@@ -78,13 +79,13 @@ ${formData.message}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
             >
-              <h2 className="text-3xl font-bold mb-8 gradient-text">Stuur een Bericht</h2>
+              <h2 className="text-3xl font-bold mb-8 gradient-text">{t('contact.sendMessage')}</h2>
               
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
                     <label htmlFor="name" className="block text-sm font-medium text-gray-300 mb-2">
-                      Naam
+                      {t('contact.name')}
                     </label>
                     <input
                       type="text"
@@ -94,13 +95,13 @@ ${formData.message}
                       onChange={handleInputChange}
                       required
                       className="w-full px-4 py-3 bg-dark-gray border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-accent transition-colors"
-                      placeholder="Jouw naam"
+                      placeholder={t('contact.namePlaceholder')}
                     />
                   </div>
                   
                   <div>
                     <label htmlFor="email" className="block text-sm font-medium text-gray-300 mb-2">
-                      Email
+                      {t('contact.email')}
                     </label>
                     <input
                       type="email"
@@ -110,14 +111,14 @@ ${formData.message}
                       onChange={handleInputChange}
                       required
                       className="w-full px-4 py-3 bg-dark-gray border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-accent transition-colors"
-                      placeholder="jouw@email.com"
+                      placeholder={t('contact.emailPlaceholder')}
                     />
                   </div>
                 </div>
 
                 <div>
                   <label htmlFor="subject" className="block text-sm font-medium text-gray-300 mb-2">
-                    Onderwerp
+                    {t('contact.subject')}
                   </label>
                   <input
                     type="text"
@@ -127,13 +128,13 @@ ${formData.message}
                     onChange={handleInputChange}
                     required
                     className="w-full px-4 py-3 bg-dark-gray border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-accent transition-colors"
-                    placeholder="Waar gaat het over?"
+                    placeholder={t('contact.subjectPlaceholder')}
                   />
                 </div>
 
                 <div>
                   <label htmlFor="message" className="block text-sm font-medium text-gray-300 mb-2">
-                    Bericht
+                    {t('contact.message')}
                   </label>
                   <textarea
                     id="message"
@@ -143,7 +144,7 @@ ${formData.message}
                     required
                     rows={6}
                     className="w-full px-4 py-3 bg-dark-gray border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-accent transition-colors resize-none"
-                    placeholder="Vertel me meer over je project of idee..."
+                    placeholder={t('contact.messagePlaceholder')}
                   />
                 </div>
 
@@ -157,12 +158,12 @@ ${formData.message}
                   {isSubmitting ? (
                     <>
                       <div className="w-5 h-5 border-2 border-dark border-t-transparent rounded-full animate-spin" />
-                      Verzenden...
+                      {t('contact.sending')}
                     </>
                   ) : (
                     <>
                       <Send size={20} />
-                      Verstuur Bericht
+                      {t('contact.send')}
                     </>
                   )}
                 </motion.button>
@@ -177,7 +178,7 @@ ${formData.message}
               className="space-y-8"
             >
               <div>
-                <h2 className="text-3xl font-bold mb-8 gradient-text">Contact Info</h2>
+                <h2 className="text-3xl font-bold mb-8 gradient-text">{t('contact.info')}</h2>
                 
                 <div className="space-y-6">
                   <div className="flex items-center space-x-4">
@@ -200,8 +201,8 @@ ${formData.message}
                       <MapPin size={24} className="text-accent" />
                     </div>
                     <div>
-                      <p className="text-sm text-gray-400">Locatie</p>
-                      <p className="text-white">Amsterdam, Nederland</p>
+                      <p className="text-sm text-gray-400">{t('contact.location')}</p>
+                      <p className="text-white">{t('contact.locationValue')}</p>
                     </div>
                   </div>
 
@@ -210,15 +211,15 @@ ${formData.message}
                       <Phone size={24} className="text-accent" />
                     </div>
                     <div>
-                      <p className="text-sm text-gray-400">Beschikbaarheid</p>
-                      <p className="text-white">Voor nieuwe projecten</p>
+                      <p className="text-sm text-gray-400">{t('contact.availability')}</p>
+                      <p className="text-white">{t('contact.availabilityValue')}</p>
                     </div>
                   </div>
                 </div>
               </div>
 
               <div>
-                <h3 className="text-2xl font-bold mb-6 text-white">Volg Mij</h3>
+                <h3 className="text-2xl font-bold mb-6 text-white">{t('contact.follow')}</h3>
                 
                 <div className="grid grid-cols-2 gap-4">
                   {socialLinks.map((social, index) => (
@@ -241,13 +242,13 @@ ${formData.message}
               </div>
 
               <div className="glass-effect p-6 rounded-xl">
-                <h3 className="text-xl font-bold mb-4 text-white">Response Tijd</h3>
+                <h3 className="text-xl font-bold mb-4 text-white">{t('contact.responseTime')}</h3>
                 <p className="text-gray-400 mb-4">
-                  Ik probeer binnen 24 uur te reageren op alle berichten.
+                  {t('contact.responseDescription')}
                 </p>
                 <div className="flex items-center gap-2 text-accent">
                   <div className="w-2 h-2 bg-accent rounded-full animate-pulse" />
-                  <span className="text-sm font-mono">Meestal online</span>
+                  <span className="text-sm font-mono">{t('contact.usuallyOnline')}</span>
                 </div>
               </div>
             </motion.div>
