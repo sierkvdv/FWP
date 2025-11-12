@@ -2,50 +2,57 @@
 
 ## Optie 1: Supabase Storage (Aanbevolen)
 
-### Stap 1: Supabase Project Aanmaken (BELANGRIJK: Direct via Supabase, NIET via Vercel!)
+### Stap 1: Gebruik een BESTAAND Supabase Project (Makkelijker!)
 
-**⚠️ LET OP: Maak het project DIRECT op Supabase.com, NIET via Vercel Marketplace!**
+**✅ OPLOSSING: Je hoeft GEEN nieuw project aan te maken! Gebruik gewoon een van je bestaande projecten!**
 
-1. **Ga DIRECT naar Supabase (omzeil Vercel)**
-   - Open een NIEUWE TAB in je browser
-   - Ga DIRECT naar: **https://app.supabase.com** (of https://supabase.com/dashboard)
-   - Log in met je Supabase account
-   - **NIET via Vercel gaan!**
+Je hebt al 2 Supabase projecten:
+- `supabase-codebuddy`
+- `supabase-open-ai-gen`
 
-2. **Maak een nieuw project**
-   - In je Supabase dashboard, kijk naar de projectenlijst
-   - Klik op **"New Project"** (rechtsboven, grote groene knop)
-   - **NIET** op "Add Project" of via Vercel Marketplace!
+**Gebruik gewoon een van deze! Video storage werkt prima in een bestaand project.**
 
-3. **Vul het formulier in:**
-   - **Organization**: Kies je bestaande organisatie (of maak een nieuwe)
-   - **Name**: Bijv. `fwp-website` of `fwp-videos`
-   - **Database Password**: Kies een sterk wachtwoord (sla dit op!)
-   - **Region**: Kies het dichtstbijzijnde (bijv. "West EU (Ireland)" voor Nederland)
-   - **Pricing Plan**: Kies **"Free"** (gratis tier is genoeg voor video storage)
-   
-4. **Maak het project aan**
-   - Klik op **"Create new project"** (onderaan het formulier)
-   - ⏳ Wacht 1-2 minuten tot het project is aangemaakt
-   - Je ziet nu je nieuwe project in de lijst!
+1. **Open een bestaand Supabase project**
+   - In Vercel: Klik op "Open in Supabase" bij een van je Supabase integraties
+   - Of ga direct naar: https://app.supabase.com
+   - Klik op een van je bestaande projecten (bijv. "supabase-codebuddy")
 
-**Als je nog steeds in een loop komt:**
-- Gebruik een incognito/private browser window
-- Of log uit bij Vercel en ga direct naar Supabase
-- Het project hoeft NIET gekoppeld te zijn aan Vercel voor Storage te werken!
+2. **Ga naar Storage**
+   - In het linker menu, klik op **"Storage"**
+   - Je kunt nu gewoon een bucket maken en video's uploaden!
 
-### Stap 2: Storage Bucket Aanmaken
+**Dat is het! Je hoeft geen nieuw project aan te maken. Storage werkt gewoon in een bestaand project.**
 
-1. **Ga naar Storage**
-   - In je Supabase dashboard, klik op "Storage" in het linker menu
+---
+
+### Alternatief: Als je echt een nieuw project wilt (maar dit is NIET nodig!)
+
+Als je toch een nieuw project wilt maken (maar dit is echt niet nodig!):
+
+1. **Log UIT bij Vercel** (tijdelijk)
+2. Ga naar https://supabase.com in een incognito/private window
+3. Log in met je Supabase account
+4. Maak daar een nieuw project aan
+5. Log weer in bij Vercel
+
+**Maar nogmaals: dit is NIET nodig! Gebruik gewoon een bestaand project!**
+
+### Stap 2: Storage Bucket Aanmaken (in je BESTAANDE project)
+
+1. **Open je Supabase project**
+   - Klik op "Open in Supabase" in Vercel, of ga direct naar https://app.supabase.com
+   - Selecteer een van je bestaande projecten (bijv. "supabase-codebuddy")
+
+2. **Ga naar Storage**
+   - In het linker menu, klik op **"Storage"**
    - Je ziet nu de Storage pagina
 
-2. **Maak een nieuwe bucket**
-   - Klik op de knop "New bucket" (rechtsboven)
+3. **Maak een nieuwe bucket**
+   - Klik op de knop **"New bucket"** (rechtsboven)
    - Vul in:
-     - **Name**: `videos` (of een andere naam die je wilt)
+     - **Name**: `videos` (of `fwp-videos` of een andere naam)
      - **Public bucket**: ✅ **Zet dit AAN** (dit is belangrijk! Zet het vinkje aan)
-   - Klik op "Create bucket"
+   - Klik op **"Create bucket"**
    - ✅ Je bucket is nu aangemaakt en publiek toegankelijk
 
 ### Stap 3: Video's Uploaden
