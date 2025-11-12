@@ -21,13 +21,19 @@ const VideoBackground: React.FC<VideoBackgroundProps> = ({
     return (index + 1) % videoUrls.length;
   }, [videoUrls.length]);
 
-  // Load video into specific layer
+    // Load video into specific layer
   const loadVideoIntoLayer = useCallback((layer: 'video1' | 'video2', index: number) => {
     const videoRef = layer === 'video1' ? video1Ref : video2Ref;
     const video = videoRef.current;
     if (!video || !videoUrls[index]) return;
 
+    // For iOS, ensure video is properly configured
     video.src = videoUrls[index];
+    video.muted = true;
+    video.volume = 0;
+    video.setAttribute('playsinline', 'true');
+    video.setAttribute('webkit-playsinline', 'true');
+    video.setAttribute('x5-playsinline', 'true');
     video.load();
   }, [videoUrls]);
 
@@ -46,25 +52,40 @@ const VideoBackground: React.FC<VideoBackgroundProps> = ({
       loadVideoIntoLayer('video2', getNextIndex(0));
     }
 
-    // Start playing first video as soon as it can play (not waiting for full load)
-    const handleCanPlay = () => {
+    // iOS-compatible: Let autoplay attribute handle playback, only assist if needed
+    const handleVideoReady = () => {
       setIsLoading(false);
+      
+      // On iOS, the autoplay attribute should handle playback
+      // Only try programmatically if video is not playing after a delay
       if (video1.paused) {
-        video1.play().catch(() => {
-          console.log('Autoplay blocked');
-        });
+        // Wait a bit for autoplay to kick in (iOS sometimes needs this)
+        setTimeout(() => {
+          if (video1.paused) {
+            // Only then try programmatically as fallback
+            video1.play().catch((error) => {
+              console.log('Autoplay blocked on iOS - this is expected behavior');
+              // On iOS, autoplay may be blocked, but the video element
+              // with autoplay attribute will attempt to play when visible
+            });
+          }
+        }, 300);
       }
     };
 
-    // Try to start playing as soon as possible
-    video1.addEventListener('loadeddata', handleCanPlay, { once: true });
-    video1.addEventListener('canplay', handleCanPlay, { once: true });
-    video1.addEventListener('canplaythrough', handleCanPlay, { once: true });
+    // Listen for when video is ready to play
+    // On iOS, we want the autoplay attribute to work naturally
+    video1.addEventListener('loadeddata', handleVideoReady, { once: true });
+    video1.addEventListener('canplay', handleVideoReady, { once: true });
+    
+    // Also check if video is already loaded
+    if (video1.readyState >= 2) {
+      handleVideoReady();
+    }
 
     return () => {
-      video1.removeEventListener('loadeddata', handleCanPlay);
-      video1.removeEventListener('canplay', handleCanPlay);
-      video1.removeEventListener('canplaythrough', handleCanPlay);
+      video1.removeEventListener('loadeddata', handleVideoReady);
+      video1.removeEventListener('canplay', handleVideoReady);
     };
   }, [videoUrls, loadVideoIntoLayer, getNextIndex]);
 
@@ -108,16 +129,38 @@ const VideoBackground: React.FC<VideoBackgroundProps> = ({
       loadVideoIntoLayer(nextLayer, nextIndex);
 
       // Wait for next video to be ready, then start crossfade
-      const startTransition = () => {
+      const startTransition = async () => {
         // Fade out active video
         activeVideo.style.transition = 'opacity 0.8s ease-in-out';
         activeVideo.style.opacity = '0';
 
-        // Start next video and fade in
+        // Start next video and fade in (iOS-compatible)
         nextVideoEl.currentTime = 0;
-        nextVideoEl.play().catch(() => {
-          console.log('Autoplay blocked during transition');
-        });
+        nextVideoEl.volume = 0;
+        nextVideoEl.muted = true;
+        nextVideoEl.setAttribute('playsinline', 'true');
+        nextVideoEl.setAttribute('webkit-playsinline', 'true');
+        
+        // For iOS, ensure the video element is ready to play
+        // The autoplay attribute should handle this, but we also try programmatically
+        try {
+          const playPromise = nextVideoEl.play();
+          if (playPromise !== undefined) {
+            await playPromise;
+          }
+        } catch (error) {
+          console.log('Autoplay blocked during transition:', error);
+          // On iOS, if programmatic play fails, the autoplay attribute should still work
+          // Retry after a small delay as fallback
+          setTimeout(async () => {
+            try {
+              await nextVideoEl.play();
+            } catch (e) {
+              console.log('Autoplay still blocked - relying on autoplay attribute');
+            }
+          }, 150);
+        }
+        
         nextVideoEl.style.transition = 'opacity 0.8s ease-in-out';
         nextVideoEl.style.opacity = '1';
 
@@ -162,6 +205,7 @@ const VideoBackground: React.FC<VideoBackgroundProps> = ({
       {/* Video 1 */}
       <video
         ref={video1Ref}
+        autoPlay
         muted
         playsInline
         loop={false}
@@ -175,11 +219,16 @@ const VideoBackground: React.FC<VideoBackgroundProps> = ({
           transition: 'opacity 0.8s ease-in-out',
           zIndex: activeLayer === 'video1' ? 2 : 1,
         }}
+        {...({
+          'webkit-playsinline': true,
+          'x5-playsinline': true,
+        } as any)}
       />
       
       {/* Video 2 */}
       <video
         ref={video2Ref}
+        autoPlay
         muted
         playsInline
         loop={false}
@@ -193,6 +242,10 @@ const VideoBackground: React.FC<VideoBackgroundProps> = ({
           transition: 'opacity 0.8s ease-in-out',
           zIndex: activeLayer === 'video2' ? 2 : 1,
         }}
+        {...({
+          'webkit-playsinline': true,
+          'x5-playsinline': true,
+        } as any)}
       />
       
       {/* Dark overlay for better text readability */}
