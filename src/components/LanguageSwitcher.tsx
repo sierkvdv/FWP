@@ -15,12 +15,12 @@ const LanguageSwitcher: React.FC = () => {
       onClick={toggleLanguage}
       whileHover={{ scale: 1.05 }}
       whileTap={{ scale: 0.95 }}
-      className="flex items-center gap-2 px-4 py-2 rounded-lg bg-dark-gray hover:bg-gray-800 border border-gray-700 hover:border-accent transition-all duration-200 text-white hover:text-accent font-medium"
+      className="flex items-center gap-2 px-3 py-1.5 rounded-md bg-dark-gray/80 hover:bg-dark-gray border border-gray-600 hover:border-accent transition-all duration-200 text-gray-200 hover:text-accent font-medium text-sm"
       title={language === 'nl' ? 'Switch to English' : 'Schakel over naar Nederlands'}
-      style={{ minWidth: '80px' }}
+      style={{ minWidth: '70px', zIndex: 10 }}
     >
-      <Globe size={18} className="text-accent" />
-      <span className="text-sm font-semibold">{language.toUpperCase()}</span>
+      <Globe size={16} className="text-accent" />
+      <span className="font-semibold">{language.toUpperCase()}</span>
     </motion.button>
   );
 };
