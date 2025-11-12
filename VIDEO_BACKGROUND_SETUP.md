@@ -2,39 +2,93 @@
 
 ## Optie 1: Supabase Storage (Aanbevolen)
 
-### Stappen:
+### Stap 1: Supabase Project Aanmaken (als je dit nog niet hebt)
 
-1. **Ga naar je Supabase Dashboard**
-   - Log in op https://supabase.com
-   - Selecteer je project
+1. **Ga naar Supabase Dashboard**
+   - Ga naar https://supabase.com
+   - Log in met je account
+   - Je ziet nu je dashboard met je bestaande projecten (bijv. "supabase-codebuddy", "supabase-open-ai-gen")
 
-2. **Maak een Storage Bucket**
-   - Ga naar "Storage" in het menu
-   - Klik op "New bucket"
-   - Naam: `videos` (of een andere naam)
-   - Maak de bucket **public** (zodat video's publiek toegankelijk zijn)
+2. **Maak een nieuw project**
+   - Kijk rechtsboven in je dashboard
+   - Klik op de knop **"New Project"** (of "New" → "Project")
+   - Je ziet nu een formulier om een nieuw project aan te maken
+   
+3. **Vul het formulier in:**
+   - **Name**: Bijv. `fwp-website` of `FWP Website`
+   - **Database Password**: Kies een sterk wachtwoord (sla dit op in een wachtwoord manager!)
+   - **Region**: Kies het dichtstbijzijnde (bijv. "West EU (Ireland)" voor Nederland)
+   - **Pricing Plan**: Kies "Free" (gratis tier is genoeg voor video storage)
+   
+4. **Maak het project aan**
+   - Klik op **"Create new project"**
+   - ⏳ Wacht 1-2 minuten tot het project is aangemaakt
+   - Je ziet nu je nieuwe project in de lijst!
 
-3. **Upload je video's**
-   - Klik op de bucket die je net hebt gemaakt
-   - Klik op "Upload file"
-   - Upload je video bestanden (bij voorkeur .mp4 formaat)
-   - **Tip**: Comprimeer je video's voor betere performance (gebruik bijvoorbeeld HandBrake of online tools)
+### Stap 2: Storage Bucket Aanmaken
 
-4. **Kopieer de URLs**
-   - Klik op een geüploade video
-   - Kopieer de "Public URL"
-   - Format: `https://[project-id].supabase.co/storage/v1/object/public/videos/[filename].mp4`
+1. **Ga naar Storage**
+   - In je Supabase dashboard, klik op "Storage" in het linker menu
+   - Je ziet nu de Storage pagina
 
-5. **Voeg URLs toe aan de code**
-   - Open `src/utils/constants.ts`
-   - Voeg je video URLs toe aan `backgroundVideos`:
+2. **Maak een nieuwe bucket**
+   - Klik op de knop "New bucket" (rechtsboven)
+   - Vul in:
+     - **Name**: `videos` (of een andere naam die je wilt)
+     - **Public bucket**: ✅ **Zet dit AAN** (dit is belangrijk! Zet het vinkje aan)
+   - Klik op "Create bucket"
+   - ✅ Je bucket is nu aangemaakt en publiek toegankelijk
+
+### Stap 3: Video's Uploaden
+
+1. **Open je bucket**
+   - Klik op de bucket die je net hebt gemaakt (bijv. "videos")
+   - Je ziet nu een lege bucket
+
+2. **Upload video's**
+   - Klik op "Upload file" (of sleep video's naar het scherm)
+   - Selecteer je video bestanden (bij voorkeur .mp4 formaat)
+   - ⏳ Wacht tot de upload klaar is
+   - **Tip**: Upload één video per keer om te testen, of meerdere tegelijk
+
+3. **Kopieer de Public URL**
+   - Klik op een geüploade video in de lijst
+   - Je ziet nu de video details
+   - Zoek naar "Public URL" of "URL"
+   - Klik op het kopieer icoon of selecteer en kopieer de URL
+   - Format ziet er zo uit: 
+     ```
+     https://[jouw-project-id].supabase.co/storage/v1/object/public/videos/[video-naam].mp4
+     ```
+   - **Voorbeeld**: 
+     ```
+     https://abcdefghijklmnop.supabase.co/storage/v1/object/public/videos/background1.mp4
+     ```
+
+### Stap 4: URLs Toevoegen aan je Code
+
+1. **Open het bestand**
+   - Open `src/utils/constants.ts` in je code editor
+
+2. **Voeg je video URLs toe**
+   - Zoek naar `backgroundVideos: []`
+   - Vervang de lege array met je video URLs:
    ```typescript
    backgroundVideos: [
-     'https://your-project.supabase.co/storage/v1/object/public/videos/video1.mp4',
-     'https://your-project.supabase.co/storage/v1/object/public/videos/video2.mp4',
-     'https://your-project.supabase.co/storage/v1/object/public/videos/video3.mp4',
+     'https://jouw-project-id.supabase.co/storage/v1/object/public/videos/video1.mp4',
+     'https://jouw-project-id.supabase.co/storage/v1/object/public/videos/video2.mp4',
+     'https://jouw-project-id.supabase.co/storage/v1/object/public/videos/video3.mp4',
    ],
    ```
+
+3. **Test lokaal (optioneel)**
+   - Run `npm start` om te testen
+   - Check of de video's afspelen op de homepage
+
+4. **Deploy**
+   - Commit en push naar GitHub
+   - Vercel deployt automatisch
+   - Test op je live site
 
 ### Video Optimalisatie Tips:
 - **Formaat**: MP4 (H.264 codec)
