@@ -55,11 +55,14 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, index }) => {
                 onClick={(e) => {
                   e.stopPropagation();
                 }}
+                aria-label={`Watch ${project.title} on YouTube`}
                 style={{
                   pointerEvents: 'auto',
                   cursor: 'pointer',
                 }}
-              />
+              >
+                <span className="sr-only">Watch {project.title} on YouTube</span>
+              </a>
             </div>
           ) : (
             <AnimatedProjectImage projectId={project.id} title={project.title} />
