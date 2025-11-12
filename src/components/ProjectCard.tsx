@@ -55,13 +55,17 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, index }) => {
                 onClick={(e) => {
                   e.stopPropagation();
                 }}
-                aria-label={`Watch ${project.title} on YouTube`}
+                aria-label={`Watch ${project.title} on YouTube (opens in new tab)`}
+                title={`Watch ${project.title} on YouTube`}
                 style={{
                   pointerEvents: 'auto',
                   cursor: 'pointer',
                 }}
               >
-                <span className="sr-only">Watch {project.title} on YouTube</span>
+                {/* Invisible but accessible text for screen readers */}
+                <span style={{ position: 'absolute', width: '1px', height: '1px', padding: 0, margin: '-1px', overflow: 'hidden', clip: 'rect(0, 0, 0, 0)', whiteSpace: 'nowrap', borderWidth: 0 }}>
+                  Watch {project.title} on YouTube
+                </span>
               </a>
             </div>
           ) : (
