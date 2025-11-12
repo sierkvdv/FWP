@@ -11,7 +11,6 @@ const VideoBackground: React.FC<VideoBackgroundProps> = ({
 }) => {
   const video1Ref = useRef<HTMLVideoElement>(null);
   const video2Ref = useRef<HTMLVideoElement>(null);
-  const [currentIndex, setCurrentIndex] = useState(0);
   const [activeLayer, setActiveLayer] = useState<'video1' | 'video2'>('video1');
   
   // Track which video index is in each layer
@@ -102,7 +101,6 @@ const VideoBackground: React.FC<VideoBackgroundProps> = ({
 
       // Update state after transition
       setTimeout(() => {
-        setCurrentIndex(nextIdx);
         setActiveLayer(nextLayer);
         activeVideo.style.opacity = '1';
         activeVideo.style.transition = '';
