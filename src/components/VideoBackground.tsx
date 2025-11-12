@@ -13,16 +13,12 @@ const VideoBackground: React.FC<VideoBackgroundProps> = ({
   const video2Ref = useRef<HTMLVideoElement>(null);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [activeLayer, setActiveLayer] = useState<'video1' | 'video2'>('video1');
-
-  // Track which video is in which layer
+  
+  // Track which video index is in each layer
   const [video1Index, setVideo1Index] = useState(0);
-  const [video2Index, setVideo2Index] = useState(videoUrls.length > 1 ? 1 : 0);
+  const [video2Index, setVideo2Index] = useState(1);
 
-  // Get URLs - keep video1 stable for iOS autoplay
-  const video1Url = videoUrls[video1Index];
-  const video2Url = videoUrls.length > 1 ? videoUrls[video2Index] : undefined;
-
-  // Update video2 when transitioning
+  // Handle video transitions
   useEffect(() => {
     if (videoUrls.length <= 1) return;
 
@@ -40,11 +36,9 @@ const VideoBackground: React.FC<VideoBackgroundProps> = ({
         const activeIdx = activeLayer === 'video1' ? video1Index : video2Index;
         const nextIdx = (activeIdx + 1) % videoUrls.length;
         
-        // Update next video src if needed
+        // Update next video if needed
         if (activeLayer === 'video1') {
           if (video2Index !== nextIdx) {
-            setVideo2Index(nextIdx);
-            // Update src directly
             nextVideo.src = videoUrls[nextIdx];
             nextVideo.muted = true;
             nextVideo.playsInline = true;
@@ -52,8 +46,6 @@ const VideoBackground: React.FC<VideoBackgroundProps> = ({
           }
         } else {
           if (video1Index !== nextIdx) {
-            setVideo1Index(nextIdx);
-            // Update src directly
             nextVideo.src = videoUrls[nextIdx];
             nextVideo.muted = true;
             nextVideo.playsInline = true;
@@ -73,19 +65,23 @@ const VideoBackground: React.FC<VideoBackgroundProps> = ({
       activeVideo.style.transition = 'opacity 0.8s ease-in-out';
       activeVideo.style.opacity = '0';
 
-      // Ensure next video has correct src and start playing
+      // Update next video src and start playing
       if (nextLayer === 'video1') {
         if (video1Index !== nextIdx) {
           nextVideo.src = videoUrls[nextIdx];
+          nextVideo.muted = true;
+          nextVideo.playsInline = true;
           nextVideo.load();
+          setVideo1Index(nextIdx);
         }
-        setVideo1Index(nextIdx);
       } else {
         if (video2Index !== nextIdx) {
           nextVideo.src = videoUrls[nextIdx];
+          nextVideo.muted = true;
+          nextVideo.playsInline = true;
           nextVideo.load();
+          setVideo2Index(nextIdx);
         }
-        setVideo2Index(nextIdx);
       }
 
       // Start next video when ready
@@ -110,6 +106,22 @@ const VideoBackground: React.FC<VideoBackgroundProps> = ({
         setActiveLayer(nextLayer);
         activeVideo.style.opacity = '1';
         activeVideo.style.transition = '';
+        
+        // Preload next video for next transition
+        const nextNextIdx = (nextIdx + 1) % videoUrls.length;
+        if (nextLayer === 'video1') {
+          setVideo2Index(nextNextIdx);
+          if (video2Ref.current) {
+            video2Ref.current.src = videoUrls[nextNextIdx];
+            video2Ref.current.load();
+          }
+        } else {
+          setVideo1Index(nextNextIdx);
+          if (video1Ref.current) {
+            video1Ref.current.src = videoUrls[nextNextIdx];
+            video1Ref.current.load();
+          }
+        }
       }, 800);
     };
 
@@ -122,13 +134,17 @@ const VideoBackground: React.FC<VideoBackgroundProps> = ({
     };
   }, [activeLayer, video1Index, video2Index, videoUrls]);
 
-  if (videoUrls.length === 0 || !video1Url) {
+  if (videoUrls.length === 0) {
     return null;
   }
 
+  // Get current video URLs - src directly in JSX for iOS autoplay
+  const video1Url = videoUrls[video1Index];
+  const video2Url = videoUrls.length > 1 ? videoUrls[video2Index] : undefined;
+
   return (
     <div className={`absolute inset-0 overflow-hidden ${className}`}>
-      {/* Video 1 - First video, src directly in JSX for iOS autoplay */}
+      {/* Video 1 - src directly in JSX for iOS autoplay compatibility */}
       <video
         ref={video1Ref}
         src={video1Url}
@@ -148,7 +164,7 @@ const VideoBackground: React.FC<VideoBackgroundProps> = ({
         }}
       />
       
-      {/* Video 2 - Next video for smooth transitions, also has autoplay for iOS */}
+      {/* Video 2 - src directly in JSX, also has autoplay for iOS */}
       {videoUrls.length > 1 && video2Url && (
         <video
           ref={video2Ref}
