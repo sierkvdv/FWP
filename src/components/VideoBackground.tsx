@@ -11,7 +11,6 @@ const VideoBackground: React.FC<VideoBackgroundProps> = ({
 }) => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [currentVideoIndex, setCurrentVideoIndex] = useState(0);
-  const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
     if (!videoRef.current || videoUrls.length === 0) return;
@@ -24,7 +23,6 @@ const VideoBackground: React.FC<VideoBackgroundProps> = ({
     };
 
     const handleLoadedData = () => {
-      setIsLoaded(true);
       // Try to play (may fail on mobile without user interaction)
       video.play().catch(() => {
         // Autoplay blocked, that's okay for background video
