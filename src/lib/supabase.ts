@@ -97,11 +97,31 @@ export async function getVideoUrls(): Promise<string[]> {
       } else if (errorMessage.includes('permission') || errorMessage.includes('forbidden') || statusCode === '403') {
         console.error(`⚠️ Permission denied. Please check if bucket "${VIDEO_BUCKET_NAME}" is public.`);
         console.error('   Make sure the bucket has "Public bucket" enabled in Supabase Storage settings.');
+        console.error('   ⚠️ IMPORTANT: You also need to set up Storage Policies!');
+        console.error('   Go to: Supabase Dashboard > Storage > Policies > hero-videos');
+        console.error('   Create a policy that allows SELECT (read) for anon users.');
       } else if (errorMessage.includes('unauthorized') || statusCode === '401') {
         console.error(`⚠️ Unauthorized. Please check your Supabase credentials in Vercel environment variables.`);
       }
       
       return [];
+    }
+    
+    // If no error but also no data, this is likely a permissions issue
+    if (!error && (!data || data.length === 0)) {
+      console.warn('⚠️ No error, but also no files found. This usually means:');
+      console.warn('   1. The bucket exists and is accessible');
+      console.warn('   2. BUT: Storage Policies are not set up correctly');
+      console.warn('   3. OR: The files are in a subfolder (we only check root level)');
+      console.warn('');
+      console.warn('🔧 SOLUTION: Set up Storage Policies in Supabase:');
+      console.warn('   1. Go to Supabase Dashboard > Storage > Policies');
+      console.warn('   2. Click on bucket "hero-videos"');
+      console.warn('   3. Click "New Policy"');
+      console.warn('   4. Create a policy that allows:');
+      console.warn('      - Operation: SELECT (for reading files)');
+      console.warn('      - Target roles: anon, authenticated');
+      console.warn('      - Policy name: "Allow public read access"');
     }
 
     console.log(`📁 Found ${data?.length || 0} files in bucket "${VIDEO_BUCKET_NAME}"`);
