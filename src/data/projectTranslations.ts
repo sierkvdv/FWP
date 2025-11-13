@@ -160,6 +160,14 @@ export const projectTranslations: Record<string, {
       subtitle: 'Fair sharing without shame',
       description: 'Färli was born from the desire to remove the discomfort around shared bills. Not everyone earns the same, so why should everyone pay the same? With Färli you share costs fairly – based on what someone can afford – without making your exact income public.'
     }
+  },
+  'sumiko': {
+    nl: {
+      description: 'Zorgvuldig geselecteerde Chinese theeën, samengesteld in Japan. Langzaam geschonken, warm gedeeld — alsof je de woonkamer van een vriend bezoekt. Geboren tussen Chinese theelijnen en Japanse rust, deelt Sumiko echte thee zoals het gevoeld wordt — niet opgevoerd. Langzaam, menselijk en warm.'
+    },
+    en: {
+      description: 'Carefully sourced Chinese teas curated in Japan. Poured slowly, shared warmly — like visiting a friend\'s living room. Born between Chinese tea lineages and Japanese stillness, Sumiko shares real tea the way it\'s felt — not performed. Slow, human, and warm.'
+    }
   }
 };
 

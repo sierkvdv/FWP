@@ -873,6 +873,29 @@ const AnimatedProjectImage: React.FC<AnimatedProjectImageProps> = ({ projectId, 
           </div>
         );
 
+      case 'sumiko':
+        return (
+          <div style={{ 
+            position: 'relative', 
+            width: '100%', 
+            height: '100%',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            backgroundColor: '#0f172a'
+          }}>
+            <img 
+              src="/images/sumiko-animation.svg" 
+              alt="Sumiko tea animation" 
+              style={{ 
+                width: '100%', 
+                height: '100%', 
+                objectFit: 'contain'
+              }} 
+            />
+          </div>
+        );
+
       default:
         return (
           <div style={{ 
