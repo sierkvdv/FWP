@@ -921,8 +921,6 @@ const AnimatedProjectImage: React.FC<AnimatedProjectImageProps> = ({ projectId, 
                 <ellipse cx="200" cy="200" rx="50" ry="15" fill="url(#sumikoCupGradient)" opacity="0.9"/>
                 <path d="M 150 200 Q 150 180 160 180 L 240 180 Q 250 180 250 200" 
                       fill="url(#sumikoCupGradient)" stroke="#d1d5db" strokeWidth="1" opacity="0.9"/>
-                <path d="M 240 185 Q 260 185 265 200 Q 260 215 240 215" 
-                      fill="none" stroke="#d1d5db" strokeWidth="3" opacity="0.7"/>
                 <ellipse cx="200" cy="190" rx="45" ry="8" fill="url(#sumikoTeaGradient)" opacity="0.8">
                   <animate attributeName="opacity" values="0.7;0.9;0.7" dur="3s" repeatCount="indefinite"/>
                 </ellipse>
