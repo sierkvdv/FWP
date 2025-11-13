@@ -268,5 +268,19 @@ export const projects: Project[] = [
     githubUrl: undefined,
     featured: true,
     year: 2025
+  },
+  {
+    id: 'sumiko',
+    title: 'Sumiko',
+    subtitle: 'Tea as a pause. Let the leaves speak.',
+    description: 'EN: Carefully sourced Chinese teas curated in Japan. Poured slowly, shared warmly — like visiting a friend\'s living room. Born between Chinese tea lineages and Japanese stillness, Sumiko shares real tea the way it\'s felt — not performed. Slow, human, and warm. | NL: Zorgvuldig geselecteerde Chinese theeën, samengesteld in Japan. Langzaam geschonken, warm gedeeld — alsof je de woonkamer van een vriend bezoekt. Geboren tussen Chinese theelijnen en Japanse rust, deelt Sumiko echte thee zoals het gevoeld wordt — niet opgevoerd. Langzaam, menselijk en warm.',
+    category: 'web',
+    technologies: ['Web Development', 'E-commerce', 'Tea Culture', 'Branding', 'UX Design', 'Vercel'],
+    image: '/images/placeholder.svg',
+    video: undefined,
+    demoUrl: 'https://sumiko.vercel.app/',
+    githubUrl: undefined,
+    featured: true,
+    year: 2025
   }
 ]; 
