@@ -74,8 +74,8 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, index }) => {
         </div>
 
         {/* Content - Link to project detail page */}
-        <Link to={`/projects/${project.id}`} className="block">
-          <div className="p-6">
+        <Link to={`/projects/${project.id}`} className="block flex-grow flex flex-col">
+          <div className="p-6 flex-grow flex flex-col">
             <div className="mb-3">
               <h3 className="text-xl font-bold text-white mb-2 group-hover:text-accent transition-colors duration-200">
                 {project.title}
@@ -107,7 +107,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, index }) => {
             </div>
 
             {/* Year */}
-            <div className="flex justify-between items-center">
+            <div className="flex justify-between items-center mt-auto">
               <span className="text-xs text-gray-500 font-mono">
                 {project.year}
               </span>
