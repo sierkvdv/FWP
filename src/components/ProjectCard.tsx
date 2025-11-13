@@ -29,7 +29,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, index }) => {
       animate="visible"
       transition={{ delay: index * ANIMATION_DELAYS.stagger }}
       whileHover={{ y: -10 }}
-      className="group relative"
+      className="group relative h-full"
     >
       <div className={`relative overflow-hidden rounded-xl glass-effect-enhanced project-card-enhanced category-${project.category}`}>
         {/* Project Video or Image - Clickable to YouTube if video, otherwise just display */}
