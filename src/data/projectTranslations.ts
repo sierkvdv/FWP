@@ -29,10 +29,10 @@ export const projectTranslations: Record<string, {
   },
   'living-posters': {
     nl: {
-      description: 'Interactieve digitale posters die reageren op beweging en geluid. Gebruikt computer vision en real-time rendering voor immersive ervaringen.'
+      description: 'Een interactieve audio visualizer die reageert op computer audio, microfoon of camera. Creëer je eigen visuele beleving met aanpasbare instellingen voor bloom, particle size, trails en kleuren. Het project heeft zich ontwikkeld tot een krachtige tool voor real-time audio visualisatie met verschillende input modes.'
     },
     en: {
-      description: 'Interactive digital posters that respond to movement and sound. Uses computer vision and real-time rendering for immersive experiences.'
+      description: 'An interactive audio visualizer that responds to computer audio, microphone, or camera. Create your own visual experience with customizable settings for bloom, particle size, trails, and colors. The project has evolved into a powerful tool for real-time audio visualization with multiple input modes.'
     }
   },
   'virtual-dj': {
