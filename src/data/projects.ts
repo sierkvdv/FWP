@@ -58,8 +58,8 @@ export const projects: Project[] = [
   },
   {
     id: 'living-posters',
-    title: 'Living Posters',
-    subtitle: 'Dynamic Digital Art Installations',
+    title: 'Particle Field Bloom',
+    subtitle: 'Interactive Audio Visualizer',
     description: 'Een interactieve audio visualizer die reageert op computer audio, microfoon of camera. Creëer je eigen visuele beleving met aanpasbare instellingen voor bloom, particle size, trails en kleuren.',
     category: 'design',
     technologies: ['Web Audio API', 'Canvas API', 'MediaPipe', 'Real-time Rendering', 'Audio Visualization'],
