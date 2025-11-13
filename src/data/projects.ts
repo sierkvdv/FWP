@@ -273,7 +273,7 @@ export const projects: Project[] = [
     id: 'sumiko',
     title: 'Sumiko',
     subtitle: 'Tea as a pause. Let the leaves speak.',
-    description: 'Carefully sourced Chinese teas curated in Japan. Poured slowly, shared warmly — like visiting a friend\'s living room.',
+    description: 'Carefully sourced Chinese teas curated in Japan. Poured slowly, shared warmly — like visiting a friend\'s living room. Born between Chinese tea lineages and Japanese stillness, Sumiko shares real tea the way it\'s felt — not performed. Slow, human, and warm.',
     category: 'web',
     technologies: ['Web Development', 'E-commerce', 'Tea Culture', 'Branding', 'UX Design', 'Vercel'],
     image: '/images/sumiko-animation.svg',
