@@ -884,15 +884,132 @@ const AnimatedProjectImage: React.FC<AnimatedProjectImageProps> = ({ projectId, 
             justifyContent: 'center',
             backgroundColor: '#0f172a'
           }}>
-            <img 
-              src="/images/sumiko-animation.svg" 
-              alt="Sumiko tea animation" 
-              style={{ 
-                width: '100%', 
-                height: '100%', 
-                objectFit: 'contain'
-              }} 
-            />
+            <svg width="100%" height="100%" viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
+              <defs>
+                <linearGradient id="sumikoTeaGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" style={{stopColor:'#059669',stopOpacity:1}} />
+                  <stop offset="100%" style={{stopColor:'#047857',stopOpacity:1}} />
+                </linearGradient>
+                <linearGradient id="sumikoCupGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" style={{stopColor:'#f3f4f6',stopOpacity:1}} />
+                  <stop offset="100%" style={{stopColor:'#e5e7eb',stopOpacity:1}} />
+                </linearGradient>
+                <radialGradient id="sumikoSteamGradient" cx="50%" cy="50%" r="50%">
+                  <stop offset="0%" style={{stopColor:'#ffffff',stopOpacity:0.8}} />
+                  <stop offset="100%" style={{stopColor:'#ffffff',stopOpacity:0}} />
+                </radialGradient>
+                <radialGradient id="sumikoLeafGradient" cx="50%" cy="50%" r="50%">
+                  <stop offset="0%" style={{stopColor:'#10b981',stopOpacity:0.9}} />
+                  <stop offset="100%" style={{stopColor:'#059669',stopOpacity:0.6}} />
+                </radialGradient>
+                <radialGradient id="sumikoGlowGradient" cx="50%" cy="50%" r="50%">
+                  <stop offset="0%" style={{stopColor:'#10b981',stopOpacity:0.4}} />
+                  <stop offset="100%" style={{stopColor:'#10b981',stopOpacity:0}} />
+                </radialGradient>
+                <filter id="sumikoGlow">
+                  <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
+                  <feMerge> 
+                    <feMergeNode in="coloredBlur"/>
+                    <feMergeNode in="SourceGraphic"/>
+                  </feMerge>
+                </filter>
+              </defs>
+              
+              <rect width="400" height="300" fill="#0f172a" opacity="0.1"/>
+              
+              <g id="tea-cup">
+                <ellipse cx="200" cy="200" rx="50" ry="15" fill="url(#sumikoCupGradient)" opacity="0.9"/>
+                <path d="M 150 200 Q 150 180 160 180 L 240 180 Q 250 180 250 200" 
+                      fill="url(#sumikoCupGradient)" stroke="#d1d5db" strokeWidth="1" opacity="0.9"/>
+                <path d="M 240 185 Q 260 185 265 200 Q 260 215 240 215" 
+                      fill="none" stroke="#d1d5db" strokeWidth="3" opacity="0.7"/>
+                <ellipse cx="200" cy="190" rx="45" ry="8" fill="url(#sumikoTeaGradient)" opacity="0.8">
+                  <animate attributeName="opacity" values="0.7;0.9;0.7" dur="3s" repeatCount="indefinite"/>
+                </ellipse>
+                <ellipse cx="200" cy="188" rx="30" ry="3" fill="#ffffff" opacity="0.3">
+                  <animate attributeName="opacity" values="0.2;0.4;0.2" dur="2s" repeatCount="indefinite"/>
+                </ellipse>
+              </g>
+              
+              <g id="steam">
+                <path d="M 180 180 Q 175 160 180 140 Q 185 120 180 100" 
+                      fill="none" stroke="url(#sumikoSteamGradient)" strokeWidth="3" opacity="0.6" strokeLinecap="round">
+                  <animate attributeName="opacity" values="0.3;0.7;0.3" dur="3s" repeatCount="indefinite"/>
+                  <animate attributeName="d" 
+                           values="M 180 180 Q 175 160 180 140 Q 185 120 180 100;M 180 180 Q 185 160 180 140 Q 175 120 180 100;M 180 180 Q 175 160 180 140 Q 185 120 180 100" 
+                           dur="4s" repeatCount="indefinite"/>
+                </path>
+                <path d="M 200 180 Q 200 160 200 140 Q 200 120 200 100" 
+                      fill="none" stroke="url(#sumikoSteamGradient)" strokeWidth="3" opacity="0.7" strokeLinecap="round">
+                  <animate attributeName="opacity" values="0.4;0.8;0.4" dur="3.5s" repeatCount="indefinite"/>
+                  <animate attributeName="d" 
+                           values="M 200 180 Q 200 160 200 140 Q 200 120 200 100;M 200 180 Q 205 160 200 140 Q 195 120 200 100;M 200 180 Q 200 160 200 140 Q 200 120 200 100" 
+                           dur="4.5s" repeatCount="indefinite"/>
+                </path>
+                <path d="M 220 180 Q 225 160 220 140 Q 215 120 220 100" 
+                      fill="none" stroke="url(#sumikoSteamGradient)" strokeWidth="3" opacity="0.5" strokeLinecap="round">
+                  <animate attributeName="opacity" values="0.2;0.6;0.2" dur="3.2s" repeatCount="indefinite"/>
+                  <animate attributeName="d" 
+                           values="M 220 180 Q 225 160 220 140 Q 215 120 220 100;M 220 180 Q 215 160 220 140 Q 225 120 220 100;M 220 180 Q 225 160 220 140 Q 215 120 220 100" 
+                           dur="4.2s" repeatCount="indefinite"/>
+                </path>
+                <circle cx="180" cy="130" r="2" fill="url(#sumikoSteamGradient)" opacity="0.5">
+                  <animate attributeName="cy" values="130;80;130" dur="4s" repeatCount="indefinite"/>
+                  <animate attributeName="opacity" values="0.5;0;0.5" dur="4s" repeatCount="indefinite"/>
+                  <animate attributeName="cx" values="180;175;180" dur="4s" repeatCount="indefinite"/>
+                </circle>
+                <circle cx="200" cy="120" r="1.5" fill="url(#sumikoSteamGradient)" opacity="0.6">
+                  <animate attributeName="cy" values="120;70;120" dur="4.5s" repeatCount="indefinite"/>
+                  <animate attributeName="opacity" values="0.6;0;0.6" dur="4.5s" repeatCount="indefinite"/>
+                  <animate attributeName="cx" values="200;205;200" dur="4.5s" repeatCount="indefinite"/>
+                </circle>
+                <circle cx="220" cy="125" r="2" fill="url(#sumikoSteamGradient)" opacity="0.4">
+                  <animate attributeName="cy" values="125;75;125" dur="4.2s" repeatCount="indefinite"/>
+                  <animate attributeName="opacity" values="0.4;0;0.4" dur="4.2s" repeatCount="indefinite"/>
+                  <animate attributeName="cx" values="220;225;220" dur="4.2s" repeatCount="indefinite"/>
+                </circle>
+              </g>
+              
+              <g id="tea-leaves">
+                <ellipse cx="120" cy="100" rx="8" ry="4" fill="url(#sumikoLeafGradient)" opacity="0.7" transform="rotate(45 120 100)">
+                  <animate attributeName="cy" values="100;60;100" dur="6s" repeatCount="indefinite"/>
+                  <animate attributeName="cx" values="120;110;120" dur="6s" repeatCount="indefinite"/>
+                  <animate attributeName="opacity" values="0.5;0.8;0.5" dur="3s" repeatCount="indefinite"/>
+                  <animateTransform attributeName="transform" type="rotate" 
+                                    values="45 120 100;50 120 100;45 120 100" 
+                                    dur="4s" repeatCount="indefinite"/>
+                </ellipse>
+                <ellipse cx="280" cy="120" rx="6" ry="3" fill="url(#sumikoLeafGradient)" opacity="0.6" transform="rotate(-30 280 120)">
+                  <animate attributeName="cy" values="120;80;120" dur="7s" repeatCount="indefinite"/>
+                  <animate attributeName="cx" values="280;290;280" dur="7s" repeatCount="indefinite"/>
+                  <animate attributeName="opacity" values="0.4;0.7;0.4" dur="3.5s" repeatCount="indefinite"/>
+                  <animateTransform attributeName="transform" type="rotate" 
+                                    values="-30 280 120;-25 280 120;-30 280 120" 
+                                    dur="5s" repeatCount="indefinite"/>
+                </ellipse>
+                <ellipse cx="100" cy="180" rx="7" ry="3.5" fill="url(#sumikoLeafGradient)" opacity="0.65" transform="rotate(60 100 180)">
+                  <animate attributeName="cy" values="180;140;180" dur="8s" repeatCount="indefinite"/>
+                  <animate attributeName="cx" values="100;95;100" dur="8s" repeatCount="indefinite"/>
+                  <animate attributeName="opacity" values="0.5;0.75;0.5" dur="4s" repeatCount="indefinite"/>
+                  <animateTransform attributeName="transform" type="rotate" 
+                                    values="60 100 180;65 100 180;60 100 180" 
+                                    dur="6s" repeatCount="indefinite"/>
+                </ellipse>
+                <ellipse cx="300" cy="160" rx="5" ry="2.5" fill="url(#sumikoLeafGradient)" opacity="0.55" transform="rotate(-45 300 160)">
+                  <animate attributeName="cy" values="160;120;160" dur="6.5s" repeatCount="indefinite"/>
+                  <animate attributeName="cx" values="300;305;300" dur="6.5s" repeatCount="indefinite"/>
+                  <animate attributeName="opacity" values="0.4;0.65;0.4" dur="3.2s" repeatCount="indefinite"/>
+                  <animateTransform attributeName="transform" type="rotate" 
+                                    values="-45 300 160;-40 300 160;-45 300 160" 
+                                    dur="4.5s" repeatCount="indefinite"/>
+                </ellipse>
+              </g>
+              
+              <circle cx="200" cy="190" r="60" fill="url(#sumikoGlowGradient)" opacity="0.3">
+                <animate attributeName="opacity" values="0.2;0.4;0.2" dur="4s" repeatCount="indefinite"/>
+                <animate attributeName="r" values="60;70;60" dur="4s" repeatCount="indefinite"/>
+              </circle>
+            </svg>
           </div>
         );
 
