@@ -171,12 +171,12 @@ export const projectTranslations: Record<string, {
   },
   'fieldworks-atelier': {
     nl: {
-      subtitle: 'Creatieve Werkruimte & Studio',
-      description: 'Een creatieve werkruimte en studio platform voor kunstenaars en ontwerpers. Ontdek samenwerkingsgereedschappen en bronnen om creatieve projecten tot leven te brengen. Fieldworks Atelier biedt een omgeving waar ideeën kunnen groeien en worden gedeeld.'
+      subtitle: 'Klimaatbewuste Kleding Studio',
+      description: 'Een kleine onafhankelijke studio voor klimaatbewuste kleding. Biologische t-shirts en toekomstige stukken, gedrukt in kleine batches met handgetrokken zeefdruk en in-house artwork.'
     },
     en: {
-      subtitle: 'Creative Workspace & Studio',
-      description: 'A creative workspace and studio platform for artists and designers. Explore collaborative tools and resources for bringing creative projects to life. Fieldworks Atelier provides an environment where ideas can flourish and be shared.'
+      subtitle: 'Climate-Conscious Clothing Studio',
+      description: 'A small independent studio for climate-conscious clothing. Organic tees and future pieces, printed in small batches with hand-pulled screens and in-house artwork.'
     }
   }
 };

@@ -286,8 +286,8 @@ export const projects: Project[] = [
   {
     id: 'fieldworks-atelier',
     title: 'Fieldworks Atelier',
-    subtitle: 'Creative Workspace & Studio',
-    description: 'A creative workspace and studio platform for artists and designers. Explore collaborative tools and resources for bringing creative projects to life.',
+    subtitle: 'Climate-Conscious Clothing Studio',
+    description: 'A small independent studio for climate-conscious clothing. Organic tees and future pieces, printed in small batches with hand-pulled screens and in-house artwork.',
     category: 'web',
     technologies: ['Web Development', 'Creative Tools', 'Collaboration', 'UI Design', 'Vercel'],
     image: '/images/fieldworks-atelier-animation.svg',
