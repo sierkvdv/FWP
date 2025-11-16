@@ -282,5 +282,19 @@ export const projects: Project[] = [
     githubUrl: undefined,
     featured: true,
     year: 2025
+  },
+  {
+    id: 'fieldworks-atelier',
+    title: 'Fieldworks Atelier',
+    subtitle: 'Creative Workspace & Studio',
+    description: 'A creative workspace and studio platform for artists and designers. Explore collaborative tools and resources for bringing creative projects to life.',
+    category: 'web',
+    technologies: ['Web Development', 'Creative Tools', 'Collaboration', 'UI Design', 'Vercel'],
+    image: '/images/fieldworks-atelier-animation.svg',
+    video: undefined,
+    demoUrl: 'https://fwa-alpha.vercel.app/',
+    githubUrl: undefined,
+    featured: true,
+    year: 2025
   }
 ]; 

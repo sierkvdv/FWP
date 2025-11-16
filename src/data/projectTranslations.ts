@@ -168,6 +168,16 @@ export const projectTranslations: Record<string, {
     en: {
       description: 'Carefully sourced Chinese teas curated in Japan. Poured slowly, shared warmly — like visiting a friend\'s living room. Born between Chinese tea lineages and Japanese stillness, Sumiko shares real tea the way it\'s felt — not performed. Slow, human, and warm.'
     }
+  },
+  'fieldworks-atelier': {
+    nl: {
+      subtitle: 'Creatieve Werkruimte & Studio',
+      description: 'Een creatieve werkruimte en studio platform voor kunstenaars en ontwerpers. Ontdek samenwerkingsgereedschappen en bronnen om creatieve projecten tot leven te brengen. Fieldworks Atelier biedt een omgeving waar ideeën kunnen groeien en worden gedeeld.'
+    },
+    en: {
+      subtitle: 'Creative Workspace & Studio',
+      description: 'A creative workspace and studio platform for artists and designers. Explore collaborative tools and resources for bringing creative projects to life. Fieldworks Atelier provides an environment where ideas can flourish and be shared.'
+    }
   }
 };
 

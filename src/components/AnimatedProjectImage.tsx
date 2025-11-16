@@ -1011,6 +1011,176 @@ const AnimatedProjectImage: React.FC<AnimatedProjectImageProps> = ({ projectId, 
           </div>
         );
 
+      case 'fieldworks-atelier':
+        return (
+          <div style={{ 
+            position: 'relative', 
+            width: '100%', 
+            height: '100%',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            color: '#f59e0b'
+          }}>
+            {/* Abstract atelier/workshop representation */}
+            <div style={{ position: 'relative', width: '80px', height: '80px' }}>
+              {/* Central geometric shape - represents workspace */}
+              <motion.div
+                style={{
+                  width: '50px',
+                  height: '50px',
+                  background: 'linear-gradient(135deg, #f59e0b 0%, #d97706 100%)',
+                  clipPath: 'polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)',
+                  position: 'absolute',
+                  top: '50%',
+                  left: '50%',
+                  transform: 'translate(-50%, -50%)'
+                }}
+                animate={{ 
+                  rotate: [0, 360],
+                  scale: [1, 1.1, 1]
+                }}
+                transition={{ 
+                  rotate: { duration: 12, repeat: Infinity, ease: "linear" },
+                  scale: { duration: 3, repeat: Infinity }
+                }}
+              />
+              {/* Floating particles representing ideas/tools */}
+              <motion.div 
+                style={{ 
+                  position: 'absolute', 
+                  top: '10%', 
+                  left: '10%', 
+                  width: '6px', 
+                  height: '6px', 
+                  background: '#fbbf24', 
+                  borderRadius: '50%'
+                }}
+                animate={{ 
+                  y: [0, -8, 0],
+                  opacity: [0.5, 1, 0.5]
+                }}
+                transition={{ duration: 2, repeat: Infinity }}
+              />
+              <motion.div 
+                style={{ 
+                  position: 'absolute', 
+                  top: '20%', 
+                  right: '10%', 
+                  width: '5px', 
+                  height: '5px', 
+                  background: '#f59e0b', 
+                  borderRadius: '50%'
+                }}
+                animate={{ 
+                  y: [0, -10, 0],
+                  opacity: [0.6, 1, 0.6]
+                }}
+                transition={{ duration: 2.5, repeat: Infinity, delay: 0.3 }}
+              />
+              <motion.div 
+                style={{ 
+                  position: 'absolute', 
+                  bottom: '15%', 
+                  left: '15%', 
+                  width: '4px', 
+                  height: '4px', 
+                  background: '#fbbf24', 
+                  borderRadius: '50%'
+                }}
+                animate={{ 
+                  y: [0, -6, 0],
+                  opacity: [0.4, 0.9, 0.4]
+                }}
+                transition={{ duration: 2.2, repeat: Infinity, delay: 0.6 }}
+              />
+              <motion.div 
+                style={{ 
+                  position: 'absolute', 
+                  bottom: '10%', 
+                  right: '20%', 
+                  width: '5px', 
+                  height: '5px', 
+                  background: '#f59e0b', 
+                  borderRadius: '50%'
+                }}
+                animate={{ 
+                  y: [0, -7, 0],
+                  opacity: [0.5, 1, 0.5]
+                }}
+                transition={{ duration: 2.3, repeat: Infinity, delay: 0.9 }}
+              />
+              {/* Small geometric shapes representing creative elements */}
+              <motion.div
+                style={{
+                  position: 'absolute',
+                  top: '5%',
+                  left: '50%',
+                  transform: 'translateX(-50%)',
+                  width: '8px',
+                  height: '8px',
+                  background: '#fbbf24',
+                  clipPath: 'polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%)'
+                }}
+                animate={{ 
+                  rotate: [0, 180, 360],
+                  scale: [1, 1.3, 1]
+                }}
+                transition={{ 
+                  rotate: { duration: 4, repeat: Infinity, ease: "linear" },
+                  scale: { duration: 2, repeat: Infinity }
+                }}
+              />
+              <motion.div
+                style={{
+                  position: 'absolute',
+                  bottom: '5%',
+                  left: '50%',
+                  transform: 'translateX(-50%)',
+                  width: '6px',
+                  height: '6px',
+                  background: '#f59e0b',
+                  clipPath: 'polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%)'
+                }}
+                animate={{ 
+                  rotate: [360, 180, 0],
+                  scale: [1, 1.2, 1]
+                }}
+                transition={{ 
+                  rotate: { duration: 3.5, repeat: Infinity, ease: "linear" },
+                  scale: { duration: 2.2, repeat: Infinity }
+                }}
+              />
+            </div>
+            {/* Bottom particles representing collaboration */}
+            <div style={{ 
+              position: 'absolute', 
+              bottom: '20px', 
+              left: '50%', 
+              transform: 'translateX(-50%)',
+              display: 'flex',
+              gap: '4px'
+            }}>
+              {[...Array(6)].map((_, i) => (
+                <motion.div 
+                  key={i} 
+                  style={{ 
+                    width: '3px', 
+                    height: '12px', 
+                    background: i % 2 === 0 ? '#f59e0b' : '#fbbf24',
+                    borderRadius: '2px'
+                  }}
+                  animate={{ scaleY: [0.4, 1, 0.4] }}
+                  transition={{ 
+                    duration: 0.8 + i * 0.15, 
+                    repeat: Infinity 
+                  }}
+                />
+              ))}
+            </div>
+          </div>
+        );
+
       default:
         return (
           <div style={{ 
