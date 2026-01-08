@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { ArrowDown, Sparkles } from 'lucide-react';
+import { ArrowDown, Sparkles, Calendar } from 'lucide-react';
 import { SITE_CONFIG, ANIMATION_DELAYS } from '../utils/constants';
 import { fadeInUp, slideInLeft, slideInRight } from '../utils/animations';
 import { useLanguage } from '../contexts/LanguageContext';
@@ -130,6 +130,18 @@ const Hero: React.FC = () => {
               className="px-8 py-4 border border-accent text-accent font-semibold rounded-lg hover:bg-accent/10 transition-colors duration-200 flex items-center gap-2"
             >
               {t('hero.getInTouch')}
+            </motion.button>
+          </MagneticCursor>
+          
+          <MagneticCursor strength={0.2}>
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              onClick={() => window.open('https://deepstepper-home.vercel.app/', '_blank', 'noopener,noreferrer')}
+              className="px-8 py-4 border border-accent text-accent font-semibold rounded-lg hover:bg-accent/10 transition-colors duration-200 flex items-center gap-2"
+            >
+              <Calendar size={20} />
+              {t('hero.viewEvents')}
             </motion.button>
           </MagneticCursor>
         </motion.div>

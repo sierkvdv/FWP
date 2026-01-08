@@ -23,6 +23,7 @@ const translations: Record<Language, Record<string, string>> = {
     'hero.welcome': 'Welkom bij',
     'hero.viewProjects': 'Bekijk Projecten',
     'hero.getInTouch': 'Neem Contact Op',
+    'hero.viewEvents': 'FWP Events',
     
     // HomePage
     'home.featuredProjects': 'Uitgelichte Projecten',
@@ -115,6 +116,7 @@ const translations: Record<Language, Record<string, string>> = {
     'hero.welcome': 'Welcome to',
     'hero.viewProjects': 'View Projects',
     'hero.getInTouch': 'Get in Touch',
+    'hero.viewEvents': 'FWP Events',
     
     // HomePage
     'home.featuredProjects': 'Featured Projects',
