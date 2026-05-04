@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { motion } from 'framer-motion';
-import { Mail, Github, Linkedin, Instagram, Send, MapPin, Phone } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Mail, Github, Linkedin, Instagram, Send, MapPin, Phone, CheckCircle, AlertCircle } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
 import { contactInfo } from '../data/contact';
+import { supabase } from '../lib/supabase';
 
 const ContactPage: React.FC = () => {
   const { t } = useLanguage();
@@ -14,6 +15,8 @@ const ContactPage: React.FC = () => {
   });
 
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const socialLinks = [
     { icon: <Mail size={24} />, href: `mailto:${contactInfo.email}`, label: 'Email', color: 'hover:text-red-400' },
@@ -25,25 +28,29 @@ const ContactPage: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-    
-    // Create email body
-    const emailBody = `
-${t('contact.name')}: ${formData.name}
-${t('contact.email')}: ${formData.email}
-${t('contact.subject')}: ${formData.subject}
+    setError(null);
 
-${t('contact.message')}:
-${formData.message}
-    `;
-    
-    // Open email client
-    const mailtoLink = `mailto:${contactInfo.email}?subject=${encodeURIComponent(formData.subject)}&body=${encodeURIComponent(emailBody)}`;
-    window.open(mailtoLink);
-    
-    setIsSubmitting(false);
-    setFormData({ name: '', email: '', subject: '', message: '' });
-    
-    alert(t('contact.emailOpened'));
+    try {
+      const { error: supabaseError } = await supabase
+        .from('contact_messages')
+        .insert([{
+          name: formData.name,
+          email: formData.email,
+          subject: formData.subject,
+          message: formData.message,
+          created_at: new Date().toISOString(),
+        }]);
+
+      if (supabaseError) throw supabaseError;
+
+      setSubmitted(true);
+      setFormData({ name: '', email: '', subject: '', message: '' });
+    } catch (err) {
+      console.error('Contact form error:', err);
+      setError('Er ging iets mis. Probeer het opnieuw of mail direct naar ' + contactInfo.email);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -80,8 +87,27 @@ ${formData.message}
               transition={{ duration: 0.8, delay: 0.2 }}
             >
               <h2 className="text-3xl font-bold mb-8 gradient-text">{t('contact.sendMessage')}</h2>
-              
-              <form onSubmit={handleSubmit} className="space-y-6">
+
+              <AnimatePresence mode="wait">
+                {submitted ? (
+                  <motion.div
+                    key="success"
+                    initial={{ opacity: 0, scale: 0.95 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    className="flex flex-col items-center justify-center py-16 text-center gap-4"
+                  >
+                    <CheckCircle size={56} className="text-green-400" />
+                    <h3 className="text-2xl font-bold text-white">Bericht ontvangen!</h3>
+                    <p className="text-gray-400 max-w-sm">Bedankt voor je bericht. Ik neem zo snel mogelijk contact met je op.</p>
+                    <button
+                      onClick={() => setSubmitted(false)}
+                      className="mt-4 px-6 py-2 border border-accent text-accent rounded-lg hover:bg-accent/10 transition-colors text-sm"
+                    >
+                      Nog een bericht sturen
+                    </button>
+                  </motion.div>
+                ) : (
+                  <motion.form key="form" onSubmit={handleSubmit} className="space-y-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
                     <label htmlFor="name" className="block text-sm font-medium text-gray-300 mb-2">
@@ -148,6 +174,13 @@ ${formData.message}
                   />
                 </div>
 
+                {error && (
+                  <div className="flex items-start gap-3 p-4 bg-red-500/10 border border-red-500/30 rounded-lg text-red-400 text-sm">
+                    <AlertCircle size={18} className="flex-shrink-0 mt-0.5" />
+                    <span>{error}</span>
+                  </div>
+                )}
+
                 <motion.button
                   type="submit"
                   disabled={isSubmitting}
@@ -167,7 +200,9 @@ ${formData.message}
                     </>
                   )}
                 </motion.button>
-              </form>
+              </motion.form>
+                )}
+              </AnimatePresence>
             </motion.div>
 
             {/* Contact Info */}
