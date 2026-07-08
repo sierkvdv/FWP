@@ -13,6 +13,56 @@ export interface Project {
   year: number;
 }
 
+/* ------------------------------------------------------------------ *
+ * FWP redesign — content model. Groepeer NAAR WAT HET DEED voor de
+ * klant, niet naar techniek. Alle klant-tekst is tweetalig (NL/EN).
+ * ------------------------------------------------------------------ */
+
+export type Track = 'automatiseren' | 'bouwen' | 'creeren';
+
+/** Tweetalige string. NL is default; EN vult /en. */
+export interface Localized {
+  nl: string;
+  en: string;
+}
+
+/** Een volwaardige case: probleem -> oplossing -> resultaat. */
+export interface CaseStudy {
+  id: string;
+  title: string;
+  client?: string;
+  track: Track;
+  problem: Localized;
+  solution: Localized;
+  result: Localized;
+  /** Het cyaan accent-getal, taal-neutraal. Bv. "100+ foutcodes". */
+  metric?: string;
+  image?: string;
+  liveUrl?: string;
+  year: number;
+  /** Toont op de homepage. */
+  featured?: boolean;
+}
+
+/** Compacte kaart voor de secundaire "Meer werk"-grid. */
+export interface WorkItem {
+  id: string;
+  title: string;
+  subtitle: Localized;
+  track?: Track;
+  image?: string;
+  liveUrl?: string;
+  video?: string;
+  year: number;
+}
+
+/** Metadata per spoor voor de overzicht-sectie. */
+export interface TrackMeta {
+  id: Track;
+  label: Localized;
+  blurb: Localized;
+}
+
 export interface Skill {
   name: string;
   category: 'frontend' | 'backend' | 'ai' | 'design' | 'music';
