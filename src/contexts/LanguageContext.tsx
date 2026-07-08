@@ -202,14 +202,12 @@ const translations: Record<Language, Record<string, string>> = {
 
 export const LanguageProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [language, setLanguageState] = useState<Language>(() => {
-    // Get saved language from localStorage or default to browser language
+    // Bewaarde keuze wint; anders is NL de default (NL-markt eerst).
     const saved = localStorage.getItem('language') as Language;
     if (saved && (saved === 'nl' || saved === 'en')) {
       return saved;
     }
-    // Detect browser language
-    const browserLang = navigator.language.split('-')[0];
-    return browserLang === 'nl' ? 'nl' : 'en';
+    return 'nl';
   });
 
   const setLanguage = (lang: Language) => {

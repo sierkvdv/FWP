@@ -60,22 +60,22 @@ export const cases: CaseStudy[] = [
     featured: true,
   },
   {
-    id: 'sfeerbaas-tt',
-    title: 'Sfeerbaas Track & Trace',
+    id: 'sfeerbaas',
+    title: 'Sfeerbaas Configurator',
     client: 'Sfeerbaas',
-    image: '/images/cases/sfeerbaas-tt.webp',
-    track: 'automatiseren',
+    image: '/images/cases/sfeerbaas.webp',
+    track: 'bouwen',
     problem: {
-      nl: 'Klanten belden voor de status van hun bestelling; elke update ging met de hand.',
-      en: 'Customers called to check their order status; every update was handled by hand.',
+      nl: 'Klanten wilden een eigen neonreclame ontwerpen, maar standaard-configurators boden nauwelijks vrijheid — en je zag pas bij levering hoe het echt werd.',
+      en: 'Customers wanted to design their own neon sign, but standard configurators offered barely any freedom — and you only saw the real result on delivery.',
     },
     solution: {
-      nl: 'Geautomatiseerde track & trace die statusupdates zelf ophaalt en verstuurt.',
-      en: 'Automated track & trace that fetches and sends status updates on its own.',
+      nl: 'Een configurator waarin je tekst, kleur en lettertype vrij combineert, met een live preview die exact toont wat er gemaakt wordt.',
+      en: 'A configurator that lets you freely combine text, colour and typeface, with a live preview showing exactly what will be made.',
     },
     result: {
-      nl: 'Klanten zijn altijd op de hoogte, het statuswerk verdween naar de achtergrond.',
-      en: 'Customers are always in the loop; the status busywork moved into the background.',
+      nl: 'De klant ontwerpt zelf en bestelt met vertrouwen: wat je ziet is wat je krijgt.',
+      en: 'Customers design it themselves and order with confidence: what you see is what you get.',
     },
     metric: undefined,
     year: 2026,
@@ -172,26 +172,6 @@ export const cases: CaseStudy[] = [
     year: 2025,
     featured: true,
   },
-  {
-    id: 'configurators',
-    title: 'Productconfigurators',
-    track: 'bouwen',
-    problem: {
-      nl: 'Klanten wilden een product samenstellen, maar zagen niet wat ze kozen.',
-      en: 'Customers wanted to build a product, but couldn’t see what they were choosing.',
-    },
-    solution: {
-      nl: 'Configurators met live visuele preview — kleur, tekst en opties direct in beeld.',
-      en: 'Configurators with a live visual preview — colour, text and options shown in real time.',
-    },
-    result: {
-      nl: 'De klant ziet meteen wat ’ie krijgt: minder twijfel, minder retouren, meer bestellingen.',
-      en: 'Customers see exactly what they’ll get: less doubt, fewer returns, more orders.',
-    },
-    year: 2025,
-    featured: false,
-  },
-
   // ------------------------------ CREËREN --------------------------------
   {
     id: 'reclamevideos',

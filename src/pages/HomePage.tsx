@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { useLanguage } from '../contexts/LanguageContext';
 import { cases, tracks } from '../data/cases';
 import Hero from '../components/Hero';
+import AdShowcase from '../components/AdShowcase';
 import CaseRow from '../components/CaseRow';
 import { Container, Section, Kicker, Reveal } from '../components/primitives';
 
@@ -41,6 +42,9 @@ const HomePage: React.FC = () => {
   return (
     <main>
       <Hero />
+
+      {/* Reclamevideo's — de nieuwe tak, prominent */}
+      <AdShowcase />
 
       {/* Drie sporen */}
       <Section id="tracks" className="border-t border-line">
