@@ -38,6 +38,13 @@ export interface CaseStudy {
   /** Het cyaan accent-getal, taal-neutraal. Bv. "100+ foutcodes". */
   metric?: string;
   image?: string;
+  /** Case-video (mp4) — wint van image in de kaart. */
+  video?: string;
+  videoPoster?: string;
+  /** Beeldverhouding van de kaart-media (default 4/3). */
+  mediaRatio?: string;
+  /** Extra campagne-video's op de detailpagina. */
+  gallery?: { mp4: string; poster?: string; title?: string }[];
   liveUrl?: string;
   year: number;
   /** Toont op de homepage. */

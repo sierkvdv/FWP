@@ -110,6 +110,8 @@ export const cases: CaseStudy[] = [
     title: 'Wondertale',
     client: 'Eigen product',
     image: '/images/cases/wondertale.webp',
+    video: '/videos/cases/wondertale.mp4',
+    videoPoster: '/videos/cases/wondertale.jpg',
     track: 'bouwen',
     problem: {
       nl: 'Een gepersonaliseerd kinderboek maken kostte normaal dagen ontwerp- en tekenwerk.',
@@ -124,7 +126,7 @@ export const cases: CaseStudy[] = [
       en: 'From a name and a photo to a unique, print-ready book — in minutes instead of days.',
     },
     metric: 'minuten',
-    liveUrl: undefined,
+    liveUrl: 'https://wonder-tale.com',
     year: 2026,
     featured: true,
   },
@@ -133,6 +135,8 @@ export const cases: CaseStudy[] = [
     title: 'Portretto',
     client: 'Portretto',
     image: '/images/cases/portretto.webp',
+    video: '/videos/cases/portretto.mp4',
+    videoPoster: '/videos/cases/portretto.jpg',
     track: 'bouwen',
     problem: {
       nl: 'Mensen wilden een mooi portret of poster, maar AI-tools voelden te technisch.',
@@ -155,6 +159,8 @@ export const cases: CaseStudy[] = [
     title: 'Clonebox',
     client: 'Clonebox',
     image: '/images/cases/clonebox.webp',
+    video: '/videos/cases/clonebox.mp4',
+    videoPoster: '/videos/cases/clonebox.jpg',
     track: 'bouwen',
     problem: {
       nl: 'DJ’s beheren hun Rekordbox-collectie los van hun back-ups, versies en tweede laptop.',
@@ -173,6 +179,47 @@ export const cases: CaseStudy[] = [
     featured: true,
   },
   // ------------------------------ CREËREN --------------------------------
+  {
+    id: 'schelpenfissa',
+    title: 'Schelpenfissa',
+    client: 'Schelpenfissa',
+    video: '/videos/cases/schelpenfissa.mp4',
+    videoPoster: '/videos/cases/schelpenfissa.jpg',
+    mediaRatio: '1/1',
+    track: 'creeren',
+    problem: {
+      nl: 'Een gloednieuw strandfeest zonder naam moest in weken een merk én publiek opbouwen.',
+      en: 'A brand-new beach party with no name had to build a brand and an audience in weeks.',
+    },
+    solution: {
+      nl: 'Complete campagne: identiteit, one-pager site en een serie AI-video’s — teaser, natuurdocs over de DJ’s en respect-de-plek-content voor Instagram.',
+      en: 'A full campaign: identity, one-pager site and a series of AI videos — teaser, nature-doc DJ portraits and respect-the-beach content for Instagram.',
+    },
+    result: {
+      nl: 'Een herkenbaar merk met een feed die blijft hangen — vóór het eerste feest plaatsvond.',
+      en: 'A recognisable brand with a feed that sticks — before the first party even happened.',
+    },
+    gallery: [
+      {
+        mp4: '/videos/campaign/hoeder-van-het-koude-9x16.mp4',
+        poster: '/videos/campaign/hoeder-van-het-koude-9x16.jpg',
+        title: 'Natuurdoc — Hoeder van het Koude',
+      },
+      {
+        mp4: '/videos/campaign/discokat-natuurdoc-9x16.mp4',
+        poster: '/videos/campaign/discokat-natuurdoc-9x16.jpg',
+        title: 'Natuurdoc — Discokat',
+      },
+      {
+        mp4: '/videos/campaign/respect-de-plek-9x16.mp4',
+        poster: '/videos/campaign/respect-de-plek-9x16.jpg',
+        title: 'Respect de plek',
+      },
+    ],
+    liveUrl: 'https://schelpenfissa.com',
+    year: 2026,
+    featured: true,
+  },
   {
     id: 'reclamevideos',
     title: 'Reclamevideo’s',

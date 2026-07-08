@@ -11,15 +11,25 @@ const trackLabel: Record<CaseStudy['track'], string> = {
   creeren: 'Creëren',
 };
 
+/** URL → kale domeinnaam (portretto.org, wonder-tale.com, …). */
+export const domainOf = (url: string) =>
+  url.replace(/^https?:\/\/(www\.)?/, '').replace(/\/.*$/, '');
+
 const CaseRow: React.FC<{ item: CaseStudy; index: number }> = ({ item, index }) => {
   const { language } = useLanguage();
   const flip = index % 2 === 1;
 
   return (
     <Reveal className="grid grid-cols-1 items-center gap-8 md:grid-cols-2 md:gap-14">
-      {/* Beeld */}
+      {/* Beeld / video */}
       <div className={flip ? 'md:order-2' : ''}>
-        <CaseMedia src={item.image} label={item.title} ratio="4/3" />
+        <CaseMedia
+          src={item.image}
+          video={item.video}
+          poster={item.videoPoster}
+          label={item.title}
+          ratio={item.mediaRatio || '4/3'}
+        />
       </div>
 
       {/* Tekst */}
@@ -67,7 +77,7 @@ const CaseRow: React.FC<{ item: CaseStudy; index: number }> = ({ item, index }) 
               rel="noopener noreferrer"
               className="text-muted underline-offset-4 transition-colors hover:text-ink hover:underline"
             >
-              {language === 'nl' ? 'Live ↗' : 'Live ↗'}
+              {domainOf(item.liveUrl)} ↗
             </a>
           )}
         </div>

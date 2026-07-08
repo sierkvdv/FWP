@@ -4,6 +4,7 @@ import { useLanguage } from '../contexts/LanguageContext';
 import { cases, tracks } from '../data/cases';
 import { moreWork } from '../data/moreWork';
 import CaseMedia from '../components/CaseMedia';
+import { domainOf } from '../components/CaseRow';
 import { Container, Section, Kicker } from '../components/primitives';
 
 const t = {
@@ -96,7 +97,13 @@ const ProjectDetailPage: React.FC = () => {
 
         <Section>
           <Container>
-            <CaseMedia src={caseStudy.image} label={caseStudy.title} ratio="21/9" />
+            <CaseMedia
+              src={caseStudy.image}
+              video={caseStudy.video}
+              poster={caseStudy.videoPoster}
+              label={caseStudy.title}
+              ratio={caseStudy.video ? '16/9' : '21/9'}
+            />
 
             <div className="mt-16 grid grid-cols-1 gap-12 md:grid-cols-3">
               <div className="border-t border-line pt-6">
@@ -131,8 +138,35 @@ const ProjectDetailPage: React.FC = () => {
                 rel="noopener noreferrer"
                 className="mt-12 inline-block text-sm text-ink underline-offset-4 transition-colors hover:text-accent hover:underline"
               >
-                {c.live}
+                {domainOf(caseStudy.liveUrl)} ↗
               </a>
+            )}
+
+            {/* Campagne-galerij */}
+            {caseStudy.gallery && caseStudy.gallery.length > 0 && (
+              <div className="mt-20">
+                <Kicker>{language === 'nl' ? 'Uit de campagne' : 'From the campaign'}</Kicker>
+                <div className="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                  {caseStudy.gallery.map((g) => (
+                    <div key={g.mp4}>
+                      <div
+                        className="overflow-hidden rounded-lg border border-line bg-surface"
+                        style={{ aspectRatio: '9/16' }}
+                      >
+                        <video
+                          src={g.mp4}
+                          poster={g.poster}
+                          className="h-full w-full object-cover"
+                          controls
+                          preload="metadata"
+                          playsInline
+                        />
+                      </div>
+                      {g.title && <p className="mt-3 text-sm text-muted">{g.title}</p>}
+                    </div>
+                  ))}
+                </div>
+              </div>
             )}
           </Container>
         </Section>

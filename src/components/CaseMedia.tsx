@@ -2,6 +2,9 @@ import React, { useState } from 'react';
 
 interface CaseMediaProps {
   src?: string;
+  /** mp4-video — wint van src. Speelt stil in loop. */
+  video?: string;
+  poster?: string;
   label: string;
   /** aspect ratio, bv. '4/3' of '16/10' */
   ratio?: string;
@@ -9,25 +12,39 @@ interface CaseMediaProps {
 }
 
 /**
- * Toont het case-beeld — of, zolang er nog geen beeld is, een
- * strak monochroom placeholder-vlak met de titel. Nooit een
- * kapotte <img>.
+ * Toont de case-media: video (stil, loop) of beeld — of, zolang er
+ * nog niets is, een strak monochroom placeholder-vlak met de titel.
+ * Nooit een kapotte <img>.
  */
 const CaseMedia: React.FC<CaseMediaProps> = ({
   src,
+  video,
+  poster,
   label,
   ratio = '4/3',
   className = '',
 }) => {
   const [failed, setFailed] = useState(false);
-  const showImage = src && !failed;
+  const showImage = !video && src && !failed;
 
   return (
     <div
       className={`relative overflow-hidden rounded-lg border border-line bg-surface ${className}`}
       style={{ aspectRatio: ratio }}
     >
-      {showImage ? (
+      {video ? (
+        <video
+          src={video}
+          poster={poster}
+          aria-label={label}
+          className="h-full w-full object-cover"
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="metadata"
+        />
+      ) : showImage ? (
         <img
           src={src}
           alt={label}
