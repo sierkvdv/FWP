@@ -200,8 +200,8 @@ export const cases: CaseStudy[] = [
     id: 'schelpenfissa',
     title: 'Schelpenfissa',
     client: 'Schelpenfissa',
-    video: '/videos/cases/schelpenfissa.mp4',
-    videoPoster: '/videos/cases/schelpenfissa.jpg',
+    video: '/videos/campaign/hoeder-van-het-koude-9x16.mp4',
+    videoPoster: '/videos/campaign/hoeder-van-het-koude-9x16.jpg',
     mediaRatio: '1/1',
     track: 'creeren',
     problem: {
@@ -226,6 +226,36 @@ export const cases: CaseStudy[] = [
         mp4: '/videos/campaign/discokat-natuurdoc-9x16.mp4',
         poster: '/videos/campaign/discokat-natuurdoc-9x16.jpg',
         title: 'Natuurdoc — Discokat',
+      },
+      {
+        mp4: '/videos/campaign/deepstepper-natuurdoc-9x16.mp4',
+        poster: '/videos/campaign/deepstepper-natuurdoc-9x16.jpg',
+        title: 'Natuurdoc — Deepstepper',
+      },
+      {
+        mp4: '/videos/campaign/djwallie-natuurdoc-9x16.mp4',
+        poster: '/videos/campaign/djwallie-natuurdoc-9x16.jpg',
+        title: 'Natuurdoc — DJ Wallie',
+      },
+      {
+        mp4: '/videos/campaign/djuntold-natuurdoc-9x16.mp4',
+        poster: '/videos/campaign/djuntold-natuurdoc-9x16.jpg',
+        title: 'Natuurdoc — DJ Untold',
+      },
+      {
+        mp4: '/videos/campaign/djsamsonite-natuurdoc-9x16.mp4',
+        poster: '/videos/campaign/djsamsonite-natuurdoc-9x16.jpg',
+        title: 'Natuurdoc — DJ Samsonite',
+      },
+      {
+        mp4: '/videos/campaign/djtaleuntold-natuurdoc-9x16.mp4',
+        poster: '/videos/campaign/djtaleuntold-natuurdoc-9x16.jpg',
+        title: 'Natuurdoc — Tale & Untold',
+      },
+      {
+        mp4: '/videos/campaign/shawne-natuurdoc-9x16.mp4',
+        poster: '/videos/campaign/shawne-natuurdoc-9x16.jpg',
+        title: 'Natuurdoc — Shawne',
       },
       {
         mp4: '/videos/campaign/respect-de-plek-9x16.mp4',
