@@ -31,8 +31,8 @@ const VideoFrame: React.FC<{ video: ShowreelVideo; large?: boolean }> = ({ video
   const embed = video.youtube ? youtubeEmbed(video.youtube) : null;
   return (
     <div
-      className={`overflow-hidden rounded-lg border border-line bg-surface ${large ? '' : ''}`}
-      style={{ aspectRatio: '16/9' }}
+      className="overflow-hidden rounded-lg border border-line bg-surface"
+      style={{ aspectRatio: video.ratio || '16/9' }}
     >
       {embed ? (
         <iframe
@@ -48,9 +48,12 @@ const VideoFrame: React.FC<{ video: ShowreelVideo; large?: boolean }> = ({ video
           src={video.mp4}
           poster={video.poster}
           className="h-full w-full object-cover"
-          autoPlay
-          muted
-          loop
+          controls
+          preload="metadata"
+          // De grote video speelt stil mee als sfeer; kleinere starten op klik.
+          autoPlay={large}
+          muted={large}
+          loop={large}
           playsInline
         />
       ) : null}
