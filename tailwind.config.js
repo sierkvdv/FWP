@@ -1,35 +1,47 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: [
-    "./src/**/*.{js,jsx,ts,tsx}",
-  ],
+  content: ["./src/**/*.{js,jsx,ts,tsx}"],
   theme: {
+    // Editorial rhythm — one calm, deliberate system.
     extend: {
       colors: {
-        accent: '#00ff88',
-        dark: '#0a0a0a',
-        'dark-gray': '#1a1a1a',
+        bg: '#0a0a0c',       // dominante donker
+        surface: '#101014',  // kaarten, subtiel opgetild
+        line: '#1c1c22',     // randen, vaag zichtbaar
+        ink: '#f4f4f6',      // tekst primair
+        muted: '#7a7a86',    // tekst tweede
+        accent: '#00e5c7',   // cyaan — SPAARZAAM
       },
       fontFamily: {
-        'mono': ['JetBrains Mono', 'monospace'],
-        'sans': ['Inter', 'sans-serif'],
+        sans: ['Sora', 'system-ui', 'sans-serif'],
       },
-      animation: {
-        'glow': 'glow 2s ease-in-out infinite alternate',
-        'float': 'float 6s ease-in-out infinite',
-        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+      maxWidth: {
+        content: '1360px',
+        prose: '640px',
+      },
+      letterSpacing: {
+        tightest: '-0.03em',
+        display: '-0.02em',
+        label: '0.12em',
+      },
+      lineHeight: {
+        display: '1.05',
+        snug: '1.15',
+        relaxed: '1.65',
+      },
+      transitionTimingFunction: {
+        editorial: 'cubic-bezier(0.16, 1, 0.3, 1)',
       },
       keyframes: {
-        glow: {
-          '0%': { boxShadow: '0 0 20px rgba(0, 255, 136, 0.3)' },
-          '100%': { boxShadow: '0 0 30px rgba(0, 255, 136, 0.6)' },
+        'fade-up': {
+          '0%': { opacity: '0', transform: 'translateY(16px)' },
+          '100%': { opacity: '1', transform: 'translateY(0)' },
         },
-        float: {
-          '0%, 100%': { transform: 'translateY(0px)' },
-          '50%': { transform: 'translateY(-20px)' },
-        }
-      }
+      },
+      animation: {
+        'fade-up': 'fade-up 400ms cubic-bezier(0.16, 1, 0.3, 1) both',
+      },
     },
   },
   plugins: [],
-} 
+};

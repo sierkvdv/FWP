@@ -1,50 +1,96 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+/* ------------------------------------------------------------------ *
+ * FWP design tokens — editorial, donker, cyaan spaarzaam.
+ * ------------------------------------------------------------------ */
+:root {
+  --bg: #0a0a0c;
+  --surface: #101014;
+  --line: #1c1c22;
+  --ink: #f4f4f6;
+  --muted: #7a7a86;
+  --accent: #00e5c7;
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
 @layer base {
   html {
     scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
   }
-  
+
   body {
-    @apply bg-dark text-white font-sans;
+    background-color: var(--bg);
+    color: var(--ink);
+    font-family: 'Sora', system-ui, sans-serif;
+    font-weight: 400;
+    line-height: 1.65;
     overflow-x: hidden;
+    font-feature-settings: 'ss01', 'cv01';
+  }
+
+  /* Display headings: licht gewicht, tight tracking, generous leading. */
+  h1, h2, h3 {
+    font-weight: 300;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+    color: var(--ink);
+  }
+
+  ::selection {
+    background: var(--accent);
+    color: #04110f;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 2px;
   }
 }
 
 @layer components {
-  .gradient-text {
-    @apply bg-gradient-to-r from-accent to-purple-500 bg-clip-text text-transparent;
+  /* Kicker / eyebrow labels — uppercase, wide tracking. */
+  .kicker {
+    font-size: 0.75rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--muted);
   }
-  
-  .glass-effect {
-    @apply backdrop-blur-md bg-white/5 border border-white/10;
-  }
-  
-  .hover-lift {
-    @apply transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl;
-  }
-  
-  .text-glow {
-    text-shadow: 0 0 20px rgba(0, 255, 136, 0.5);
+
+  /* Hairline — de enige "rand" die de site gebruikt. */
+  .hairline {
+    border-color: var(--line);
   }
 }
 
-/* Custom scrollbar */
+/* Respecteer reduced-motion — beweging is een keuze, geen eis. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Ingetogen scrollbar. */
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 10px;
 }
-
 ::-webkit-scrollbar-track {
-  @apply bg-dark-gray;
+  background: var(--bg);
 }
-
 ::-webkit-scrollbar-thumb {
-  @apply bg-accent/50 rounded-full;
+  background: var(--line);
+  border-radius: 999px;
 }
-
 ::-webkit-scrollbar-thumb:hover {
-  @apply bg-accent/70;
-} 
+  background: #2a2a32;
+}

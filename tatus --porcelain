@@ -1,5 +1,0 @@
-[33m89eb37c[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m Working localhost version - all TypeScript errors fixed
-[33mf42f61a[m Fix TypeScript import errors for Vercel deployment
-[33m7ef10ad[m Fix TypeScript import errors and add tsconfig.json for Vercel deployment
-[33mbc0ed16[m Verwijder oude demo/component bestanden die build breken
-[33mc8d9a9f[m Update project with latest changes and new assets
