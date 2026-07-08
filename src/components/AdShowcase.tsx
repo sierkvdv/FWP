@@ -114,7 +114,13 @@ const AdShowcase: React.FC = () => {
         </div>
 
         {rest.length > 0 && (
-          <div className="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          <div
+            className={`mt-10 grid grid-cols-1 gap-6 ${
+              rest.every((v) => v.ratio === '9/16')
+                ? 'sm:grid-cols-2 lg:grid-cols-3' // verticale social-ads: rij van drie
+                : 'lg:grid-cols-2' // liggende commercials: ruim, max twee naast elkaar
+            }`}
+          >
             {rest.map((v) => (
               <Reveal key={v.id}>
                 <VideoFrame video={v} />

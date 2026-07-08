@@ -150,6 +150,23 @@ export const cases: CaseStudy[] = [
       nl: 'Een persoonlijk kunstwerk zonder gedoe — in een paar klikken klaar.',
       en: 'A personal piece of art without the hassle — done in a few clicks.',
     },
+    gallery: [
+      {
+        mp4: '/videos/ads/hondad.mp4',
+        poster: '/videos/ads/hondad.jpg',
+        title: 'Ad — Jouw hond, maar dan geschilderd',
+      },
+      {
+        mp4: '/videos/ads/aipet.mp4',
+        poster: '/videos/ads/aipet.jpg',
+        title: 'Ad — Custom AI Pet reveal',
+      },
+      {
+        mp4: '/videos/ads/portretto-ad.mp4',
+        poster: '/videos/ads/portretto-ad.jpg',
+        title: 'Ad — Familieportret',
+      },
+    ],
     liveUrl: 'https://portretto.org',
     year: 2026,
     featured: true,

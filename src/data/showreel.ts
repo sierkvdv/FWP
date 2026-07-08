@@ -20,30 +20,16 @@ export interface ShowreelVideo {
 export const showreel: ShowreelVideo[] = [
   {
     id: 'tij',
-    title: 'TIJ — strand-commercial (concept)',
+    title: 'TIJ — strand-commercial',
     mp4: '/videos/ads/tij.mp4',
     poster: '/videos/ads/tij.jpg',
     ratio: '16/9',
   },
   {
-    id: 'hondad',
-    title: 'Jouw hond, maar dan geschilderd',
-    mp4: '/videos/ads/hondad.mp4',
-    poster: '/videos/ads/hondad.jpg',
-    ratio: '9/16',
-  },
-  {
-    id: 'aipet',
-    title: 'Custom AI Pet — reveal',
-    mp4: '/videos/ads/aipet.mp4',
-    poster: '/videos/ads/aipet.jpg',
-    ratio: '9/16',
-  },
-  {
-    id: 'portretto-ad',
-    title: 'Portretto — familieportret',
-    mp4: '/videos/ads/portretto-ad.mp4',
-    poster: '/videos/ads/portretto-ad.jpg',
-    ratio: '9/16',
+    id: 'nordax',
+    title: 'NORDAX — commercial',
+    mp4: '/videos/ads/nordax.mp4',
+    poster: '/videos/ads/nordax.jpg',
+    ratio: '16/9',
   },
 ];
