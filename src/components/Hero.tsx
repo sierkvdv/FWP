@@ -34,7 +34,21 @@ const Hero: React.FC = () => {
 
   return (
     <section className="relative overflow-hidden pt-16">
-      <Container>
+      {/* Video-achtergrond — stil, donker, subtiel. Overlay houdt tekst leesbaar. */}
+      <div className="absolute inset-0" aria-hidden="true">
+        <video
+          src="/videos/hero-bg.mp4"
+          className="h-full w-full object-cover"
+          autoPlay
+          muted
+          loop
+          playsInline
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-bg via-bg/80 to-bg/40" />
+        <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-bg to-transparent" />
+      </div>
+
+      <Container className="relative">
         <div className="grid min-h-[72vh] grid-cols-1 items-center gap-10 py-16 lg:grid-cols-12 lg:py-20">
           {/* Statement */}
           <div className="lg:col-span-8">

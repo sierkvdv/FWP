@@ -33,7 +33,7 @@ const CaseMedia: React.FC<CaseMediaProps> = ({
           alt={label}
           loading="lazy"
           onError={() => setFailed(true)}
-          className="h-full w-full object-cover grayscale transition-[filter,transform] duration-500 ease-editorial hover:grayscale-0"
+          className="h-full w-full object-cover"
         />
       ) : (
         <div className="flex h-full w-full items-center justify-center">
