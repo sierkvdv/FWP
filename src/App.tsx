@@ -3,31 +3,34 @@ import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-route
 import { AnimatePresence } from 'framer-motion';
 import { LanguageProvider } from './contexts/LanguageContext';
 import Navigation from './components/Navigation';
+import Footer from './components/Footer';
 import HomePage from './pages/HomePage';
 import ProjectsPage from './pages/ProjectsPage';
 import ProjectDetailPage from './pages/ProjectDetailPage';
 import AboutPage from './pages/AboutPage';
 import ContactPage from './pages/ContactPage';
 import PageTransition from './components/PageTransition';
-import './cursorflow-real.css';
 
 function AppContent() {
   const location = useLocation();
-  
+
   return (
-    <div className="App">
+    <div className="App flex min-h-screen flex-col">
       <Navigation />
-      <AnimatePresence mode="wait" key={location.pathname}>
-        <PageTransition key={location.pathname}>
-          <Routes location={location}>
-            <Route path="/" element={<HomePage />} />
-            <Route path="/projects" element={<ProjectsPage />} />
-            <Route path="/projects/:id" element={<ProjectDetailPage />} />
-            <Route path="/about" element={<AboutPage />} />
-            <Route path="/contact" element={<ContactPage />} />
-          </Routes>
-        </PageTransition>
-      </AnimatePresence>
+      <div className="flex-1">
+        <AnimatePresence mode="wait" key={location.pathname}>
+          <PageTransition key={location.pathname}>
+            <Routes location={location}>
+              <Route path="/" element={<HomePage />} />
+              <Route path="/projects" element={<ProjectsPage />} />
+              <Route path="/projects/:id" element={<ProjectDetailPage />} />
+              <Route path="/about" element={<AboutPage />} />
+              <Route path="/contact" element={<ContactPage />} />
+            </Routes>
+          </PageTransition>
+        </AnimatePresence>
+      </div>
+      <Footer />
     </div>
   );
 }

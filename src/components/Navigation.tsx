@@ -1,143 +1,112 @@
-import React, { useState, useEffect } from 'react';
-import { Link, useLocation } from 'react-router-dom';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X } from 'lucide-react';
-import { SITE_CONFIG } from '../utils/constants';
-import { fadeInDown, slideInLeft } from '../utils/animations';
+import React, { useState } from 'react';
+import { Link, NavLink } from 'react-router-dom';
 import { useLanguage } from '../contexts/LanguageContext';
-import LanguageSwitcher from './LanguageSwitcher';
 
 const Navigation: React.FC = () => {
-  const [isOpen, setIsOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
-  const location = useLocation();
-  const { t } = useLanguage();
+  const { language, setLanguage } = useLanguage();
+  const [open, setOpen] = useState(false);
 
-  useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 50);
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  const navItems = [
-    { path: '/', label: t('nav.home') },
-    { path: '/projects', label: t('nav.projects') },
-    { path: '/about', label: t('nav.about') },
-    { path: '/contact', label: t('nav.contact') },
+  const nav = [
+    { to: '/projects', label: { nl: 'Werk', en: 'Work' } },
+    { to: '/about', label: { nl: 'Aanpak', en: 'Approach' } },
+    { to: '/contact', label: { nl: 'Contact', en: 'Contact' } },
   ];
 
+  const linkClass = ({ isActive }: { isActive: boolean }) =>
+    `text-sm transition-colors duration-200 ease-editorial ${
+      isActive ? 'text-ink' : 'text-muted hover:text-ink'
+    }`;
+
   return (
-    <motion.nav
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled ? 'glass-effect' : 'bg-transparent'
-      }`}
-      variants={fadeInDown}
-      initial="hidden"
-      animate="visible"
-    >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16">
-          {/* Logo */}
-          <Link to="/" className="flex items-center space-x-2">
-            <motion.div
-              className="text-2xl font-bold gradient-text"
-              whileHover={{ scale: 1.05 }}
-              transition={{ duration: 0.2 }}
-            >
-              {SITE_CONFIG.name}
-            </motion.div>
-          </Link>
+    <header className="fixed inset-x-0 top-0 z-50 border-b border-line/70 bg-bg/80 backdrop-blur-md">
+      <div className="mx-auto flex h-16 max-w-content items-center justify-between px-6 sm:px-10 lg:px-16">
+        {/* Wordmark — TIJDELIJK. Vervangen door fwp-logo-horizontal-dark.svg
+            zodra het logo-pakket binnen is. */}
+        <Link to="/" className="group flex items-baseline gap-2" aria-label="FWP — home">
+          <span className="text-lg font-semibold tracking-display text-ink">
+            FWP<span className="text-accent">.</span>
+          </span>
+          <span className="hidden text-[11px] uppercase tracking-label text-muted sm:inline">
+            Fieldworks Production
+          </span>
+        </Link>
 
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-8">
-            {navItems.map((item, i) => (
-              <motion.div
-                key={item.path}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: i * 0.1, duration: 0.5, ease: "easeOut" }}
-              >
-                <Link
-                  to={item.path}
-                  className={`relative text-sm font-medium transition-colors duration-200 hover:text-accent ${
-                    location.pathname === item.path ? 'text-accent' : 'text-gray-300'
-                  }`}
-                >
-                  {item.label}
-                  {location.pathname === item.path && (
-                    <motion.div
-                      className="absolute -bottom-1 left-0 right-0 h-0.5 bg-accent"
-                      layoutId="activeTab"
-                      transition={{ duration: 0.3 }}
-                    />
-                  )}
-                </Link>
-              </motion.div>
-            ))}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.4, duration: 0.5, ease: "easeOut" }}
-              className="ml-2"
-            >
-              <LanguageSwitcher />
-            </motion.div>
-          </div>
+        {/* Desktop nav */}
+        <nav className="hidden items-center gap-8 md:flex">
+          {nav.map((item) => (
+            <NavLink key={item.to} to={item.to} className={linkClass}>
+              {item.label[language]}
+            </NavLink>
+          ))}
+          <LangSwitch language={language} setLanguage={setLanguage} />
+        </nav>
 
-          {/* Mobile menu button */}
-          <div className="md:hidden">
-            <button
-              onClick={() => setIsOpen(!isOpen)}
-              className="text-gray-300 hover:text-accent transition-colors duration-200"
-            >
-              {isOpen ? <X size={24} /> : <Menu size={24} />}
-            </button>
-          </div>
-        </div>
+        {/* Mobile toggle */}
+        <button
+          className="flex h-9 w-9 items-center justify-center text-muted hover:text-ink md:hidden"
+          aria-label="Menu"
+          aria-expanded={open}
+          onClick={() => setOpen((v) => !v)}
+        >
+          <span className="relative block h-3 w-5">
+            <span
+              className={`absolute left-0 top-0 h-px w-5 bg-current transition-transform duration-200 ${
+                open ? 'translate-y-1.5 rotate-45' : ''
+              }`}
+            />
+            <span
+              className={`absolute bottom-0 left-0 h-px w-5 bg-current transition-transform duration-200 ${
+                open ? '-translate-y-1 -rotate-45' : ''
+              }`}
+            />
+          </span>
+        </button>
       </div>
 
-      {/* Mobile Navigation */}
-      <AnimatePresence>
-        {isOpen && (
-          <motion.div
-            className="md:hidden glass-effect"
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
-            exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.3 }}
-          >
-            <div className="px-4 pt-2 pb-3 space-y-1">
-              {navItems.map((item, i) => (
-                <motion.div
-                  key={item.path}
-                  variants={slideInLeft}
-                  initial="hidden"
-                  animate="visible"
-                  transition={{ delay: i * 0.1 }}
-                >
-                  <Link
-                    to={item.path}
-                    className={`block px-3 py-2 text-base font-medium transition-colors duration-200 hover:text-accent ${
-                      location.pathname === item.path ? 'text-accent' : 'text-gray-300'
-                    }`}
-                    onClick={() => setIsOpen(false)}
-                  >
-                    {item.label}
-                  </Link>
-                </motion.div>
-              ))}
-              <div className="px-3 py-2">
-                <LanguageSwitcher />
-              </div>
+      {/* Mobile panel */}
+      {open && (
+        <div className="border-t border-line bg-bg md:hidden">
+          <nav className="flex flex-col gap-1 px-6 py-4">
+            {nav.map((item) => (
+              <NavLink
+                key={item.to}
+                to={item.to}
+                className="py-2 text-base text-muted hover:text-ink"
+                onClick={() => setOpen(false)}
+              >
+                {item.label[language]}
+              </NavLink>
+            ))}
+            <div className="pt-3">
+              <LangSwitch language={language} setLanguage={setLanguage} />
             </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </motion.nav>
+          </nav>
+        </div>
+      )}
+    </header>
   );
 };
 
-export default Navigation; 
+const LangSwitch: React.FC<{
+  language: 'nl' | 'en';
+  setLanguage: (l: 'nl' | 'en') => void;
+}> = ({ language, setLanguage }) => (
+  <div className="flex items-center gap-1 text-xs">
+    {(['nl', 'en'] as const).map((l, i) => (
+      <React.Fragment key={l}>
+        {i === 1 && <span className="text-line">/</span>}
+        <button
+          onClick={() => setLanguage(l)}
+          className={`uppercase tracking-label transition-colors ${
+            language === l ? 'text-accent' : 'text-muted hover:text-ink'
+          }`}
+          aria-pressed={language === l}
+        >
+          {l}
+        </button>
+      </React.Fragment>
+    ))}
+  </div>
+);
+
+export default Navigation;
