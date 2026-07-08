@@ -1,297 +1,240 @@
 import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Mail, Github, Linkedin, Instagram, Send, MapPin, Phone, CheckCircle, AlertCircle } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
 import { contactInfo } from '../data/contact';
 import { supabase } from '../lib/supabase';
+import { Container, Section, Kicker } from '../components/primitives';
+
+const t = {
+  nl: {
+    kicker: 'Contact',
+    title: 'Vertel me het probleem.',
+    lead: 'Een proces dat te veel handwerk kost, een tool die er nog niet is, een merk dat niet opvalt — beschrijf het in een paar zinnen. Ik reageer meestal binnen 24 uur.',
+    name: 'Naam',
+    namePh: 'Je naam',
+    email: 'E-mail',
+    emailPh: 'jij@bedrijf.nl',
+    subject: 'Onderwerp',
+    subjectPh: 'Waar gaat het over?',
+    message: 'Bericht',
+    messagePh: 'Wat kost je nu tijd, geld of klanten?',
+    send: 'Verstuur',
+    sending: 'Versturen…',
+    successTitle: 'Bericht ontvangen.',
+    successBody: 'Ik neem zo snel mogelijk contact met je op.',
+    again: 'Nog een bericht sturen',
+    error: 'Er ging iets mis. Probeer het opnieuw of mail direct naar',
+    direct: 'Liever direct?',
+    elsewhere: 'Elders',
+  },
+  en: {
+    kicker: 'Contact',
+    title: 'Tell me the problem.',
+    lead: 'A process eating up manual work, a tool that doesn’t exist yet, a brand that doesn’t stand out — describe it in a few sentences. I usually reply within 24 hours.',
+    name: 'Name',
+    namePh: 'Your name',
+    email: 'Email',
+    emailPh: 'you@company.com',
+    subject: 'Subject',
+    subjectPh: 'What is it about?',
+    message: 'Message',
+    messagePh: 'What is costing you time, money or customers right now?',
+    send: 'Send',
+    sending: 'Sending…',
+    successTitle: 'Message received.',
+    successBody: 'I’ll get back to you as soon as possible.',
+    again: 'Send another message',
+    error: 'Something went wrong. Try again or email directly at',
+    direct: 'Prefer direct?',
+    elsewhere: 'Elsewhere',
+  },
+};
+
+const inputClass =
+  'w-full rounded-md border border-line bg-surface px-4 py-3 text-[15px] text-ink placeholder:text-muted/60 transition-colors duration-200 focus:border-accent focus:outline-none';
 
 const ContactPage: React.FC = () => {
-  const { t } = useLanguage();
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    subject: '',
-    message: ''
-  });
+  const { language } = useLanguage();
+  const c = t[language];
 
+  const [formData, setFormData] = useState({ name: '', email: '', subject: '', message: '' });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState<string | null>(null);
-
-  const socialLinks = [
-    { icon: <Mail size={24} />, href: `mailto:${contactInfo.email}`, label: 'Email', color: 'hover:text-red-400' },
-    { icon: <Github size={24} />, href: contactInfo.github, label: 'GitHub', color: 'hover:text-gray-400' },
-    { icon: <Linkedin size={24} />, href: contactInfo.linkedin, label: 'LinkedIn', color: 'hover:text-blue-400' },
-    { icon: <Instagram size={24} />, href: contactInfo.instagram, label: 'Instagram', color: 'hover:text-pink-400' },
-  ];
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
     setError(null);
-
     try {
-      const { error: supabaseError } = await supabase
-        .from('contact_messages')
-        .insert([{
+      const { error: supabaseError } = await supabase.from('contact_messages').insert([
+        {
           name: formData.name,
           email: formData.email,
           subject: formData.subject,
           message: formData.message,
           created_at: new Date().toISOString(),
-        }]);
-
+        },
+      ]);
       if (supabaseError) throw supabaseError;
-
       setSubmitted(true);
       setFormData({ name: '', email: '', subject: '', message: '' });
     } catch (err) {
       console.error('Contact form error:', err);
-      setError('Er ging iets mis. Probeer het opnieuw of mail direct naar ' + contactInfo.email);
+      setError(`${c.error} ${contactInfo.email}`);
     } finally {
       setIsSubmitting(false);
     }
   };
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    });
-  };
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+
+  const socials = [
+    { label: 'LinkedIn', href: contactInfo.linkedin },
+    { label: 'GitHub', href: contactInfo.github },
+    { label: 'Instagram', href: contactInfo.instagram || '#' },
+  ];
 
   return (
-    <div className="min-h-screen pt-20">
-      {/* Hero Section */}
-      <section className="py-20 px-4">
-        <div className="max-w-7xl mx-auto">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="text-center mb-16"
-          >
-            <h1 className="text-5xl md:text-6xl font-bold mb-6">
-              <span className="gradient-text">{t('contact.title')}</span> {t('contact.connect')}
-            </h1>
-            <p className="text-xl text-gray-400 max-w-2xl mx-auto">
-              {t('contact.description')}
-            </p>
-          </motion.div>
+    <main className="pt-16">
+      <Section>
+        <Container>
+          <Kicker>{c.kicker}</Kicker>
+          <h1 className="mt-5 max-w-3xl text-4xl font-extralight tracking-display sm:text-5xl lg:text-6xl">
+            {c.title}
+          </h1>
+          <p className="mt-6 max-w-prose text-[15px] leading-relaxed text-muted">{c.lead}</p>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-            {/* Contact Form */}
-            <motion.div
-              initial={{ opacity: 0, x: -30 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-            >
-              <h2 className="text-3xl font-bold mb-8 gradient-text">{t('contact.sendMessage')}</h2>
-
-              <AnimatePresence mode="wait">
-                {submitted ? (
-                  <motion.div
-                    key="success"
-                    initial={{ opacity: 0, scale: 0.95 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    className="flex flex-col items-center justify-center py-16 text-center gap-4"
+          <div className="mt-16 grid grid-cols-1 gap-16 lg:grid-cols-12">
+            {/* Formulier */}
+            <div className="lg:col-span-7">
+              {submitted ? (
+                <div className="border-t border-line pt-10">
+                  <h2 className="text-2xl font-light tracking-display text-ink">
+                    {c.successTitle}
+                  </h2>
+                  <p className="mt-3 text-[15px] text-muted">{c.successBody}</p>
+                  <button
+                    onClick={() => setSubmitted(false)}
+                    className="mt-8 text-sm text-muted underline-offset-4 hover:text-ink hover:underline"
                   >
-                    <CheckCircle size={56} className="text-green-400" />
-                    <h3 className="text-2xl font-bold text-white">Bericht ontvangen!</h3>
-                    <p className="text-gray-400 max-w-sm">Bedankt voor je bericht. Ik neem zo snel mogelijk contact met je op.</p>
-                    <button
-                      onClick={() => setSubmitted(false)}
-                      className="mt-4 px-6 py-2 border border-accent text-accent rounded-lg hover:bg-accent/10 transition-colors text-sm"
-                    >
-                      Nog een bericht sturen
-                    </button>
-                  </motion.div>
-                ) : (
-                  <motion.form key="form" onSubmit={handleSubmit} className="space-y-6">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    {c.again}
+                  </button>
+                </div>
+              ) : (
+                <form onSubmit={handleSubmit} className="space-y-6">
+                  <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
+                    <div>
+                      <label htmlFor="name" className="kicker mb-2 block">
+                        {c.name}
+                      </label>
+                      <input
+                        id="name"
+                        name="name"
+                        type="text"
+                        required
+                        value={formData.name}
+                        onChange={handleChange}
+                        placeholder={c.namePh}
+                        className={inputClass}
+                      />
+                    </div>
+                    <div>
+                      <label htmlFor="email" className="kicker mb-2 block">
+                        {c.email}
+                      </label>
+                      <input
+                        id="email"
+                        name="email"
+                        type="email"
+                        required
+                        value={formData.email}
+                        onChange={handleChange}
+                        placeholder={c.emailPh}
+                        className={inputClass}
+                      />
+                    </div>
+                  </div>
                   <div>
-                    <label htmlFor="name" className="block text-sm font-medium text-gray-300 mb-2">
-                      {t('contact.name')}
+                    <label htmlFor="subject" className="kicker mb-2 block">
+                      {c.subject}
                     </label>
                     <input
+                      id="subject"
+                      name="subject"
                       type="text"
-                      id="name"
-                      name="name"
-                      value={formData.name}
-                      onChange={handleInputChange}
                       required
-                      className="w-full px-4 py-3 bg-dark-gray border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-accent transition-colors"
-                      placeholder={t('contact.namePlaceholder')}
+                      value={formData.subject}
+                      onChange={handleChange}
+                      placeholder={c.subjectPh}
+                      className={inputClass}
                     />
                   </div>
-                  
                   <div>
-                    <label htmlFor="email" className="block text-sm font-medium text-gray-300 mb-2">
-                      {t('contact.email')}
+                    <label htmlFor="message" className="kicker mb-2 block">
+                      {c.message}
                     </label>
-                    <input
-                      type="email"
-                      id="email"
-                      name="email"
-                      value={formData.email}
-                      onChange={handleInputChange}
+                    <textarea
+                      id="message"
+                      name="message"
                       required
-                      className="w-full px-4 py-3 bg-dark-gray border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-accent transition-colors"
-                      placeholder={t('contact.emailPlaceholder')}
+                      rows={6}
+                      value={formData.message}
+                      onChange={handleChange}
+                      placeholder={c.messagePh}
+                      className={`${inputClass} resize-none`}
                     />
                   </div>
-                </div>
 
-                <div>
-                  <label htmlFor="subject" className="block text-sm font-medium text-gray-300 mb-2">
-                    {t('contact.subject')}
-                  </label>
-                  <input
-                    type="text"
-                    id="subject"
-                    name="subject"
-                    value={formData.subject}
-                    onChange={handleInputChange}
-                    required
-                    className="w-full px-4 py-3 bg-dark-gray border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-accent transition-colors"
-                    placeholder={t('contact.subjectPlaceholder')}
-                  />
-                </div>
-
-                <div>
-                  <label htmlFor="message" className="block text-sm font-medium text-gray-300 mb-2">
-                    {t('contact.message')}
-                  </label>
-                  <textarea
-                    id="message"
-                    name="message"
-                    value={formData.message}
-                    onChange={handleInputChange}
-                    required
-                    rows={6}
-                    className="w-full px-4 py-3 bg-dark-gray border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-accent transition-colors resize-none"
-                    placeholder={t('contact.messagePlaceholder')}
-                  />
-                </div>
-
-                {error && (
-                  <div className="flex items-start gap-3 p-4 bg-red-500/10 border border-red-500/30 rounded-lg text-red-400 text-sm">
-                    <AlertCircle size={18} className="flex-shrink-0 mt-0.5" />
-                    <span>{error}</span>
-                  </div>
-                )}
-
-                <motion.button
-                  type="submit"
-                  disabled={isSubmitting}
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                  className="w-full px-8 py-4 bg-accent text-dark font-semibold rounded-lg hover:bg-accent/90 transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
-                >
-                  {isSubmitting ? (
-                    <>
-                      <div className="w-5 h-5 border-2 border-dark border-t-transparent rounded-full animate-spin" />
-                      {t('contact.sending')}
-                    </>
-                  ) : (
-                    <>
-                      <Send size={20} />
-                      {t('contact.send')}
-                    </>
+                  {error && (
+                    <p className="border-l-2 border-accent pl-4 text-sm text-muted">{error}</p>
                   )}
-                </motion.button>
-              </motion.form>
-                )}
-              </AnimatePresence>
-            </motion.div>
 
-            {/* Contact Info */}
-            <motion.div
-              initial={{ opacity: 0, x: 30 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8, delay: 0.4 }}
-              className="space-y-8"
-            >
-              <div>
-                <h2 className="text-3xl font-bold mb-8 gradient-text">{t('contact.info')}</h2>
-                
-                <div className="space-y-6">
-                  <div className="flex items-center space-x-4">
-                    <div className="p-3 bg-accent/20 rounded-lg">
-                      <Mail size={24} className="text-accent" />
-                    </div>
-                    <div>
-                      <p className="text-sm text-gray-400">Email</p>
-                      <a 
-                        href={`mailto:${contactInfo.email}`}
-                        className="text-white hover:text-accent transition-colors"
+                  <button
+                    type="submit"
+                    disabled={isSubmitting}
+                    className="inline-flex items-center gap-2 rounded-md bg-accent px-8 py-3 text-sm font-medium text-[#04110f] transition-transform duration-200 ease-editorial hover:-translate-y-0.5 disabled:cursor-not-allowed disabled:opacity-50"
+                  >
+                    {isSubmitting ? c.sending : `${c.send} →`}
+                  </button>
+                </form>
+              )}
+            </div>
+
+            {/* Direct + socials */}
+            <aside className="lg:col-span-5">
+              <div className="border-t border-line pt-6">
+                <Kicker>{c.direct}</Kicker>
+                <a
+                  href={`mailto:${contactInfo.email}`}
+                  className="mt-3 block text-lg text-ink underline-offset-4 transition-colors hover:text-accent hover:underline"
+                >
+                  {contactInfo.email}
+                </a>
+              </div>
+              <div className="mt-10 border-t border-line pt-6">
+                <Kicker>{c.elsewhere}</Kicker>
+                <ul className="mt-3 space-y-2">
+                  {socials.map((s) => (
+                    <li key={s.label}>
+                      <a
+                        href={s.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-[15px] text-muted transition-colors hover:text-ink"
                       >
-                        {contactInfo.email}
+                        {s.label} ↗
                       </a>
-                    </div>
-                  </div>
-
-                  <div className="flex items-center space-x-4">
-                    <div className="p-3 bg-accent/20 rounded-lg">
-                      <MapPin size={24} className="text-accent" />
-                    </div>
-                    <div>
-                      <p className="text-sm text-gray-400">{t('contact.location')}</p>
-                      <p className="text-white">{t('contact.locationValue')}</p>
-                    </div>
-                  </div>
-
-                  <div className="flex items-center space-x-4">
-                    <div className="p-3 bg-accent/20 rounded-lg">
-                      <Phone size={24} className="text-accent" />
-                    </div>
-                    <div>
-                      <p className="text-sm text-gray-400">{t('contact.availability')}</p>
-                      <p className="text-white">{t('contact.availabilityValue')}</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div>
-                <h3 className="text-2xl font-bold mb-6 text-white">{t('contact.follow')}</h3>
-                
-                <div className="grid grid-cols-2 gap-4">
-                  {socialLinks.map((social, index) => (
-                    <motion.a
-                      key={social.label}
-                      href={social.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.6, delay: 0.6 + index * 0.1 }}
-                      whileHover={{ scale: 1.05, y: -2 }}
-                      className={`p-4 glass-effect rounded-lg text-accent transition-all duration-200 flex items-center gap-3 ${social.color}`}
-                    >
-                      {social.icon}
-                      <span className="font-medium">{social.label}</span>
-                    </motion.a>
+                    </li>
                   ))}
-                </div>
+                </ul>
               </div>
-
-              <div className="glass-effect p-6 rounded-xl">
-                <h3 className="text-xl font-bold mb-4 text-white">{t('contact.responseTime')}</h3>
-                <p className="text-gray-400 mb-4">
-                  {t('contact.responseDescription')}
-                </p>
-                <div className="flex items-center gap-2 text-accent">
-                  <div className="w-2 h-2 bg-accent rounded-full animate-pulse" />
-                  <span className="text-sm font-mono">{t('contact.usuallyOnline')}</span>
-                </div>
-              </div>
-            </motion.div>
+            </aside>
           </div>
-        </div>
-      </section>
-    </div>
+        </Container>
+      </Section>
+    </main>
   );
 };
 
-export default ContactPage; 
+export default ContactPage;

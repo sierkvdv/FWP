@@ -1,225 +1,210 @@
 import React from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { motion } from 'framer-motion';
-import { ArrowLeft, ExternalLink, Github, Play, Calendar, Tag } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
-import { useProjects } from '../hooks/useProjects';
-import AnimatedProjectImage from '../components/AnimatedProjectImage';
-import VideoPreview from '../components/VideoPreview';
+import { cases, tracks } from '../data/cases';
+import { moreWork } from '../data/moreWork';
+import CaseMedia from '../components/CaseMedia';
+import { Container, Section, Kicker } from '../components/primitives';
 
-/**
- * Checks if URL is a YouTube URL
- */
-const isYouTubeUrl = (url: string): boolean => {
-  return /youtube\.com|youtu\.be/.test(url);
+const t = {
+  nl: {
+    back: '← Terug naar werk',
+    problem: 'Het probleem',
+    solution: 'De oplossing',
+    result: 'Het resultaat',
+    live: 'Bekijk live ↗',
+    video: 'Bekijk video ↗',
+    notFound: 'Niet gevonden.',
+    next: 'Volgende case',
+    ctaTitle: 'Een vergelijkbaar probleem?',
+    ctaBtn: 'Praat met me',
+  },
+  en: {
+    back: '← Back to work',
+    problem: 'The problem',
+    solution: 'The solution',
+    result: 'The result',
+    live: 'View live ↗',
+    video: 'Watch video ↗',
+    notFound: 'Not found.',
+    next: 'Next case',
+    ctaTitle: 'A similar problem?',
+    ctaBtn: 'Talk to me',
+  },
 };
 
-// Vercel deployment trigger comment
-
 const ProjectDetailPage: React.FC = () => {
-  const { t } = useLanguage();
-  const projects = useProjects();
+  const { language } = useLanguage();
+  const c = t[language];
   const { id } = useParams<{ id: string }>();
-  const project = projects.find(p => p.id === id);
 
-  if (!project) {
+  const caseStudy = cases.find((x) => x.id === id);
+  const workItem = !caseStudy ? moreWork.find((x) => x.id === id) : undefined;
+
+  if (!caseStudy && !workItem) {
     return (
-      <div className="min-h-screen pt-20 flex items-center justify-center">
-        <div className="text-center">
-          <h1 className="text-4xl font-bold text-white mb-4">{t('project.notFound')}</h1>
-          <Link to="/projects" className="text-accent hover:underline">
-            ← {t('project.back')}
-          </Link>
-        </div>
-      </div>
+      <main className="pt-16">
+        <Section>
+          <Container>
+            <h1 className="text-3xl font-light tracking-display">{c.notFound}</h1>
+            <Link
+              to="/projects"
+              className="mt-6 inline-block text-sm text-muted underline-offset-4 hover:text-ink hover:underline"
+            >
+              {c.back}
+            </Link>
+          </Container>
+        </Section>
+      </main>
     );
   }
 
-  return (
-    <div className="min-h-screen pt-20">
-      {/* Hero Section */}
-      <section className="py-20 px-4">
-        <div className="max-w-7xl mx-auto">
-          {/* Back Button */}
-          <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6 }}
-            className="mb-8"
-          >
+  // ---- Volwaardige case ----
+  if (caseStudy) {
+    const track = tracks.find((x) => x.id === caseStudy.track);
+    const idx = cases.indexOf(caseStudy);
+    const next = cases[(idx + 1) % cases.length];
+
+    return (
+      <main className="pt-16">
+        <Section className="pb-0 md:pb-0 lg:pb-0">
+          <Container>
             <Link
               to="/projects"
-              className="inline-flex items-center gap-2 text-accent hover:text-accent/80 transition-colors duration-200"
+              className="text-sm text-muted underline-offset-4 transition-colors hover:text-ink hover:underline"
             >
-              <ArrowLeft size={20} />
-              {t('project.back')}
+              {c.back}
             </Link>
-          </motion.div>
 
-          {/* Project Header */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="mb-12"
-          >
-            <div className="flex flex-wrap items-center gap-4 mb-6">
-              <span className={`px-3 py-1 rounded-full text-sm font-medium ${project.category === 'ai' ? 'bg-purple-500/20 text-purple-400' : 
-                project.category === 'web' ? 'bg-blue-500/20 text-blue-400' :
-                project.category === 'music' ? 'bg-green-500/20 text-green-400' :
-                project.category === 'design' ? 'bg-orange-500/20 text-orange-400' :
-                'bg-gray-500/20 text-gray-400'}`}>
-                {project.category.toUpperCase()}
-              </span>
-                             <div className="flex items-center gap-2 text-gray-400">
-                 <Calendar size={16} />
-                 <span className="text-sm">{project.year}</span>
-               </div>
+            <div className="mt-10 flex flex-wrap items-center gap-3">
+              {track && <Kicker className="text-accent">{track.label[language]}</Kicker>}
+              <span className="text-line">·</span>
+              <Kicker>{caseStudy.year}</Kicker>
+              {caseStudy.client && (
+                <>
+                  <span className="text-line">·</span>
+                  <Kicker>{caseStudy.client}</Kicker>
+                </>
+              )}
             </div>
 
-            <h1 className="text-5xl md:text-6xl font-bold mb-6">
-              <span className="gradient-text">{project.title}</span>
+            <h1 className="mt-5 max-w-3xl text-4xl font-extralight tracking-display sm:text-5xl lg:text-6xl">
+              {caseStudy.title}
             </h1>
+          </Container>
+        </Section>
 
-            <p className="text-xl text-gray-400 max-w-3xl leading-relaxed mb-8">
-              {project.description}
-            </p>
+        <Section>
+          <Container>
+            <CaseMedia src={caseStudy.image} label={caseStudy.title} ratio="21/9" />
 
-                         {/* Action Buttons */}
-             <div className="flex flex-wrap gap-4">
-               {project.demoUrl && (
-                 <motion.a
-                   href={project.demoUrl}
-                   target="_blank"
-                   rel="noopener noreferrer"
-                   whileHover={{ scale: 1.05 }}
-                   whileTap={{ scale: 0.95 }}
-                   className="px-6 py-3 bg-accent text-dark font-semibold rounded-lg hover:bg-accent/90 transition-colors duration-200 flex items-center gap-2"
-                 >
-                  <ExternalLink size={20} />
-                  {t('project.viewLive')}
-                </motion.a>
-              )}
-              
-              {project.githubUrl && (
-                <motion.a
-                  href={project.githubUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="px-6 py-3 border border-accent text-accent font-semibold rounded-lg hover:bg-accent/10 transition-colors duration-200 flex items-center gap-2"
-                >
-                  <Github size={20} />
-                  {t('project.viewCode')}
-                </motion.a>
-              )}
-
-              {project.demoUrl && (
-                <motion.a
-                  href={project.demoUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="px-6 py-3 border border-accent text-accent font-semibold rounded-lg hover:bg-accent/10 transition-colors duration-200 flex items-center gap-2"
-                >
-                  <Play size={20} />
-                  {t('project.watchDemo')}
-                </motion.a>
-              )}
-            </div>
-          </motion.div>
-
-          {/* Project Video or Animation */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="mb-12"
-          >
-            <div className="relative overflow-hidden rounded-2xl bg-dark-gray p-8">
-              {project.video ? (
-                <div style={{ height: '600px', backgroundColor: '#1e293b', display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden', position: 'relative' }}>
-                  <VideoPreview
-                    videoUrl={project.video}
-                    autoplay={true}
-                    muted={true}
-                    loop={true}
-                    className="absolute inset-0"
-                    interactive={true}
-                    showYouTubeButton={isYouTubeUrl(project.video)}
-                    overlayOpacity={0.2}
-                  />
-                </div>
-              ) : (
-                <div style={{ height: '400px', backgroundColor: '#1e293b', display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden' }}>
-                  <AnimatedProjectImage projectId={project.id} title={project.title} />
-                </div>
-              )}
-            </div>
-          </motion.div>
-
-          {/* Technologies */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.4 }}
-            className="mb-12"
-          >
-            <h3 className="text-2xl font-bold mb-6 gradient-text">{t('project.technologies')}</h3>
-            <div className="flex flex-wrap gap-3">
-              {project.technologies.map((tech, index) => (
-                <motion.span
-                  key={tech}
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 0.5, delay: 0.6 + index * 0.1 }}
-                  className="px-4 py-2 bg-dark-gray border border-gray-700 rounded-lg text-gray-300 hover:border-accent transition-colors duration-200 flex items-center gap-2"
-                >
-                  <Tag size={16} />
-                  {tech}
-                </motion.span>
-              ))}
-            </div>
-          </motion.div>
-
-          {/* Project Details */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.6 }}
-          >
-            <h3 className="text-2xl font-bold mb-6 gradient-text">{t('project.about')}</h3>
-            <div className="prose prose-invert max-w-none">
-              <p className="text-gray-300 leading-relaxed mb-6">
-                {project.description}
-              </p>
-              
-              {/* Demo Video Preview (for YouTube URLs) */}
-              {project.demoUrl && isYouTubeUrl(project.demoUrl) && (
-                <div className="mt-6">
-                  <h4 className="text-lg font-semibold text-white mb-3">{t('project.firstVersion')}</h4>
-                  <div className="relative w-full max-w-md h-48 rounded-lg overflow-hidden bg-black">
-                    <VideoPreview
-                      videoUrl={project.demoUrl}
-                      autoplay={true}
-                      muted={true}
-                      loop={true}
-                      className="w-full h-full"
-                      interactive={true}
-                      showYouTubeButton={true}
-                      overlayOpacity={0.2}
-                    />
+            <div className="mt-16 grid grid-cols-1 gap-12 md:grid-cols-3">
+              <div className="border-t border-line pt-6">
+                <Kicker>{c.problem}</Kicker>
+                <p className="mt-4 text-[15px] leading-relaxed text-muted">
+                  {caseStudy.problem[language]}
+                </p>
+              </div>
+              <div className="border-t border-line pt-6">
+                <Kicker>{c.solution}</Kicker>
+                <p className="mt-4 text-[15px] leading-relaxed text-ink">
+                  {caseStudy.solution[language]}
+                </p>
+              </div>
+              <div className="border-t border-accent pt-6">
+                <Kicker className="text-accent">{c.result}</Kicker>
+                {caseStudy.metric && (
+                  <div className="mt-4 text-3xl font-light tracking-display text-accent">
+                    {caseStudy.metric}
                   </div>
-                </div>
-              )}
+                )}
+                <p className="mt-3 text-[15px] leading-relaxed text-ink">
+                  {caseStudy.result[language]}
+                </p>
+              </div>
             </div>
-          </motion.div>
-        </div>
-      </section>
-    </div>
+
+            {caseStudy.liveUrl && (
+              <a
+                href={caseStudy.liveUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-12 inline-block text-sm text-ink underline-offset-4 transition-colors hover:text-accent hover:underline"
+              >
+                {c.live}
+              </a>
+            )}
+          </Container>
+        </Section>
+
+        <Section className="border-t border-line">
+          <Container>
+            <div className="flex flex-col items-start justify-between gap-10 md:flex-row md:items-center">
+              <div>
+                <Kicker>{c.next}</Kicker>
+                <Link
+                  to={`/projects/${next.id}`}
+                  className="mt-3 block text-3xl font-light tracking-display text-ink transition-colors hover:text-accent"
+                >
+                  {next.title} →
+                </Link>
+              </div>
+              <Link
+                to="/contact"
+                className="inline-flex shrink-0 items-center gap-2 rounded-md bg-accent px-6 py-3 text-sm font-medium text-[#04110f] transition-transform duration-200 ease-editorial hover:-translate-y-0.5"
+              >
+                {c.ctaBtn} →
+              </Link>
+            </div>
+          </Container>
+        </Section>
+      </main>
+    );
+  }
+
+  // ---- Meer-werk item (compact) ----
+  const item = workItem!;
+  const href = item.liveUrl || item.video;
+
+  return (
+    <main className="pt-16">
+      <Section>
+        <Container>
+          <Link
+            to="/projects"
+            className="text-sm text-muted underline-offset-4 transition-colors hover:text-ink hover:underline"
+          >
+            {c.back}
+          </Link>
+
+          <div className="mt-10 flex items-center gap-3">
+            <Kicker>{item.year}</Kicker>
+          </div>
+          <h1 className="mt-5 max-w-3xl text-4xl font-extralight tracking-display sm:text-5xl">
+            {item.title}
+          </h1>
+          <p className="mt-6 max-w-prose text-[15px] leading-relaxed text-muted">
+            {item.subtitle[language]}
+          </p>
+
+          <div className="mt-12 max-w-3xl">
+            <CaseMedia src={item.image} label={item.title} ratio="16/10" />
+          </div>
+
+          {href && (
+            <a
+              href={href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-10 inline-block text-sm text-ink underline-offset-4 transition-colors hover:text-accent hover:underline"
+            >
+              {item.video && !item.liveUrl ? c.video : c.live}
+            </a>
+          )}
+        </Container>
+      </Section>
+    </main>
   );
 };
 
-export default ProjectDetailPage; 
+export default ProjectDetailPage;

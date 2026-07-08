@@ -1,137 +1,140 @@
-import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import React from 'react';
+import { Link } from 'react-router-dom';
 import { useLanguage } from '../contexts/LanguageContext';
-import { useProjects } from '../hooks/useProjects';
-import ProjectCard from '../components/ProjectCard';
+import { cases, tracks } from '../data/cases';
+import { moreWork } from '../data/moreWork';
+import CaseRow from '../components/CaseRow';
+import CaseMedia from '../components/CaseMedia';
+import { Container, Section, Kicker, Reveal } from '../components/primitives';
 
+const t = {
+  nl: {
+    kicker: 'Werk',
+    title: 'Problemen, opgelost.',
+    lead: 'Elk project hieronder begon met iets dat niet meer met de hand te doen was — of met een merk dat niet opviel. Dit is wat er gebouwd is, en wat het opleverde.',
+    moreKicker: 'Meer werk',
+    moreTitle: 'Experimenten & ouder werk',
+    moreLead: 'Concepten, tools en creatief werk van de afgelopen jaren. Speelser van aard — maar hier is het vak geleerd.',
+    visit: 'Bekijk ↗',
+    watch: 'Video ↗',
+  },
+  en: {
+    kicker: 'Work',
+    title: 'Problems, solved.',
+    lead: 'Every project below started with something that could no longer be done by hand — or with a brand that didn’t stand out. This is what got built, and what it delivered.',
+    moreKicker: 'More work',
+    moreTitle: 'Experiments & earlier work',
+    moreLead: 'Concepts, tools and creative work from the past years. More playful in nature — but this is where the craft was learned.',
+    visit: 'Visit ↗',
+    watch: 'Video ↗',
+  },
+};
 
 const ProjectsPage: React.FC = () => {
-  const { t } = useLanguage();
-  const projects = useProjects();
-  const [selectedCategory, setSelectedCategory] = useState<string>('all');
-  const [searchTerm, setSearchTerm] = useState('');
-
-  const categories = [
-    { id: 'all', name: t('projects.allProjects'), icon: '🚀' },
-    { id: 'ai', name: t('projects.ai'), icon: '🤖' },
-    { id: 'web', name: t('projects.web'), icon: '🌐' },
-    { id: 'music', name: t('projects.music'), icon: '🎵' },
-    { id: 'design', name: t('projects.design'), icon: '🎨' },
-    { id: 'software', name: t('projects.software'), icon: '⚡' },
-  ];
-
-  const filteredProjects = projects.filter(project => {
-    const matchesCategory = selectedCategory === 'all' || project.category === selectedCategory;
-    const matchesSearch = project.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         project.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         project.technologies.some(tech => tech.toLowerCase().includes(searchTerm.toLowerCase()));
-    
-    return matchesCategory && matchesSearch;
-  });
+  const { language } = useLanguage();
+  const c = t[language];
 
   return (
-    <div className="min-h-screen pt-20">
-      {/* Header */}
-      <section className="py-20 px-4">
-        <div className="max-w-7xl mx-auto">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="text-center mb-16"
-          >
-            <h1 className="text-5xl md:text-6xl font-bold mb-6">
-              <span className="gradient-text">{t('projects.title')}</span>
-            </h1>
-            <p className="text-xl text-gray-400 max-w-2xl mx-auto">
-              {t('projects.description')}
-            </p>
-          </motion.div>
+    <main className="pt-16">
+      {/* Page header */}
+      <Section className="pb-0 md:pb-0 lg:pb-0">
+        <Container>
+          <Kicker>{c.kicker}</Kicker>
+          <h1 className="mt-5 max-w-3xl text-4xl font-extralight tracking-display sm:text-5xl lg:text-6xl">
+            {c.title}
+          </h1>
+          <p className="mt-6 max-w-prose text-[15px] leading-relaxed text-muted">
+            {c.lead}
+          </p>
+        </Container>
+      </Section>
 
-          {/* Search and Filter */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="mb-12"
-          >
-            {/* Search Bar */}
-            <div className="max-w-md mx-auto mb-8">
-              <input
-                type="text"
-                placeholder={t('projects.searchPlaceholder')}
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full px-4 py-3 bg-dark-gray border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-accent transition-colors"
-              />
-            </div>
-
-            {/* Category Filters */}
-            <div className="flex flex-wrap justify-center gap-4">
-              {categories.map((category) => (
-                <motion.button
-                  key={category.id}
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  onClick={() => setSelectedCategory(category.id)}
-                  className={`px-4 py-2 rounded-lg font-medium transition-all duration-200 flex items-center gap-2 ${
-                    selectedCategory === category.id
-                      ? 'bg-accent text-dark'
-                      : 'bg-dark-gray text-gray-300 hover:bg-gray-700'
-                  }`}
-                >
-                  <span>{category.icon}</span>
-                  {category.name}
-                </motion.button>
-              ))}
-            </div>
-          </motion.div>
-
-          {/* Projects Count */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.5, delay: 0.4 }}
-            className="text-center mb-8"
-          >
-            <p className="text-gray-400">
-              {filteredProjects.length} {filteredProjects.length !== 1 ? t('projects.found') : t('projects.foundOne')}
-            </p>
-          </motion.div>
-
-          {/* Projects Grid */}
-          <AnimatePresence mode="wait">
-            {filteredProjects.length > 0 ? (
-              <motion.div
-                key={`${selectedCategory}-${searchTerm}`}
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.3 }}
-                className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-stretch"
-              >
-                {filteredProjects.map((project, index) => (
-                  <ProjectCard key={project.id} project={project} index={index} />
+      {/* Cases, gegroepeerd per spoor */}
+      {tracks.map((track) => {
+        const trackCases = cases.filter((x) => x.track === track.id);
+        if (trackCases.length === 0) return null;
+        return (
+          <Section key={track.id} id={track.id} className="border-b border-line last-of-type:border-b-0">
+            <Container>
+              <Reveal className="flex flex-wrap items-baseline gap-x-6 gap-y-2">
+                <h2 className="text-3xl font-light tracking-display lg:text-4xl">
+                  {track.label[language]}
+                </h2>
+                <p className="text-[15px] text-muted">{track.blurb[language]}</p>
+              </Reveal>
+              <div className="mt-14 flex flex-col gap-20 lg:gap-28">
+                {trackCases.map((item, i) => (
+                  <CaseRow key={item.id} item={item} index={i} />
                 ))}
-              </motion.div>
-            ) : (
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                className="text-center py-20"
-              >
-                <div className="text-6xl mb-4">🔍</div>
-                <h3 className="text-2xl font-semibold text-white mb-2">{t('projects.notFound')}</h3>
-                <p className="text-gray-400">
-                  {t('projects.tryOther')}
-                </p>
-              </motion.div>
-            )}
-          </AnimatePresence>
-        </div>
-      </section>
-    </div>
+              </div>
+            </Container>
+          </Section>
+        );
+      })}
+
+      {/* Meer werk — secundaire grid, sober */}
+      <Section className="border-t border-line bg-surface/40">
+        <Container>
+          <Kicker>{c.moreKicker}</Kicker>
+          <h2 className="mt-5 text-3xl font-light tracking-display lg:text-4xl">
+            {c.moreTitle}
+          </h2>
+          <p className="mt-4 max-w-prose text-[15px] leading-relaxed text-muted">
+            {c.moreLead}
+          </p>
+
+          <ul className="mt-12 grid grid-cols-1 gap-x-8 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
+            {moreWork.map((item, i) => {
+              const href = item.liveUrl || item.video;
+              return (
+                <Reveal as="li" key={item.id} delay={Math.min(i, 5) * 0.04}>
+                  <div className="group">
+                    <CaseMedia src={item.image} label={item.title} ratio="16/10" />
+                    <div className="mt-4 flex items-baseline justify-between gap-4">
+                      <h3 className="text-lg font-normal text-ink">{item.title}</h3>
+                      <span className="shrink-0 text-xs tabular-nums text-muted">{item.year}</span>
+                    </div>
+                    <p className="mt-1 text-sm leading-relaxed text-muted">
+                      {item.subtitle[language]}
+                    </p>
+                    {href && (
+                      <a
+                        href={href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="mt-2 inline-block text-sm text-muted underline-offset-4 transition-colors hover:text-accent hover:underline"
+                      >
+                        {item.video && !item.liveUrl ? c.watch : c.visit}
+                      </a>
+                    )}
+                  </div>
+                </Reveal>
+              );
+            })}
+          </ul>
+        </Container>
+      </Section>
+
+      {/* CTA */}
+      <Section>
+        <Container>
+          <Reveal className="flex flex-col items-start justify-between gap-8 md:flex-row md:items-center">
+            <h2 className="max-w-2xl text-3xl font-light tracking-display">
+              {language === 'nl'
+                ? 'Herken je je eigen probleem hierin?'
+                : 'Recognise your own problem in any of this?'}
+            </h2>
+            <Link
+              to="/contact"
+              className="inline-flex shrink-0 items-center gap-2 rounded-md bg-accent px-6 py-3 text-sm font-medium text-[#04110f] transition-transform duration-200 ease-editorial hover:-translate-y-0.5"
+            >
+              {language === 'nl' ? 'Praat met me' : 'Talk to me'} →
+            </Link>
+          </Reveal>
+        </Container>
+      </Section>
+    </main>
   );
 };
 
-export default ProjectsPage; 
+export default ProjectsPage;

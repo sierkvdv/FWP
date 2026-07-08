@@ -1,223 +1,184 @@
 import React from 'react';
-import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 import { useLanguage } from '../contexts/LanguageContext';
-import { skills } from '../data/skills';
-import { Mail, Github, Linkedin, Twitter, Instagram } from 'lucide-react';
+import { Container, Section, Kicker, Reveal } from '../components/primitives';
+
+const t = {
+  nl: {
+    kicker: 'Aanpak',
+    title: 'Techniek bouwt het. Communicatie verkoopt het.',
+    intro1:
+      'Ik ben Sierk van der Velde. FWP is geen bureau — het is één maker die twee vakken combineert die zelden in dezelfde persoon zitten: software bouwen en merken laten opvallen.',
+    intro2:
+      'De meeste bedrijven huren daar twee partijen voor in, die elkaar vervolgens niet verstaan. Bij mij zit het in één hoofd. De automatisering die ik bouw, snapt waarom de klant belt. De campagne die ik maak, weet wat het product technisch kan.',
+    howKicker: 'Hoe ik werk',
+    steps: [
+      {
+        n: '01',
+        title: 'Eerst het probleem',
+        body: 'Geen intake over tools of features. Wat kost je nu tijd, geld of klanten? Daar beginnen we.',
+      },
+      {
+        n: '02',
+        title: 'Klein bewijs, snel',
+        body: 'Binnen dagen een werkende eerste versie — geen wekenlange offertes. Je ziet het draaien voor je verder investeert.',
+      },
+      {
+        n: '03',
+        title: 'Bouwen wat blijft',
+        body: 'Degelijk, onderhoudbaar, van jou. Geen abonnement op mij; je kunt ermee verder zonder mij.',
+      },
+      {
+        n: '04',
+        title: 'Vertellen wat het doet',
+        body: 'Een tool die niemand begrijpt, bestaat niet. Ik lever het verhaal erbij — voor je klanten, je team of je markt.',
+      },
+    ],
+    stackKicker: 'Waarmee',
+    stackLead: 'Gereedschap is een middel. Dit is waar ik dagelijks mee werk:',
+    stack: [
+      ['Automatisering & AI', 'agents, chatbots, kennisbanken, koppelingen (API’s, CRM)'],
+      ['Web & apps', 'React, TypeScript, Next.js, Node, Postgres'],
+      ['Content & beeld', 'AI-video en -beeld, montage, huisstijl, campagnes'],
+      ['Infra', 'eigen servers, CI/CD, betaalintegraties (o.a. Mollie)'],
+    ],
+    asideKicker: 'En verder',
+    aside:
+      'Buiten werktijd sta ik als DJ achter de draaitafels en bouw ik audio-tools — vandaar dat mijn werk voor muziek en events een eigen hoekje in het portfolio heeft. Het scherpt hetzelfde vak: iets maken waar mensen op reageren.',
+    ctaTitle: 'Benieuwd of ik jouw probleem herken?',
+    ctaBtn: 'Praat met me',
+  },
+  en: {
+    kicker: 'Approach',
+    title: 'Technology builds it. Communication sells it.',
+    intro1:
+      'I’m Sierk van der Velde. FWP isn’t an agency — it’s one maker combining two crafts that rarely live in the same person: building software and making brands stand out.',
+    intro2:
+      'Most companies hire two parties for that, who then fail to understand each other. With me it lives in one head. The automation I build knows why the customer calls. The campaign I make knows what the product can technically do.',
+    howKicker: 'How I work',
+    steps: [
+      {
+        n: '01',
+        title: 'The problem first',
+        body: 'No intake about tools or features. What is costing you time, money or customers right now? That’s where we start.',
+      },
+      {
+        n: '02',
+        title: 'Small proof, fast',
+        body: 'A working first version within days — not weeks of proposals. You see it run before you invest further.',
+      },
+      {
+        n: '03',
+        title: 'Build what lasts',
+        body: 'Solid, maintainable, yours. No subscription to me; you can carry on without me.',
+      },
+      {
+        n: '04',
+        title: 'Tell what it does',
+        body: 'A tool nobody understands doesn’t exist. I deliver the story with it — for your customers, your team or your market.',
+      },
+    ],
+    stackKicker: 'With what',
+    stackLead: 'Tools are a means. This is what I work with daily:',
+    stack: [
+      ['Automation & AI', 'agents, chatbots, knowledge bases, integrations (APIs, CRM)'],
+      ['Web & apps', 'React, TypeScript, Next.js, Node, Postgres'],
+      ['Content & visuals', 'AI video and imagery, editing, brand identity, campaigns'],
+      ['Infra', 'own servers, CI/CD, payment integrations (incl. Mollie)'],
+    ],
+    asideKicker: 'Beyond that',
+    aside:
+      'Outside working hours I DJ and build audio tools — which is why music and event work has its own corner in the portfolio. It sharpens the same craft: making something people respond to.',
+    ctaTitle: 'Curious whether I recognise your problem?',
+    ctaBtn: 'Talk to me',
+  },
+};
 
 const AboutPage: React.FC = () => {
-  const { t } = useLanguage();
-  const skillCategories = [
-    { id: 'frontend', name: 'Frontend Development', color: 'from-blue-500 to-cyan-500' },
-    { id: 'backend', name: 'Backend Development', color: 'from-green-500 to-emerald-500' },
-    { id: 'ai', name: 'AI & Machine Learning', color: 'from-purple-500 to-pink-500' },
-    { id: 'design', name: 'Design & Motion', color: 'from-orange-500 to-red-500' },
-    { id: 'music', name: 'Music & Audio', color: 'from-indigo-500 to-purple-500' },
-  ];
-
-  const socialLinks = [
-    { icon: <Mail size={20} />, href: 'mailto:hello@creativeengineer.dev', label: 'Email' },
-    { icon: <Github size={20} />, href: 'https://github.com/creativeengineer', label: 'GitHub' },
-    { icon: <Linkedin size={20} />, href: 'https://linkedin.com/in/creativeengineer', label: 'LinkedIn' },
-    { icon: <Twitter size={20} />, href: 'https://twitter.com/creativeengineer', label: 'Twitter' },
-    { icon: <Instagram size={20} />, href: 'https://instagram.com/creativeengineer', label: 'Instagram' },
-  ];
+  const { language } = useLanguage();
+  const c = t[language];
 
   return (
-    <div className="min-h-screen pt-20">
-      {/* Hero Section */}
-      <section className="py-20 px-4">
-        <div className="max-w-7xl mx-auto">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="text-center mb-16"
-          >
-            <h1 className="text-5xl md:text-6xl font-bold mb-6">
-              <span className="gradient-text">{t('about.title')}</span> {t('about.me')}
-            </h1>
-            <p className="text-xl text-gray-400 max-w-3xl mx-auto leading-relaxed">
-              {t('about.description')}
-            </p>
-          </motion.div>
+    <main className="pt-16">
+      {/* Statement */}
+      <Section>
+        <Container>
+          <Kicker>{c.kicker}</Kicker>
+          <h1 className="mt-5 max-w-4xl text-4xl font-extralight leading-display tracking-display sm:text-5xl lg:text-6xl">
+            {c.title}
+          </h1>
+          <div className="mt-10 grid grid-cols-1 gap-8 md:grid-cols-2">
+            <p className="max-w-prose text-[15px] leading-relaxed text-ink">{c.intro1}</p>
+            <p className="max-w-prose text-[15px] leading-relaxed text-muted">{c.intro2}</p>
+          </div>
+        </Container>
+      </Section>
 
-          {/* Personal Info Grid */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-20">
-            {/* Left Column - Story */}
-            <motion.div
-              initial={{ opacity: 0, x: -30 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-            >
-              <h2 className="text-3xl font-bold mb-6 gradient-text">{t('about.story')}</h2>
-              <div className="space-y-4 text-gray-300 leading-relaxed">
-                <p>
-                  {t('about.story1')}
-                </p>
-                <p>
-                  {t('about.story2')}
-                </p>
-                <p>
-                  {t('about.story3')}
-                </p>
+      {/* Hoe ik werk */}
+      <Section className="border-t border-line">
+        <Container>
+          <Kicker>{c.howKicker}</Kicker>
+          <ul className="mt-10 grid grid-cols-1 gap-x-12 gap-y-10 md:grid-cols-2">
+            {c.steps.map((step, i) => (
+              <Reveal as="li" key={step.n} delay={i * 0.05} className="border-t border-line pt-6">
+                <div className="flex items-baseline gap-5">
+                  <span className="text-sm tabular-nums text-accent">{step.n}</span>
+                  <div>
+                    <h2 className="text-xl font-normal text-ink">{step.title}</h2>
+                    <p className="mt-2 text-[15px] leading-relaxed text-muted">{step.body}</p>
+                  </div>
+                </div>
+              </Reveal>
+            ))}
+          </ul>
+        </Container>
+      </Section>
+
+      {/* Stack — sobere tabelvorm */}
+      <Section className="border-t border-line">
+        <Container>
+          <Kicker>{c.stackKicker}</Kicker>
+          <p className="mt-5 max-w-prose text-[15px] leading-relaxed text-muted">{c.stackLead}</p>
+          <div className="mt-8 max-w-3xl">
+            {c.stack.map(([label, value]) => (
+              <div
+                key={label}
+                className="grid grid-cols-1 gap-1 border-t border-line py-4 sm:grid-cols-[220px,1fr] sm:gap-6"
+              >
+                <span className="text-sm font-medium text-ink">{label}</span>
+                <span className="text-sm leading-relaxed text-muted">{value}</span>
               </div>
-            </motion.div>
-
-            {/* Right Column - Stats */}
-            <motion.div
-              initial={{ opacity: 0, x: 30 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8, delay: 0.4 }}
-              className="space-y-6"
-            >
-              <h2 className="text-3xl font-bold mb-6 gradient-text">{t('about.experience')}</h2>
-              
-              {[
-                { label: t('about.years'), value: '5+', icon: '🚀' },
-                { label: t('about.projectsCompleted'), value: '50+', icon: '💼' },
-                { label: t('about.technologiesMastered'), value: '20+', icon: '⚡' },
-                { label: t('about.happyClients'), value: '25+', icon: '😊' },
-              ].map((stat, index) => (
-                <motion.div
-                  key={stat.label}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: 0.6 + index * 0.1 }}
-                  className="glass-effect p-6 rounded-xl"
-                >
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <p className="text-gray-400 text-sm">{stat.label}</p>
-                      <p className="text-2xl font-bold text-white">{stat.value}</p>
-                    </div>
-                    <div className="text-3xl">{stat.icon}</div>
-                  </div>
-                </motion.div>
-              ))}
-            </motion.div>
+            ))}
           </div>
-        </div>
-      </section>
+        </Container>
+      </Section>
 
-      {/* Skills Section */}
-      <section className="py-20 px-4 bg-dark-gray">
-        <div className="max-w-7xl mx-auto">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-            className="text-center mb-16"
-          >
-            <h2 className="text-4xl md:text-5xl font-bold mb-6">
-              <span className="gradient-text">{t('about.skills')}</span> {t('about.and')} {t('about.expertise')}
-            </h2>
-            <p className="text-xl text-gray-400 max-w-2xl mx-auto">
-              {t('about.skillsDescription')}
-            </p>
-          </motion.div>
-
-          {/* Skills by Category */}
-          <div className="space-y-12">
-            {skillCategories.map((category, categoryIndex) => {
-              const categorySkills = skills.filter(skill => skill.category === category.id);
-              
-              return (
-                <motion.div
-                  key={category.id}
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.8, delay: categoryIndex * 0.1 }}
-                  viewport={{ once: true }}
-                >
-                  <h3 className={`text-2xl font-bold mb-6 bg-gradient-to-r ${category.color} bg-clip-text text-transparent`}>
-                    {category.name}
-                  </h3>
-                  
-                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                    {categorySkills.map((skill, skillIndex) => (
-                      <motion.div
-                        key={skill.name}
-                        initial={{ opacity: 0, x: -20 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        transition={{ duration: 0.6, delay: skillIndex * 0.1 }}
-                        viewport={{ once: true }}
-                        className="glass-effect p-4 rounded-lg"
-                      >
-                        <div className="flex items-center justify-between mb-2">
-                          <span className="text-lg">{skill.icon}</span>
-                          <span className="text-sm text-accent font-mono">
-                            {skill.level}/5
-                          </span>
-                        </div>
-                        <h4 className="font-semibold text-white mb-2">{skill.name}</h4>
-                        <div className="w-full bg-gray-700 rounded-full h-2">
-                          <motion.div
-                            className={`h-2 rounded-full bg-gradient-to-r ${category.color}`}
-                            initial={{ width: 0 }}
-                            whileInView={{ width: `${(skill.level / 5) * 100}%` }}
-                            transition={{ duration: 1, delay: 0.5 + skillIndex * 0.1 }}
-                            viewport={{ once: true }}
-                          />
-                        </div>
-                      </motion.div>
-                    ))}
-                  </div>
-                </motion.div>
-              );
-            })}
+      {/* Muziek — voetnoot, geen hoofdverhaal */}
+      <Section className="border-t border-line">
+        <Container>
+          <div className="max-w-prose">
+            <Kicker>{c.asideKicker}</Kicker>
+            <p className="mt-4 text-[15px] leading-relaxed text-muted">{c.aside}</p>
           </div>
-        </div>
-      </section>
+        </Container>
+      </Section>
 
-      {/* Contact Section */}
-      <section className="py-20 px-4">
-        <div className="max-w-4xl mx-auto text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-          >
-            <h2 className="text-4xl font-bold mb-6">
-              <span className="gradient-text">{t('about.connect')}</span>
-            </h2>
-            <p className="text-xl text-gray-400 mb-8">
-              {t('about.connectDescription')}
-            </p>
-
-            {/* Social Links */}
-            <div className="flex justify-center gap-6 mb-8">
-              {socialLinks.map((social, index) => (
-                <motion.a
-                  key={social.label}
-                  href={social.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: index * 0.1 }}
-                  viewport={{ once: true }}
-                  whileHover={{ scale: 1.1, y: -5 }}
-                  className="p-4 glass-effect rounded-lg text-accent hover:text-white transition-colors duration-200"
-                >
-                  {social.icon}
-                </motion.a>
-              ))}
-            </div>
-
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="px-8 py-4 bg-accent text-dark font-semibold rounded-lg hover:bg-accent/90 transition-colors duration-200"
+      {/* CTA */}
+      <Section className="border-t border-line">
+        <Container>
+          <Reveal className="flex flex-col items-start justify-between gap-8 md:flex-row md:items-center">
+            <h2 className="max-w-2xl text-3xl font-light tracking-display">{c.ctaTitle}</h2>
+            <Link
+              to="/contact"
+              className="inline-flex shrink-0 items-center gap-2 rounded-md bg-accent px-6 py-3 text-sm font-medium text-[#04110f] transition-transform duration-200 ease-editorial hover:-translate-y-0.5"
             >
-              {t('about.sendMessage')}
-            </motion.button>
-          </motion.div>
-        </div>
-      </section>
-    </div>
+              {c.ctaBtn} →
+            </Link>
+          </Reveal>
+        </Container>
+      </Section>
+    </main>
   );
 };
 
-export default AboutPage; 
+export default AboutPage;
