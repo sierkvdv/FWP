@@ -40,6 +40,7 @@ export const cases: CaseStudy[] = [
     id: 'qwic',
     title: 'Qwic',
     client: 'Qwic',
+    image: '/images/cases/qwic.webp',
     track: 'automatiseren',
     problem: {
       nl: 'Dealers moesten voor elke storing en foutcode de handleiding of de helpdesk in.',
@@ -62,6 +63,7 @@ export const cases: CaseStudy[] = [
     id: 'sfeerbaas-tt',
     title: 'Sfeerbaas Track & Trace',
     client: 'Sfeerbaas',
+    image: '/images/cases/sfeerbaas-tt.webp',
     track: 'automatiseren',
     problem: {
       nl: 'Klanten belden voor de status van hun bestelling; elke update ging met de hand.',
@@ -83,6 +85,7 @@ export const cases: CaseStudy[] = [
     id: 'autoflow',
     title: 'AutoFlow',
     client: 'AutoFlow',
+    image: '/images/cases/autoflow.webp',
     track: 'automatiseren',
     problem: {
       nl: 'MKB-teams verloren uren per week aan repeterend, handmatig werk tussen losse tools.',
@@ -106,6 +109,7 @@ export const cases: CaseStudy[] = [
     id: 'wondertale',
     title: 'Wondertale',
     client: 'Eigen product',
+    image: '/images/cases/wondertale.webp',
     track: 'bouwen',
     problem: {
       nl: 'Een gepersonaliseerd kinderboek maken kostte normaal dagen ontwerp- en tekenwerk.',
@@ -128,6 +132,7 @@ export const cases: CaseStudy[] = [
     id: 'portretto',
     title: 'Portretto',
     client: 'Portretto',
+    image: '/images/cases/portretto.webp',
     track: 'bouwen',
     problem: {
       nl: 'Mensen wilden een mooi portret of poster, maar AI-tools voelden te technisch.',
@@ -149,6 +154,7 @@ export const cases: CaseStudy[] = [
     id: 'clonebox',
     title: 'Clonebox',
     client: 'Clonebox',
+    image: '/images/cases/clonebox.webp',
     track: 'bouwen',
     problem: {
       nl: 'DJ’s beheren hun Rekordbox-collectie los van hun back-ups, versies en tweede laptop.',
@@ -190,6 +196,7 @@ export const cases: CaseStudy[] = [
   {
     id: 'reclamevideos',
     title: 'Reclamevideo’s',
+    image: '/images/cases/reclamevideos.webp',
     track: 'creeren',
     problem: {
       nl: 'Professionele reclames laten maken is duur, traag en moeilijk in volume vol te houden.',
