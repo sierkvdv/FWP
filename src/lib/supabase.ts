@@ -33,8 +33,14 @@ if (!supabaseUrl || !supabaseAnonKey) {
   console.log('🔑 Anon Key:', supabaseAnonKey.substring(0, 20) + '...');
 }
 
-// Create Supabase client
-export const supabase = createClient(supabaseUrl, supabaseAnonKey);
+// Create Supabase client.
+// Fallback naar een syntactisch geldige dummy-URL als de env-vars ontbreken,
+// zodat createClient() niet gooit en de site blijft renderen (contact/video
+// degraderen dan netjes). Productie draait met echte env en is onveranderd.
+export const supabase = createClient(
+  supabaseUrl || 'https://placeholder.supabase.co',
+  supabaseAnonKey || 'placeholder-anon-key'
+);
 
 // Storage bucket name for videos (you can change this in your Supabase dashboard)
 export const VIDEO_BUCKET_NAME = 'hero-videos';
