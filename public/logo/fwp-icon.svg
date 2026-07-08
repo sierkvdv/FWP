@@ -1,0 +1,12 @@
+<svg width="120" height="120" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="FWP icoon">
+  <title>FWP</title>
+  <rect x="18" y="18" width="20" height="20" fill="#00e5c7"/>
+  <rect x="44" y="18" width="20" height="20" fill="#00e5c7" opacity="0.5"/>
+  <rect x="70" y="18" width="20" height="20" fill="#00e5c7" opacity="0.22"/>
+  <rect x="18" y="44" width="20" height="20" fill="#00e5c7" opacity="0.5"/>
+  <rect x="44" y="44" width="20" height="20" fill="#00e5c7"/>
+  <rect x="70" y="44" width="20" height="20" fill="#00e5c7" opacity="0.5"/>
+  <rect x="18" y="70" width="20" height="20" fill="#00e5c7" opacity="0.22"/>
+  <rect x="44" y="70" width="20" height="20" fill="#00e5c7" opacity="0.5"/>
+  <rect x="82" y="82" width="20" height="20" fill="#00e5c7" transform="rotate(45 92 92)"/>
+</svg>

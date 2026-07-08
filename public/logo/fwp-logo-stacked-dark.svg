@@ -1,0 +1,25 @@
+<svg width="240" height="200" viewBox="0 0 240 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="FWP — Fieldworks Production">
+  <title>FWP — Fieldworks Production</title>
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Sora:wght@600;700&amp;display=swap');
+      .fwp-word-s { font-family: 'Sora', sans-serif; font-weight: 700; font-size: 34px; letter-spacing: 1px; fill: #f4f4f6; text-anchor: middle; }
+      .fwp-tag-s  { font-family: 'Sora', sans-serif; font-weight: 600; font-size: 10px; letter-spacing: 4px; fill: #00e5c7; text-anchor: middle; }
+    </style>
+  </defs>
+
+  <g transform="translate(78, 20)">
+    <rect x="0" y="0" width="20" height="20" fill="#00e5c7"/>
+    <rect x="26" y="0" width="20" height="20" fill="#00e5c7" opacity="0.5"/>
+    <rect x="52" y="0" width="20" height="20" fill="#00e5c7" opacity="0.22"/>
+    <rect x="0" y="26" width="20" height="20" fill="#00e5c7" opacity="0.5"/>
+    <rect x="26" y="26" width="20" height="20" fill="#00e5c7"/>
+    <rect x="52" y="26" width="20" height="20" fill="#00e5c7" opacity="0.5"/>
+    <rect x="0" y="52" width="20" height="20" fill="#00e5c7" opacity="0.22"/>
+    <rect x="26" y="52" width="20" height="20" fill="#00e5c7" opacity="0.5"/>
+    <rect x="64" y="64" width="20" height="20" fill="#00e5c7" transform="rotate(45 74 74)"/>
+  </g>
+
+  <text x="120" y="150" class="fwp-word-s">FWP</text>
+  <text x="120" y="172" class="fwp-tag-s">FIELDWORKS PRODUCTION</text>
+</svg>

@@ -19,14 +19,11 @@ const Footer: React.FC = () => {
       <Container className="py-14">
         <div className="flex flex-col gap-10 md:flex-row md:items-end md:justify-between">
           <div>
-            <div className="flex items-baseline gap-2">
-              <span className="text-lg font-semibold tracking-display text-ink">
-                FWP<span className="text-accent">.</span>
-              </span>
-              <span className="text-[11px] uppercase tracking-label text-muted">
-                Fieldworks Production
-              </span>
-            </div>
+            <img
+              src="/logo/fwp-logo-horizontal-dark.svg"
+              alt="FWP — Fieldworks Production"
+              className="h-10 w-auto"
+            />
             <p className="mt-3 text-sm text-muted">
               {language === 'nl'
                 ? 'Techniek én communicatie, door één maker.'

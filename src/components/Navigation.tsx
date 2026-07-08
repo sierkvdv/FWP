@@ -20,15 +20,12 @@ const Navigation: React.FC = () => {
   return (
     <header className="fixed inset-x-0 top-0 z-50 border-b border-line/70 bg-bg/80 backdrop-blur-md">
       <div className="mx-auto flex h-16 max-w-content items-center justify-between px-6 sm:px-10 lg:px-16">
-        {/* Wordmark — TIJDELIJK. Vervangen door fwp-logo-horizontal-dark.svg
-            zodra het logo-pakket binnen is. */}
-        <Link to="/" className="group flex items-baseline gap-2" aria-label="FWP — home">
-          <span className="text-lg font-semibold tracking-display text-ink">
-            FWP<span className="text-accent">.</span>
-          </span>
-          <span className="hidden text-[11px] uppercase tracking-label text-muted sm:inline">
-            Fieldworks Production
-          </span>
+        <Link to="/" className="flex items-center" aria-label="FWP — home">
+          <img
+            src="/logo/fwp-logo-horizontal-dark.svg"
+            alt="FWP — Fieldworks Production"
+            className="h-12 w-auto"
+          />
         </Link>
 
         {/* Desktop nav */}
