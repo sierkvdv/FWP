@@ -37,7 +37,7 @@ const Hero: React.FC = () => {
       {/* Video-achtergrond — stil, donker, subtiel. Overlay houdt tekst leesbaar. */}
       <div className="absolute inset-0" aria-hidden="true">
         <video
-          src="/videos/hero-loop.mp4"
+          src="/videos/hero-seamless.mp4"
           className="h-full w-full object-cover"
           autoPlay
           muted
