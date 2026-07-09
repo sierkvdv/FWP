@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import AutoVideo from './AutoVideo';
 
 interface CaseMediaProps {
   src?: string;
@@ -36,16 +37,11 @@ const CaseMedia: React.FC<CaseMediaProps> = ({
       style={{ aspectRatio: ratio }}
     >
       {video ? (
-        <video
+        <AutoVideo
           src={video}
           poster={poster}
           aria-label={label}
           className="h-full w-full object-cover"
-          autoPlay
-          muted
-          loop
-          playsInline
-          preload="metadata"
         />
       ) : showImage ? (
         <img

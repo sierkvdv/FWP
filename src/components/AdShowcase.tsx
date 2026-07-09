@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { useLanguage } from '../contexts/LanguageContext';
 import { showreel, ShowreelVideo } from '../data/showreel';
 import { Container, Section, Kicker, Reveal } from './primitives';
+import AutoVideo from './AutoVideo';
 
 const copy = {
   nl: {
@@ -44,18 +45,25 @@ const VideoFrame: React.FC<{ video: ShowreelVideo; large?: boolean }> = ({ video
           loading="lazy"
         />
       ) : video.mp4 ? (
-        <video
-          src={video.mp4}
-          poster={video.poster}
-          className="h-full w-full object-cover"
-          controls
-          preload="metadata"
-          // De grote video speelt stil mee als sfeer; kleinere starten op klik.
-          autoPlay={large}
-          muted={large}
-          loop={large}
-          playsInline
-        />
+        large ? (
+          // Grote video: speelt stil mee zodra 'ie in beeld is (iOS-proof).
+          <AutoVideo
+            src={video.mp4}
+            poster={video.poster}
+            className="h-full w-full object-cover"
+            controls
+          />
+        ) : (
+          // Kleinere tegels: starten op klik, met geluid.
+          <video
+            src={video.mp4}
+            poster={video.poster}
+            className="h-full w-full object-cover"
+            controls
+            preload="metadata"
+            playsInline
+          />
+        )
       ) : null}
     </div>
   );

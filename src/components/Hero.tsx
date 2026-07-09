@@ -4,6 +4,7 @@ import { motion, useReducedMotion } from 'framer-motion';
 import { useLanguage } from '../contexts/LanguageContext';
 import { Container } from './primitives';
 import BrandMark from './BrandMark';
+import AutoVideo from './AutoVideo';
 
 const copy = {
   nl: {
@@ -36,13 +37,9 @@ const Hero: React.FC = () => {
     <section className="relative overflow-hidden pt-16">
       {/* Video-achtergrond — stil, donker, subtiel. Overlay houdt tekst leesbaar. */}
       <div className="absolute inset-0" aria-hidden="true">
-        <video
+        <AutoVideo
           src="/videos/hero-seamless2.mp4"
           className="h-full w-full object-cover"
-          autoPlay
-          muted
-          loop
-          playsInline
         />
         <div className="absolute inset-0 bg-gradient-to-r from-bg/90 via-bg/55 to-transparent" />
         <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-bg to-transparent" />
