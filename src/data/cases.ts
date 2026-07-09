@@ -90,6 +90,8 @@ export const cases: CaseStudy[] = [
     title: 'AutoFlow',
     client: 'AutoFlow',
     image: '/images/cases/autoflow.webp',
+    video: '/videos/cases/autoflow.mp4',
+    videoPoster: '/videos/cases/autoflow.jpg',
     track: 'automatiseren',
     problem: {
       nl: 'MKB-teams verloren uren per week aan repeterend, handmatig werk tussen losse tools.',
