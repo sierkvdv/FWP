@@ -126,6 +126,23 @@ export const cases: CaseStudy[] = [
       en: 'From a name and a photo to a unique, print-ready book — in minutes instead of days.',
     },
     metric: 'minuten',
+    gallery: [
+      {
+        mp4: '/videos/campaign/wondertale-ad-v3.mp4',
+        poster: '/videos/campaign/wondertale-ad-v3.jpg',
+        title: 'Ad — "Eigen gezicht. Eigen avontuur."',
+      },
+      {
+        mp4: '/videos/campaign/wondertale-ad-v1.mp4',
+        poster: '/videos/campaign/wondertale-ad-v1.jpg',
+        title: 'Ad — schone cut',
+      },
+      {
+        mp4: '/videos/campaign/wondertale-ad-v4.mp4',
+        poster: '/videos/campaign/wondertale-ad-v4.jpg',
+        title: 'Ad — alternatieve caption',
+      },
+    ],
     liveUrl: 'https://wonder-tale.com',
     year: 2026,
     featured: true,

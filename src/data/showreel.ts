@@ -22,8 +22,8 @@ export const showreel: ShowreelVideo[] = [
   {
     id: 'sauna',
     title: 'Thermen Polair — "Ontdooien doe je hier."',
-    mp4: '/videos/ads/sauna-thermen.mp4',
-    poster: '/videos/ads/sauna-thermen.jpg',
+    mp4: '/videos/ads/sauna-loop.mp4',
+    poster: '/videos/ads/sauna-loop.jpg',
     ratio: '16/9',
   },
   {

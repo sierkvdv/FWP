@@ -37,7 +37,15 @@ const t = {
 const HomePage: React.FC = () => {
   const { language } = useLanguage();
   const c = t[language];
-  const featured = cases.filter((x) => x.featured);
+  // Sterkste, volledige campagnes eerst — sluiten aan op de reclamevideo's.
+  const lead = ['wondertale', 'schelpenfissa'];
+  const rank = (id: string) => {
+    const i = lead.indexOf(id);
+    return i === -1 ? lead.length + 1 : i;
+  };
+  const featured = cases
+    .filter((x) => x.featured)
+    .sort((a, b) => rank(a.id) - rank(b.id));
 
   return (
     <main>
