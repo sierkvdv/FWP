@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import { useLanguage } from '../contexts/LanguageContext';
+import Wordmark from './Wordmark';
 
 const Navigation: React.FC = () => {
   const { language, setLanguage } = useLanguage();
@@ -20,12 +21,8 @@ const Navigation: React.FC = () => {
   return (
     <header className="fixed inset-x-0 top-0 z-50 border-b border-line/70 bg-bg/80 backdrop-blur-md">
       <div className="mx-auto flex h-16 max-w-content items-center justify-between px-6 sm:px-10 lg:px-16">
-        <Link to="/" className="flex items-center" aria-label="FWP — home">
-          <img
-            src="/logo/fwp-logo-horizontal-dark.svg"
-            alt="FWP — Fieldworks Production"
-            className="h-12 w-auto"
-          />
+        <Link to="/" aria-label="FWP — home">
+          <Wordmark />
         </Link>
 
         {/* Desktop nav */}

@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { useLanguage } from '../contexts/LanguageContext';
 import { contactInfo } from '../data/contact';
 import { Container } from './primitives';
+import Wordmark from './Wordmark';
 
 const Footer: React.FC = () => {
   const { language } = useLanguage();
@@ -19,11 +20,7 @@ const Footer: React.FC = () => {
       <Container className="py-14">
         <div className="flex flex-col gap-10 md:flex-row md:items-end md:justify-between">
           <div>
-            <img
-              src="/logo/fwp-logo-horizontal-dark.svg"
-              alt="FWP — Fieldworks Production"
-              className="h-10 w-auto"
-            />
+            <Wordmark />
             <p className="mt-3 text-sm text-muted">
               {language === 'nl'
                 ? 'Techniek én communicatie, door één maker.'
