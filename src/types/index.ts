@@ -45,6 +45,8 @@ export interface CaseStudy {
   mediaRatio?: string;
   /** Extra campagne-video's op de detailpagina. */
   gallery?: { mp4: string; poster?: string; title?: string }[];
+  /** Beeldverhouding van de galerij-tegels (default '9/16'). */
+  galleryRatio?: string;
   liveUrl?: string;
   year: number;
   /** Toont op de homepage. */

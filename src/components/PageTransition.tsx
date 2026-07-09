@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useLayoutEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 interface PageTransitionProps {
@@ -6,6 +6,12 @@ interface PageTransitionProps {
 }
 
 const PageTransition: React.FC<PageTransitionProps> = ({ children }) => {
+  // Elke route remount deze component (key=pathname in App) → nieuwe
+  // pagina begint bovenaan i.p.v. op de vorige scroll-positie.
+  useLayoutEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
     <AnimatePresence mode="wait">
       <motion.div

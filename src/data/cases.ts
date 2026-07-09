@@ -134,6 +134,29 @@ export const cases: CaseStudy[] = [
     year: 2026,
     featured: false,
   },
+  {
+    id: 'sfeerbaas-tt',
+    title: 'Sfeerbaas Track & Trace',
+    client: 'Sfeerbaas',
+    image: '/images/cases/sfeerbaas-tt.webp',
+    video: '/videos/cases/sfeerbaas-tt.mp4',
+    videoPoster: '/videos/cases/sfeerbaas-tt.jpg',
+    track: 'automatiseren',
+    problem: {
+      nl: 'Klanten belden voor de status van hun bestelling; elke update ging met de hand.',
+      en: 'Customers called to check their order status; every update was handled by hand.',
+    },
+    solution: {
+      nl: 'Geautomatiseerde track & trace die statusupdates zelf ophaalt en verstuurt.',
+      en: 'Automated track & trace that fetches and sends status updates on its own.',
+    },
+    result: {
+      nl: 'Klanten zijn altijd op de hoogte; het statuswerk verdween naar de achtergrond.',
+      en: 'Customers are always in the loop; the status busywork moved into the background.',
+    },
+    year: 2026,
+    featured: false,
+  },
 
   // ------------------------------- BOUWEN --------------------------------
   {
@@ -349,12 +372,33 @@ export const cases: CaseStudy[] = [
       nl: 'Scroll-stoppende reclames in de juiste hoeveelheid, in dagen in plaats van weken.',
       en: 'Scroll-stopping ads at the right volume, in days instead of weeks.',
     },
+    galleryRatio: '16/9',
+    gallery: [
+      {
+        mp4: '/videos/ads/nordax-hero.mp4',
+        poster: '/videos/ads/nordax-hero.jpg',
+        title: 'NORDAX — commercial',
+      },
+      {
+        mp4: '/videos/ads/tij-eb.mp4',
+        poster: '/videos/ads/tij-eb.jpg',
+        title: 'TIJ — strand-commercial',
+      },
+      {
+        mp4: '/videos/ads/sauna-loop.mp4',
+        poster: '/videos/ads/sauna-loop.jpg',
+        title: 'Thermen Polair — "Ontdooien doe je hier."',
+      },
+    ],
     year: 2026,
     featured: true,
   },
   {
     id: 'grafisch-werk',
     title: 'Grafisch & visueel werk',
+    image: '/images/cases/grafisch-werk.webp',
+    video: '/videos/cases/grafisch-werk.mp4',
+    videoPoster: '/videos/cases/grafisch-werk.jpg',
     track: 'creeren',
     problem: {
       nl: 'Merken hadden beeld nodig dat opvalt én consistent klopt over alle kanalen.',

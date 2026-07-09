@@ -146,12 +146,18 @@ const ProjectDetailPage: React.FC = () => {
             {caseStudy.gallery && caseStudy.gallery.length > 0 && (
               <div className="mt-20">
                 <Kicker>{language === 'nl' ? 'Uit de campagne' : 'From the campaign'}</Kicker>
-                <div className="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                <div
+                  className={`mt-8 grid grid-cols-1 gap-6 ${
+                    (caseStudy.galleryRatio || '9/16') === '16/9'
+                      ? 'lg:grid-cols-2'
+                      : 'sm:grid-cols-2 lg:grid-cols-3'
+                  }`}
+                >
                   {caseStudy.gallery.map((g) => (
                     <div key={g.mp4}>
                       <div
                         className="overflow-hidden rounded-lg border border-line bg-surface"
-                        style={{ aspectRatio: '9/16' }}
+                        style={{ aspectRatio: caseStudy.galleryRatio || '9/16' }}
                       >
                         <video
                           src={g.mp4}
