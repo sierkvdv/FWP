@@ -8,6 +8,8 @@ interface CaseMediaProps {
   label: string;
   /** aspect ratio, bv. '4/3' of '16/10' */
   ratio?: string;
+  /** 'cover' (default, foto's) of 'contain' (decoratieve SVG's netjes passend) */
+  fit?: 'cover' | 'contain';
   className?: string;
 }
 
@@ -22,6 +24,7 @@ const CaseMedia: React.FC<CaseMediaProps> = ({
   poster,
   label,
   ratio = '4/3',
+  fit = 'cover',
   className = '',
 }) => {
   const [failed, setFailed] = useState(false);
@@ -50,7 +53,11 @@ const CaseMedia: React.FC<CaseMediaProps> = ({
           alt={label}
           loading="lazy"
           onError={() => setFailed(true)}
-          className="h-full w-full object-cover"
+          className={
+            fit === 'contain'
+              ? 'h-full w-full object-contain p-6'
+              : 'h-full w-full object-cover'
+          }
         />
       ) : (
         <div className="flex h-full w-full items-center justify-center">

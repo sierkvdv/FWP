@@ -41,6 +41,8 @@ export const cases: CaseStudy[] = [
     title: 'Qwic',
     client: 'Qwic',
     image: '/images/cases/qwic.webp',
+    video: '/videos/cases/qwic.mp4',
+    videoPoster: '/videos/cases/qwic.jpg',
     track: 'automatiseren',
     problem: {
       nl: 'Dealers moesten voor elke storing en foutcode de handleiding of de helpdesk in.',
@@ -64,6 +66,8 @@ export const cases: CaseStudy[] = [
     title: 'Sfeerbaas Configurator',
     client: 'Sfeerbaas',
     image: '/images/cases/sfeerbaas.webp',
+    video: '/videos/cases/sfeerbaas.mp4',
+    videoPoster: '/videos/cases/sfeerbaas.jpg',
     track: 'bouwen',
     problem: {
       nl: 'Klanten wilden een eigen neonreclame ontwerpen, maar standaard-configurators boden nauwelijks vrijheid — en je zag pas bij levering hoe het echt werd.',
@@ -303,6 +307,8 @@ export const cases: CaseStudy[] = [
     id: 'reclamevideos',
     title: 'Reclamevideo’s',
     image: '/images/cases/reclamevideos.webp',
+    video: '/videos/cases/reclamevideos.mp4',
+    videoPoster: '/videos/cases/reclamevideos.jpg',
     track: 'creeren',
     problem: {
       nl: 'Professionele reclames laten maken is duur, traag en moeilijk in volume vol te houden.',
