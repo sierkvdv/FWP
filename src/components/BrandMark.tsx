@@ -19,7 +19,7 @@ const blocks: { x: number; y: number; o: number; step: number }[] = [
   { x: 0, y: 52, o: 0.22, step: 3 },
 ];
 
-const STEP_DELAY = 0.28;
+const STEP_DELAY = 0.56;
 
 const BrandMark: React.FC<{ className?: string }> = ({ className = '' }) => {
   const reduce = useReducedMotion();
@@ -42,9 +42,9 @@ const BrandMark: React.FC<{ className?: string }> = ({ className = '' }) => {
           initial={reduce ? { opacity: b.o } : { opacity: 0, scale: 0.6 }}
           animate={{ opacity: b.o, scale: 1 }}
           transition={{
-            duration: 0.45,
+            duration: 0.9,
             ease: [0.16, 1, 0.3, 1],
-            delay: b.step * STEP_DELAY + (b.step === 3 ? (i % 3) * 0.07 : 0),
+            delay: b.step * STEP_DELAY + (b.step === 3 ? (i % 3) * 0.14 : 0),
           }}
           style={{ transformOrigin: `${b.x + 10}px ${b.y + 10}px` }}
         />
@@ -63,7 +63,7 @@ const BrandMark: React.FC<{ className?: string }> = ({ className = '' }) => {
         }
         animate={{ x: 12, y: 12, rotate: 45, opacity: 1 }}
         transition={{
-          duration: 0.6,
+          duration: 1.2,
           ease: [0.16, 1, 0.3, 1],
           delay: 4 * STEP_DELAY,
         }}
