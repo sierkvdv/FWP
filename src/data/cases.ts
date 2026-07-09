@@ -128,19 +128,34 @@ export const cases: CaseStudy[] = [
     metric: 'minuten',
     gallery: [
       {
-        mp4: '/videos/campaign/wondertale-ad-v3.mp4',
-        poster: '/videos/campaign/wondertale-ad-v3.jpg',
-        title: 'Ad — "Eigen gezicht. Eigen avontuur."',
+        mp4: '/videos/campaign/wt-ad.mp4',
+        poster: '/videos/campaign/wt-ad.jpg',
+        title: 'Ad — "Zet jouw kind in zijn eigen boek"',
       },
       {
-        mp4: '/videos/campaign/wondertale-ad-v1.mp4',
-        poster: '/videos/campaign/wondertale-ad-v1.jpg',
-        title: 'Ad — schone cut',
+        mp4: '/videos/campaign/wt-reveal.mp4',
+        poster: '/videos/campaign/wt-reveal.jpg',
+        title: 'Reveal — het boek in handen',
       },
       {
-        mp4: '/videos/campaign/wondertale-ad-v4.mp4',
-        poster: '/videos/campaign/wondertale-ad-v4.jpg',
-        title: 'Ad — alternatieve caption',
+        mp4: '/videos/campaign/wt-oma.mp4',
+        poster: '/videos/campaign/wt-oma.jpg',
+        title: 'Oma & kleinkind',
+      },
+      {
+        mp4: '/videos/campaign/wt-unboxing.mp4',
+        poster: '/videos/campaign/wt-unboxing.jpg',
+        title: 'Unboxing',
+      },
+      {
+        mp4: '/videos/campaign/wt-bedtime.mp4',
+        poster: '/videos/campaign/wt-bedtime.jpg',
+        title: 'Bedtime — samen lezen',
+      },
+      {
+        mp4: '/videos/campaign/wt-blader.mp4',
+        poster: '/videos/campaign/wt-blader.jpg',
+        title: 'Het blader-moment',
       },
     ],
     liveUrl: 'https://wonder-tale.com',
