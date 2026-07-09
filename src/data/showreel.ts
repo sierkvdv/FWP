@@ -20,6 +20,13 @@ export interface ShowreelVideo {
 
 export const showreel: ShowreelVideo[] = [
   {
+    id: 'nordax',
+    title: 'NORDAX — commercial',
+    mp4: '/videos/ads/nordax-hero.mp4',
+    poster: '/videos/ads/nordax-hero.jpg',
+    ratio: '16/9',
+  },
+  {
     id: 'sauna',
     title: 'Thermen Polair — "Ontdooien doe je hier."',
     mp4: '/videos/ads/sauna-loop.mp4',
@@ -31,13 +38,6 @@ export const showreel: ShowreelVideo[] = [
     title: 'TIJ — strand-commercial',
     mp4: '/videos/ads/tij-eb.mp4',
     poster: '/videos/ads/tij-eb.jpg',
-    ratio: '16/9',
-  },
-  {
-    id: 'nordax',
-    title: 'NORDAX — commercial',
-    mp4: '/videos/ads/nordax.mp4',
-    poster: '/videos/ads/nordax.jpg',
     ratio: '16/9',
   },
 ];
