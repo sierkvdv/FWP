@@ -58,6 +58,9 @@ export interface WorkItem {
   subtitle: Localized;
   track?: Track;
   image?: string;
+  /** Naadloze loop-video voor de kaart (wint van image). */
+  videoLoop?: string;
+  videoPoster?: string;
   liveUrl?: string;
   video?: string;
   year: number;

@@ -91,9 +91,11 @@ const ProjectsPage: React.FC = () => {
                   <div className="group">
                     <CaseMedia
                       src={item.image}
+                      video={item.videoLoop}
+                      poster={item.videoPoster}
                       label={item.title}
                       ratio="16/10"
-                      // SVG-animaties netjes passend; screenshots/foto's vullend
+                      // SVG-animaties netjes passend; screenshots/foto's/video's vullend
                       fit={item.image?.endsWith('.svg') ? 'contain' : 'cover'}
                     />
                     <div className="mt-4 flex items-baseline justify-between gap-4">
