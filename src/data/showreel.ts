@@ -32,4 +32,11 @@ export const showreel: ShowreelVideo[] = [
     poster: '/videos/ads/nordax.jpg',
     ratio: '16/9',
   },
+  {
+    id: 'sauna',
+    title: 'Thermen Polair — "Ontdooien doe je hier."',
+    mp4: '/videos/ads/sauna-pinguin.mp4',
+    poster: '/videos/ads/sauna-pinguin.jpg',
+    ratio: '16/9',
+  },
 ];
