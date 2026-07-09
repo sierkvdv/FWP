@@ -1,7 +1,8 @@
 /* ------------------------------------------------------------------ *
  *  SHOWREEL — reclamevideo's op de homepage.
  *  Eén video toevoegen = één entry hieronder. De eerste entry wordt
- *  groot getoond; volgende entries komen in een rij eronder.
+ *  groot getoond (speelt automatisch, stil, in loop); volgende entries
+ *  komen in een rij eronder (starten op klik, met geluid).
  *  - youtube: volledige YouTube-URL (embed wordt automatisch gemaakt)
  *  - mp4: pad naar mp4 in /public/videos (met poster-still)
  *  - ratio: '16/9' (liggend, default) of '9/16' (verticaal/social)
@@ -19,6 +20,13 @@ export interface ShowreelVideo {
 
 export const showreel: ShowreelVideo[] = [
   {
+    id: 'sauna',
+    title: 'Thermen Polair — "Ontdooien doe je hier."',
+    mp4: '/videos/ads/sauna-thermen.mp4',
+    poster: '/videos/ads/sauna-thermen.jpg',
+    ratio: '16/9',
+  },
+  {
     id: 'tij',
     title: 'TIJ — strand-commercial',
     mp4: '/videos/ads/tij-eb.mp4',
@@ -30,13 +38,6 @@ export const showreel: ShowreelVideo[] = [
     title: 'NORDAX — commercial',
     mp4: '/videos/ads/nordax.mp4',
     poster: '/videos/ads/nordax.jpg',
-    ratio: '16/9',
-  },
-  {
-    id: 'sauna',
-    title: 'Thermen Polair — "Ontdooien doe je hier."',
-    mp4: '/videos/ads/sauna-pinguin.mp4',
-    poster: '/videos/ads/sauna-pinguin.jpg',
     ratio: '16/9',
   },
 ];
