@@ -21,8 +21,8 @@ export const showreel: ShowreelVideo[] = [
   {
     id: 'tij',
     title: 'TIJ — strand-commercial',
-    mp4: '/videos/ads/tij.mp4',
-    poster: '/videos/ads/tij.jpg',
+    mp4: '/videos/ads/tij-eb.mp4',
+    poster: '/videos/ads/tij-eb.jpg',
     ratio: '16/9',
   },
   {
