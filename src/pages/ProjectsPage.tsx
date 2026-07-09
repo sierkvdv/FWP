@@ -89,7 +89,13 @@ const ProjectsPage: React.FC = () => {
               return (
                 <Reveal as="li" key={item.id} delay={Math.min(i, 5) * 0.04}>
                   <div className="group">
-                    <CaseMedia src={item.image} label={item.title} ratio="16/10" fit="contain" />
+                    <CaseMedia
+                      src={item.image}
+                      label={item.title}
+                      ratio="16/10"
+                      // SVG-animaties netjes passend; screenshots/foto's vullend
+                      fit={item.image?.endsWith('.svg') ? 'contain' : 'cover'}
+                    />
                     <div className="mt-4 flex items-baseline justify-between gap-4">
                       <h3 className="text-lg font-normal text-ink">{item.title}</h3>
                       <span className="shrink-0 text-xs tabular-nums text-muted">{item.year}</span>
