@@ -145,7 +145,13 @@ const ProjectDetailPage: React.FC = () => {
             {/* Campagne-galerij */}
             {caseStudy.gallery && caseStudy.gallery.length > 0 && (
               <div className="mt-20">
-                <Kicker>{language === 'nl' ? 'Uit de campagne' : 'From the campaign'}</Kicker>
+                <Kicker>
+                  {caseStudy.galleryLabel
+                    ? caseStudy.galleryLabel[language]
+                    : language === 'nl'
+                    ? 'Uit de campagne'
+                    : 'From the campaign'}
+                </Kicker>
                 <div
                   className={`mt-8 grid grid-cols-1 gap-6 ${
                     (caseStudy.galleryRatio || '9/16') === '16/9'
@@ -153,24 +159,37 @@ const ProjectDetailPage: React.FC = () => {
                       : 'sm:grid-cols-2 lg:grid-cols-3'
                   }`}
                 >
-                  {caseStudy.gallery.map((g) => (
-                    <div key={g.mp4}>
-                      <div
-                        className="overflow-hidden rounded-lg border border-line bg-surface"
-                        style={{ aspectRatio: caseStudy.galleryRatio || '9/16' }}
-                      >
-                        <video
-                          src={g.mp4}
-                          poster={g.poster}
-                          className="h-full w-full object-cover"
-                          controls
-                          preload="metadata"
-                          playsInline
-                        />
+                  {caseStudy.gallery.map((g) => {
+                    const objFit =
+                      caseStudy.galleryFit === 'contain' ? 'object-contain p-3' : 'object-cover';
+                    return (
+                      <div key={g.mp4 || g.img}>
+                        <div
+                          className="overflow-hidden rounded-lg border border-line bg-surface"
+                          style={{ aspectRatio: caseStudy.galleryRatio || '9/16' }}
+                        >
+                          {g.img ? (
+                            <img
+                              src={g.img}
+                              alt={g.title || ''}
+                              loading="lazy"
+                              className={`h-full w-full ${objFit}`}
+                            />
+                          ) : (
+                            <video
+                              src={g.mp4}
+                              poster={g.poster}
+                              className={`h-full w-full ${objFit}`}
+                              controls
+                              preload="metadata"
+                              playsInline
+                            />
+                          )}
+                        </div>
+                        {g.title && <p className="mt-3 text-sm text-muted">{g.title}</p>}
                       </div>
-                      {g.title && <p className="mt-3 text-sm text-muted">{g.title}</p>}
-                    </div>
-                  ))}
+                    );
+                  })}
                 </div>
               </div>
             )}

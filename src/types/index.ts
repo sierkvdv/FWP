@@ -43,10 +43,14 @@ export interface CaseStudy {
   videoPoster?: string;
   /** Beeldverhouding van de kaart-media (default 4/3). */
   mediaRatio?: string;
-  /** Extra campagne-video's op de detailpagina. */
-  gallery?: { mp4: string; poster?: string; title?: string }[];
+  /** Extra campagne-media op de detailpagina (video óf beeld). */
+  gallery?: { mp4?: string; img?: string; poster?: string; title?: string }[];
   /** Beeldverhouding van de galerij-tegels (default '9/16'). */
   galleryRatio?: string;
+  /** 'cover' (default) of 'contain' (volledig werk tonen, bv. posters/logo's). */
+  galleryFit?: 'cover' | 'contain';
+  /** Kopje boven de galerij (default 'Uit de campagne'). */
+  galleryLabel?: Localized;
   liveUrl?: string;
   year: number;
   /** Toont op de homepage. */
