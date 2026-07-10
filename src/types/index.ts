@@ -92,6 +92,8 @@ export interface ContactInfo {
   github: string;
   twitter?: string;
   instagram?: string;
+  /** Muzieklabel (Bloodline / Deepstepper). */
+  bloodline?: string;
 }
 
 export interface HeroSection {

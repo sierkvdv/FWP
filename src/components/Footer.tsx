@@ -32,6 +32,20 @@ const Footer: React.FC = () => {
             >
               {contactInfo.email}
             </a>
+
+            {contactInfo.bloodline && (
+              <div className="mt-6 flex items-baseline gap-3">
+                <span className="kicker">{language === 'nl' ? 'Muzieklabel' : 'Music label'}</span>
+                <a
+                  href={contactInfo.bloodline}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-sm text-muted underline-offset-4 transition-colors hover:text-accent hover:underline"
+                >
+                  Bloodline ↗
+                </a>
+              </div>
+            )}
           </div>
 
           <div className="flex flex-col gap-3 md:items-end">

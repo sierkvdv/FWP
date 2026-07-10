@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useLanguage } from '../contexts/LanguageContext';
+import { contactInfo } from '../data/contact';
 import { Container, Section, Kicker, Reveal } from '../components/primitives';
 
 const t = {
@@ -159,6 +160,18 @@ const AboutPage: React.FC = () => {
           <div className="max-w-prose">
             <Kicker>{c.asideKicker}</Kicker>
             <p className="mt-4 text-[15px] leading-relaxed text-muted">{c.aside}</p>
+            {contactInfo.bloodline && (
+              <a
+                href={contactInfo.bloodline}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-4 inline-block text-sm text-ink underline-offset-4 transition-colors hover:text-accent hover:underline"
+              >
+                {language === 'nl'
+                  ? 'Mijn muzieklabel: Bloodline ↗'
+                  : 'My music label: Bloodline ↗'}
+              </a>
+            )}
           </div>
         </Container>
       </Section>
