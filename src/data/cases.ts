@@ -394,6 +394,30 @@ export const cases: CaseStudy[] = [
     featured: true,
   },
   {
+    id: 'bloodline',
+    title: 'Bloodline Project',
+    client: 'Eigen label',
+    image: '/images/cases/bloodline.webp',
+    video: '/videos/cases/bloodline.mp4',
+    videoPoster: '/videos/cases/bloodline.jpg',
+    track: 'creeren',
+    problem: {
+      nl: 'De muziek en artiesten van een father-son collectief hadden een eigen thuis nodig — één plek met identiteit, niet verspreid over losse platforms.',
+      en: 'The music and artists of a father–son collective needed a home of their own — one place with an identity, not scattered across platforms.',
+    },
+    solution: {
+      nl: 'Bloodline Project: merk, site en visuele identiteit die de artiesten (o.a. Deepstepper en DJ Sam Sonight) en releases samenbrengen.',
+      en: 'Bloodline Project: a brand, site and visual identity bringing the artists (incl. Deepstepper and DJ Sam Sonight) and releases together.',
+    },
+    result: {
+      nl: 'Een herkenbare thuisbasis voor het label — synths, vinyl en jaren aan obsessie op één plek.',
+      en: 'A recognisable home for the label — synths, vinyl and decades of obsession in one place.',
+    },
+    liveUrl: 'https://bloodlineproject.vercel.app',
+    year: 2025,
+    featured: false,
+  },
+  {
     id: 'grafisch-werk',
     title: 'Grafisch & visueel werk',
     image: '/images/cases/grafisch-werk.webp',
