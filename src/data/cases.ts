@@ -49,8 +49,8 @@ export const cases: CaseStudy[] = [
       en: 'For every fault or error code, dealers had to dig through manuals or wait on the helpdesk.',
     },
     solution: {
-      nl: 'Een chatbot bovenop de complete kennisbank, die elk gesprek veilig terug logt in het CRM.',
-      en: 'A chatbot on top of the full knowledge base that securely logs every conversation back into the CRM.',
+      nl: 'Voor Qwic bouwde ik een chatbot bovenop hun complete kennisbank, die elk gesprek veilig terug logt in het CRM — één van twee tools die ik voor ze maakte, naast DixaHelper.',
+      en: 'For Qwic I built a chatbot on top of their full knowledge base that securely logs every conversation into the CRM — one of two tools I made for them, alongside DixaHelper.',
     },
     result: {
       nl: 'Antwoord op elke foutcode in seconden — 24/7, in de taal van de dealer, zonder wachtrij.',
@@ -74,8 +74,8 @@ export const cases: CaseStudy[] = [
       en: 'Every phone call meant afterwork: writing up notes, summarising and retyping actions into the CRM.',
     },
     solution: {
-      nl: 'Een assistent die meeluistert: live transcript, samenvatting, belangrijkste punten en actiepunten — de medewerker past aan, keurt goed, en alles wordt in het CRM gelogd.',
-      en: 'An assistant that listens along: live transcript, summary, key points and action items — the agent edits, approves, and everything is logged into the CRM.',
+      nl: 'Voor Qwic bouwde ik een assistent die meeluistert: live transcript, samenvatting, belangrijkste punten en actiepunten — de medewerker past aan, keurt goed, en alles wordt in het CRM gelogd.',
+      en: 'For Qwic I built an assistant that listens along: live transcript, summary, key points and action items — the agent edits, approves, and everything is logged into the CRM.',
     },
     result: {
       nl: 'Nawerk van minuten naar seconden — en geen gespreksdetail gaat meer verloren.',
