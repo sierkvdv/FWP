@@ -8,15 +8,15 @@ import AutoVideo from './AutoVideo';
 
 const copy = {
   nl: {
-    statement: { pre: 'Ik los bedrijfsproblemen op met techniek ', accent: 'én', post: ' communicatie.' },
-    sub: 'Van slimme automatisering tot merken die opvallen — gebouwd door één maker.',
+    statement: { pre: 'Bedrijfsproblemen oplossen met techniek ', accent: 'én', post: ' communicatie.' },
+    sub: 'Van slimme automatisering tot merken die opvallen.',
     cta: 'Bekijk werk',
     secondary: 'Praat met me',
     tracks: ['Automatiseren', 'Bouwen', 'Creëren'],
   },
   en: {
-    statement: { pre: 'I solve business problems with technology ', accent: 'and', post: ' communication.' },
-    sub: 'From smart automation to brands that stand out — built by one maker.',
+    statement: { pre: 'Solving business problems with technology ', accent: 'and', post: ' communication.' },
+    sub: 'From smart automation to brands that stand out.',
     cta: 'See the work',
     secondary: 'Talk to me',
     tracks: ['Automate', 'Build', 'Create'],

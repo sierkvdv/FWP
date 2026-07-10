@@ -23,8 +23,8 @@ const Footer: React.FC = () => {
             <Wordmark />
             <p className="mt-3 text-sm text-muted">
               {language === 'nl'
-                ? 'Techniek én communicatie, door één maker.'
-                : 'Technology and communication, by one maker.'}
+                ? 'Techniek én communicatie.'
+                : 'Technology and communication.'}
             </p>
             <a
               href={`mailto:${contactInfo.email}`}
