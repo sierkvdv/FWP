@@ -40,9 +40,9 @@ export const cases: CaseStudy[] = [
     id: 'qwic',
     title: 'Qwic',
     client: 'Qwic',
-    image: '/images/cases/qwic.webp',
-    video: '/videos/cases/qwic.mp4',
-    videoPoster: '/videos/cases/qwic.jpg',
+    image: '/images/cases/qwic-atlas.webp',
+    video: '/videos/cases/qwic-atlas.mp4',
+    videoPoster: '/videos/cases/qwic-atlas.jpg',
     track: 'automatiseren',
     problem: {
       nl: 'Dealers moesten voor elke storing en foutcode de handleiding of de helpdesk in.',
