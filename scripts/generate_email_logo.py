@@ -19,6 +19,7 @@ OUT_DIR = ROOT / "public" / "logo"
 GIF_PATH = OUT_DIR / "fwp-signature.gif"
 EMAIL_GIF_PATH = OUT_DIR / "fwp-signature-transparent-v3.gif"
 APNG_PATH = OUT_DIR / "fwp-signature-animated.png"
+WEBP_PATH = OUT_DIR / "fwp-signature-animated.webp"
 PNG_PATH = OUT_DIR / "fwp-signature-static.png"
 
 SIZE = 144
@@ -245,6 +246,16 @@ def main() -> None:
         blend=0,
         optimize=True,
     )
+    apng_frames[0].save(
+        WEBP_PATH,
+        save_all=True,
+        append_images=apng_frames[1:],
+        duration=FRAME_MS,
+        loop=0,
+        lossless=True,
+        quality=100,
+        method=6,
+    )
 
     build_frame_count = math.ceil(BUILD_DURATION * FPS)
     frames = [
@@ -275,6 +286,7 @@ def main() -> None:
         f"({EMAIL_GIF_PATH.stat().st_size / 1024:.1f} KiB)"
     )
     print(f"Created {APNG_PATH} ({APNG_PATH.stat().st_size / 1024:.1f} KiB)")
+    print(f"Created {WEBP_PATH} ({WEBP_PATH.stat().st_size / 1024:.1f} KiB)")
     print(f"Created {PNG_PATH} ({PNG_PATH.stat().st_size / 1024:.1f} KiB)")
 
 
