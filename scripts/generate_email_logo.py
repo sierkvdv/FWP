@@ -23,8 +23,10 @@ SUPERSAMPLE = 4
 FPS = 15
 FRAME_MS = round(1000 / FPS)
 
-BACKGROUND = (10, 10, 12)
+TRANSPARENT = (0, 0, 0, 0)
 TEAL = (0, 229, 199)
+MID_TEAL = (0, 166, 145)
+LOW_TEAL = (0, 105, 93)
 
 # Geometry and opacity values are copied from src/components/BrandMark.tsx.
 BLOCKS = [
@@ -70,11 +72,6 @@ def cubic_bezier_y(progress: float) -> float:
     return sample((lo + hi) / 2, y1, y2)
 
 
-def mix_color(opacity: float) -> tuple[int, int, int]:
-    opacity = min(1.0, max(0.0, opacity))
-    return tuple(round(bg + (fg - bg) * opacity) for bg, fg in zip(BACKGROUND, TEAL))
-
-
 def view_to_px(value: float) -> float:
     # BrandMark uses viewBox="-6 -6 108 108".
     return (value + 6) * (SIZE * SUPERSAMPLE / 108)
@@ -101,11 +98,11 @@ def draw_square(
         rx = center_x + dx * cos_a - dy * sin_a
         ry = center_y + dx * sin_a + dy * cos_a
         points.append((view_to_px(rx), view_to_px(ry)))
-    draw.polygon(points, fill=mix_color(opacity))
+    draw.polygon(points, fill=(*TEAL, round(255 * min(1.0, opacity))))
 
 
 def render_final() -> Image.Image:
-    canvas = Image.new("RGB", (SIZE * SUPERSAMPLE, SIZE * SUPERSAMPLE), BACKGROUND)
+    canvas = Image.new("RGBA", (SIZE * SUPERSAMPLE, SIZE * SUPERSAMPLE), TRANSPARENT)
     draw = ImageDraw.Draw(canvas)
     for x, y, opacity, _step, _stagger in BLOCKS:
         draw_square(draw, x, y, 1.0, opacity)
@@ -114,7 +111,7 @@ def render_final() -> Image.Image:
 
 
 def render_build(local_time: float) -> Image.Image:
-    canvas = Image.new("RGB", (SIZE * SUPERSAMPLE, SIZE * SUPERSAMPLE), BACKGROUND)
+    canvas = Image.new("RGBA", (SIZE * SUPERSAMPLE, SIZE * SUPERSAMPLE), TRANSPARENT)
     draw = ImageDraw.Draw(canvas)
 
     for x, y, target_opacity, step, stagger in BLOCKS:
@@ -149,17 +146,46 @@ def render_frame(time_s: float, final_image: Image.Image) -> Image.Image:
 
     if time_s < INTRO_HOLD + INTRO_FADE:
         fade = 1 - (time_s - INTRO_HOLD) / INTRO_FADE
-        blank = Image.new("RGB", (SIZE, SIZE), BACKGROUND)
-        return Image.blend(blank, final_image, fade)
+        faded = final_image.copy()
+        faded.putalpha(faded.getchannel("A").point(lambda alpha: round(alpha * fade)))
+        return faded
 
     build_start = INTRO_HOLD + INTRO_FADE + BLANK_HOLD
     if time_s < build_start:
-        return Image.new("RGB", (SIZE, SIZE), BACKGROUND)
+        return Image.new("RGBA", (SIZE, SIZE), TRANSPARENT)
 
     if time_s < build_start + BUILD_DURATION:
         return render_build(time_s - build_start)
 
     return final_image.copy()
+
+
+def rgba_to_transparent_gif_frame(frame: Image.Image) -> Image.Image:
+    """Convert RGBA to a clean, transparent GIF-safe brand palette.
+
+    GIF cannot store partial alpha. Mapping the three BrandMark opacity levels
+    to solid brand teals keeps the background truly transparent without the
+    visible checker/dither pattern that alpha simulation would introduce.
+    """
+
+    alpha = frame.getchannel("A")
+    indexed = Image.new("P", frame.size, 0)
+    indexed.putpalette(
+        [0, 0, 0, *LOW_TEAL, *MID_TEAL, *TEAL] + [0, 0, 0] * 252
+    )
+    source = alpha.load()
+    target = indexed.load()
+    for y in range(frame.height):
+        for x in range(frame.width):
+            value = source[x, y]
+            if value >= 192:
+                target[x, y] = 3
+            elif value >= 88:
+                target[x, y] = 2
+            elif value >= 14:
+                target[x, y] = 1
+    indexed.info["transparency"] = 0
+    return indexed
 
 
 def main() -> None:
@@ -170,15 +196,7 @@ def main() -> None:
     frame_count = math.ceil(TOTAL_DURATION * FPS)
     frames = [render_frame(i / FPS, final_image) for i in range(frame_count)]
 
-    # A shared palette keeps the GIF compact and prevents color flicker.
-    samples = frames[:: max(1, len(frames) // 24)]
-    contact_sheet = Image.new("RGB", (SIZE, SIZE * len(samples)), BACKGROUND)
-    for index, frame in enumerate(samples):
-        contact_sheet.paste(frame, (0, index * SIZE))
-    palette = contact_sheet.quantize(colors=96, method=Image.Quantize.MEDIANCUT)
-    gif_frames = [
-        frame.quantize(palette=palette, dither=Image.Dither.NONE) for frame in frames
-    ]
+    gif_frames = [rgba_to_transparent_gif_frame(frame) for frame in frames]
 
     gif_frames[0].save(
         GIF_PATH,
@@ -186,8 +204,9 @@ def main() -> None:
         append_images=gif_frames[1:],
         duration=FRAME_MS,
         loop=0,
-        optimize=True,
-        disposal=1,
+        optimize=False,
+        transparency=0,
+        disposal=2,
     )
 
     print(f"Created {GIF_PATH} ({GIF_PATH.stat().st_size / 1024:.1f} KiB)")
