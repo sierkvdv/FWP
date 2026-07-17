@@ -18,6 +18,7 @@ ROOT = Path(__file__).resolve().parents[1]
 OUT_DIR = ROOT / "public" / "logo"
 GIF_PATH = OUT_DIR / "fwp-signature.gif"
 EMAIL_GIF_PATH = OUT_DIR / "fwp-signature-transparent-v3.gif"
+APNG_PATH = OUT_DIR / "fwp-signature-animated.png"
 PNG_PATH = OUT_DIR / "fwp-signature-static.png"
 
 SIZE = 144
@@ -228,6 +229,23 @@ def main() -> None:
     final_image = render_final()
     final_image.save(PNG_PATH, optimize=True)
 
+    # APNG preserves true per-pixel alpha, unlike GIF's one-bit transparency.
+    # The first frame is the complete mark for clients that show only a still.
+    apng_frame_count = math.ceil(TOTAL_DURATION * FPS)
+    apng_frames = [
+        render_frame(i / FPS, final_image) for i in range(apng_frame_count)
+    ]
+    apng_frames[0].save(
+        APNG_PATH,
+        save_all=True,
+        append_images=apng_frames[1:],
+        duration=FRAME_MS,
+        loop=0,
+        disposal=0,
+        blend=0,
+        optimize=True,
+    )
+
     build_frame_count = math.ceil(BUILD_DURATION * FPS)
     frames = [
         final_image,
@@ -256,6 +274,7 @@ def main() -> None:
         f"Created {EMAIL_GIF_PATH} "
         f"({EMAIL_GIF_PATH.stat().st_size / 1024:.1f} KiB)"
     )
+    print(f"Created {APNG_PATH} ({APNG_PATH.stat().st_size / 1024:.1f} KiB)")
     print(f"Created {PNG_PATH} ({PNG_PATH.stat().st_size / 1024:.1f} KiB)")
 
 
