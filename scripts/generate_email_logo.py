@@ -17,7 +17,7 @@ from PIL import Image, ImageDraw
 ROOT = Path(__file__).resolve().parents[1]
 OUT_DIR = ROOT / "public" / "logo"
 GIF_PATH = OUT_DIR / "fwp-signature.gif"
-EMAIL_GIF_PATH = OUT_DIR / "fwp-signature-transparent-v2.gif"
+EMAIL_GIF_PATH = OUT_DIR / "fwp-signature-transparent-v3.gif"
 PNG_PATH = OUT_DIR / "fwp-signature-static.png"
 
 SIZE = 144
@@ -143,15 +143,21 @@ def render_build(local_time: float) -> Image.Image:
 
 
 def render_gif_build(local_time: float) -> Image.Image:
-    """Render a cumulative build that works with GIF disposal mode 1.
+    """Render a Gmail-safe highlight build with fixed opaque footprints.
 
-    Gmail's image proxy collapses transparent animations when every frame asks
-    the decoder to clear the canvas. These frames only add or repaint pixels,
-    so previous frames can safely remain in place while the mark builds.
+    Every frame paints the complete mark footprint, first in low teal and then
+    in the four BrandMark phases. Frames never need to erase pixels, so the GIF
+    can use the same simple disposal mode as the original black-background GIF.
     """
 
     canvas = Image.new("RGBA", (SIZE * SUPERSAMPLE, SIZE * SUPERSAMPLE), TRANSPARENT)
     draw = ImageDraw.Draw(canvas)
+
+    # A low-teal silhouette stays present throughout the loop. Brighter blocks
+    # then build over it in the same order as the website animation.
+    for x, y, _target_opacity, _step, _stagger in BLOCKS:
+        draw_square(draw, x, y, 1.0, 0.22)
+    draw_square(draw, 64, 64, 1.0, 0.22, 45)
 
     for x, y, target_opacity, step, stagger in BLOCKS:
         delay = (step - 1) * STEP_DELAY
@@ -164,8 +170,6 @@ def render_gif_build(local_time: float) -> Image.Image:
     breakout_delay = 3 * STEP_DELAY
     eased = cubic_bezier_y((local_time - breakout_delay) / BREAKOUT_DURATION)
     if eased > 0:
-        # Grow the final diamond in place. Moving it from the grid would require
-        # clearing pixels on every frame, which Gmail's proxy handles poorly.
         draw_square(draw, 64, 64, 0.6 + 0.4 * eased, 1.0, 45)
 
     return canvas.resize((SIZE, SIZE), Image.Resampling.LANCZOS)
@@ -227,18 +231,11 @@ def main() -> None:
     build_frame_count = math.ceil(BUILD_DURATION * FPS)
     frames = [
         final_image,
-        Image.new("RGBA", (SIZE, SIZE), TRANSPARENT),
-        *[
-            render_gif_build(i / FPS)
-            for i in range(build_frame_count)
-        ],
+        *[render_gif_build(i / FPS) for i in range(build_frame_count)],
         final_image,
     ]
     gif_frames = [rgba_to_transparent_gif_frame(frame) for frame in frames]
-    durations = [1000, 200, *([FRAME_MS] * build_frame_count), 2500]
-    # Only the first and last frames clear the canvas. Build frames accumulate,
-    # which survives Gmail's GIF proxy instead of being reduced to a blink.
-    disposals = [2, 1, *([1] * build_frame_count), 2]
+    durations = [1000, *([FRAME_MS] * build_frame_count), 2500]
 
     gif_frames[0].save(
         GIF_PATH,
@@ -248,7 +245,7 @@ def main() -> None:
         loop=0,
         optimize=False,
         transparency=0,
-        disposal=disposals,
+        disposal=1,
     )
     # Vercel serves public assets with long-lived caching. Keep a cache-safe
     # filename for the Gmail signature whenever the GIF encoding changes.
