@@ -8,6 +8,7 @@ the mark in the same four phases as the homepage component.
 from __future__ import annotations
 
 import math
+import shutil
 from pathlib import Path
 
 from PIL import Image, ImageDraw
@@ -16,6 +17,7 @@ from PIL import Image, ImageDraw
 ROOT = Path(__file__).resolve().parents[1]
 OUT_DIR = ROOT / "public" / "logo"
 GIF_PATH = OUT_DIR / "fwp-signature.gif"
+EMAIL_GIF_PATH = OUT_DIR / "fwp-signature-transparent-v2.gif"
 PNG_PATH = OUT_DIR / "fwp-signature-static.png"
 
 SIZE = 144
@@ -248,8 +250,15 @@ def main() -> None:
         transparency=0,
         disposal=disposals,
     )
+    # Vercel serves public assets with long-lived caching. Keep a cache-safe
+    # filename for the Gmail signature whenever the GIF encoding changes.
+    shutil.copyfile(GIF_PATH, EMAIL_GIF_PATH)
 
     print(f"Created {GIF_PATH} ({GIF_PATH.stat().st_size / 1024:.1f} KiB)")
+    print(
+        f"Created {EMAIL_GIF_PATH} "
+        f"({EMAIL_GIF_PATH.stat().st_size / 1024:.1f} KiB)"
+    )
     print(f"Created {PNG_PATH} ({PNG_PATH.stat().st_size / 1024:.1f} KiB)")
 
 
