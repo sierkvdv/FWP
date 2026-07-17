@@ -140,6 +140,35 @@ def render_build(local_time: float) -> Image.Image:
     return canvas.resize((SIZE, SIZE), Image.Resampling.LANCZOS)
 
 
+def render_gif_build(local_time: float) -> Image.Image:
+    """Render a cumulative build that works with GIF disposal mode 1.
+
+    Gmail's image proxy collapses transparent animations when every frame asks
+    the decoder to clear the canvas. These frames only add or repaint pixels,
+    so previous frames can safely remain in place while the mark builds.
+    """
+
+    canvas = Image.new("RGBA", (SIZE * SUPERSAMPLE, SIZE * SUPERSAMPLE), TRANSPARENT)
+    draw = ImageDraw.Draw(canvas)
+
+    for x, y, target_opacity, step, stagger in BLOCKS:
+        delay = (step - 1) * STEP_DELAY
+        if step == 3:
+            delay += stagger * 0.14
+        eased = cubic_bezier_y((local_time - delay) / BLOCK_DURATION)
+        if eased > 0:
+            draw_square(draw, x, y, 0.6 + 0.4 * eased, target_opacity)
+
+    breakout_delay = 3 * STEP_DELAY
+    eased = cubic_bezier_y((local_time - breakout_delay) / BREAKOUT_DURATION)
+    if eased > 0:
+        # Grow the final diamond in place. Moving it from the grid would require
+        # clearing pixels on every frame, which Gmail's proxy handles poorly.
+        draw_square(draw, 64, 64, 0.6 + 0.4 * eased, 1.0, 45)
+
+    return canvas.resize((SIZE, SIZE), Image.Resampling.LANCZOS)
+
+
 def render_frame(time_s: float, final_image: Image.Image) -> Image.Image:
     if time_s < INTRO_HOLD:
         return final_image.copy()
@@ -193,20 +222,31 @@ def main() -> None:
     final_image = render_final()
     final_image.save(PNG_PATH, optimize=True)
 
-    frame_count = math.ceil(TOTAL_DURATION * FPS)
-    frames = [render_frame(i / FPS, final_image) for i in range(frame_count)]
-
+    build_frame_count = math.ceil(BUILD_DURATION * FPS)
+    frames = [
+        final_image,
+        Image.new("RGBA", (SIZE, SIZE), TRANSPARENT),
+        *[
+            render_gif_build(i / FPS)
+            for i in range(build_frame_count)
+        ],
+        final_image,
+    ]
     gif_frames = [rgba_to_transparent_gif_frame(frame) for frame in frames]
+    durations = [1000, 200, *([FRAME_MS] * build_frame_count), 2500]
+    # Only the first and last frames clear the canvas. Build frames accumulate,
+    # which survives Gmail's GIF proxy instead of being reduced to a blink.
+    disposals = [2, 1, *([1] * build_frame_count), 2]
 
     gif_frames[0].save(
         GIF_PATH,
         save_all=True,
         append_images=gif_frames[1:],
-        duration=FRAME_MS,
+        duration=durations,
         loop=0,
         optimize=False,
         transparency=0,
-        disposal=2,
+        disposal=disposals,
     )
 
     print(f"Created {GIF_PATH} ({GIF_PATH.stat().st_size / 1024:.1f} KiB)")
