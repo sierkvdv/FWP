@@ -9,6 +9,8 @@ from __future__ import annotations
 
 import math
 import shutil
+import subprocess
+import tempfile
 from pathlib import Path
 
 from PIL import Image, ImageDraw
@@ -20,6 +22,7 @@ GIF_PATH = OUT_DIR / "fwp-signature.gif"
 EMAIL_GIF_PATH = OUT_DIR / "fwp-signature-transparent-v3.gif"
 APNG_PATH = OUT_DIR / "fwp-signature-animated.png"
 WEBP_PATH = OUT_DIR / "fwp-signature-animated.webp"
+FFMPEG_GIF_PATH = OUT_DIR / "fwp-signature-transparent-v4.gif"
 PNG_PATH = OUT_DIR / "fwp-signature-static.png"
 
 SIZE = 144
@@ -88,6 +91,7 @@ def draw_square(
     scale: float,
     opacity: float,
     rotation: float = 0.0,
+    color: tuple[int, int, int] = TEAL,
 ) -> None:
     if opacity <= 0.002 or scale <= 0.002:
         return
@@ -102,7 +106,15 @@ def draw_square(
         rx = center_x + dx * cos_a - dy * sin_a
         ry = center_y + dx * sin_a + dy * cos_a
         points.append((view_to_px(rx), view_to_px(ry)))
-    draw.polygon(points, fill=(*TEAL, round(255 * min(1.0, opacity))))
+    draw.polygon(points, fill=(*color, round(255 * min(1.0, opacity))))
+
+
+def opacity_color(opacity: float) -> tuple[int, int, int]:
+    if opacity >= 0.75:
+        return TEAL
+    if opacity >= 0.35:
+        return MID_TEAL
+    return LOW_TEAL
 
 
 def render_final() -> Image.Image:
@@ -175,6 +187,99 @@ def render_gif_build(local_time: float) -> Image.Image:
         draw_square(draw, 64, 64, 0.6 + 0.4 * eased, 1.0, 45)
 
     return canvas.resize((SIZE, SIZE), Image.Resampling.LANCZOS)
+
+
+def render_solid_gif_final() -> Image.Image:
+    canvas = Image.new("RGBA", (SIZE * SUPERSAMPLE, SIZE * SUPERSAMPLE), TRANSPARENT)
+    draw = ImageDraw.Draw(canvas)
+    for x, y, opacity, _step, _stagger in BLOCKS:
+        draw_square(draw, x, y, 1.0, 1.0, color=opacity_color(opacity))
+    draw_square(draw, 64, 64, 1.0, 1.0, 45, TEAL)
+    return canvas.resize((SIZE, SIZE), Image.Resampling.LANCZOS)
+
+
+def render_solid_gif_build(local_time: float) -> Image.Image:
+    """Render the original build on transparency with solid brand shades."""
+
+    canvas = Image.new("RGBA", (SIZE * SUPERSAMPLE, SIZE * SUPERSAMPLE), TRANSPARENT)
+    draw = ImageDraw.Draw(canvas)
+    for x, y, target_opacity, step, stagger in BLOCKS:
+        delay = (step - 1) * STEP_DELAY
+        if step == 3:
+            delay += stagger * 0.14
+        eased = cubic_bezier_y((local_time - delay) / BLOCK_DURATION)
+        if eased > 0:
+            draw_square(
+                draw,
+                x,
+                y,
+                0.6 + 0.4 * eased,
+                1.0,
+                color=opacity_color(target_opacity),
+            )
+
+    breakout_delay = 3 * STEP_DELAY
+    eased = cubic_bezier_y((local_time - breakout_delay) / BREAKOUT_DURATION)
+    if eased > 0:
+        draw_square(
+            draw,
+            52 + 12 * eased,
+            52 + 12 * eased,
+            0.6 + 0.4 * eased,
+            1.0,
+            45 * eased,
+            TEAL,
+        )
+    return canvas.resize((SIZE, SIZE), Image.Resampling.LANCZOS)
+
+
+def generate_ffmpeg_gif() -> None:
+    """Create a broadly compatible transparent GIF with FFmpeg."""
+
+    ffmpeg = shutil.which("ffmpeg")
+    if not ffmpeg:
+        print("Skipped FFmpeg GIF: ffmpeg not found")
+        return
+
+    solid_final = render_solid_gif_final()
+    frame_sequence = [solid_final.copy() for _ in range(round(INTRO_HOLD * FPS))]
+    frame_sequence += [
+        Image.new("RGBA", (SIZE, SIZE), TRANSPARENT)
+        for _ in range(round((INTRO_FADE + BLANK_HOLD) * FPS))
+    ]
+    frame_sequence += [
+        render_solid_gif_build(i / FPS)
+        for i in range(math.ceil(BUILD_DURATION * FPS))
+    ]
+    frame_sequence += [
+        solid_final.copy() for _ in range(round(FINAL_HOLD * FPS))
+    ]
+
+    with tempfile.TemporaryDirectory(prefix="fwp-email-gif-") as tmp:
+        tmp_dir = Path(tmp)
+        for index, frame in enumerate(frame_sequence):
+            frame.save(tmp_dir / f"frame-{index:03d}.png", optimize=True)
+        subprocess.run(
+            [
+                ffmpeg,
+                "-hide_banner",
+                "-loglevel",
+                "error",
+                "-y",
+                "-framerate",
+                str(FPS),
+                "-i",
+                str(tmp_dir / "frame-%03d.png"),
+                "-filter_complex",
+                "[0:v]split[a][b];"
+                "[a]palettegen=reserve_transparent=1:transparency_color=ffffff[p];"
+                "[b][p]paletteuse=dither=none:alpha_threshold=128",
+                "-loop",
+                "0",
+                str(FFMPEG_GIF_PATH),
+            ],
+            check=True,
+        )
 
 
 def render_frame(time_s: float, final_image: Image.Image) -> Image.Image:
@@ -279,6 +384,7 @@ def main() -> None:
     # Vercel serves public assets with long-lived caching. Keep a cache-safe
     # filename for the Gmail signature whenever the GIF encoding changes.
     shutil.copyfile(GIF_PATH, EMAIL_GIF_PATH)
+    generate_ffmpeg_gif()
 
     print(f"Created {GIF_PATH} ({GIF_PATH.stat().st_size / 1024:.1f} KiB)")
     print(
@@ -287,6 +393,11 @@ def main() -> None:
     )
     print(f"Created {APNG_PATH} ({APNG_PATH.stat().st_size / 1024:.1f} KiB)")
     print(f"Created {WEBP_PATH} ({WEBP_PATH.stat().st_size / 1024:.1f} KiB)")
+    if FFMPEG_GIF_PATH.exists():
+        print(
+            f"Created {FFMPEG_GIF_PATH} "
+            f"({FFMPEG_GIF_PATH.stat().st_size / 1024:.1f} KiB)"
+        )
     print(f"Created {PNG_PATH} ({PNG_PATH.stat().st_size / 1024:.1f} KiB)")
 
 
