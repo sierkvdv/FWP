@@ -23,7 +23,7 @@ EMAIL_GIF_PATH = OUT_DIR / "fwp-signature-transparent-v3.gif"
 APNG_PATH = OUT_DIR / "fwp-signature-animated.png"
 WEBP_PATH = OUT_DIR / "fwp-signature-animated.webp"
 FFMPEG_GIF_PATH = OUT_DIR / "fwp-signature-transparent-v4.gif"
-PINGPONG_GIF_PATH = OUT_DIR / "fwp-signature-transparent-v7.gif"
+PINGPONG_GIF_PATH = OUT_DIR / "fwp-signature-transparent-v8.gif"
 PNG_PATH = OUT_DIR / "fwp-signature-static.png"
 
 SIZE = 144
@@ -214,7 +214,7 @@ def render_solid_gif_build(local_time: float) -> Image.Image:
                 draw,
                 x,
                 y,
-                0.6 + 0.4 * eased,
+                eased,
                 1.0,
                 color=opacity_color(target_opacity),
             )
@@ -226,7 +226,7 @@ def render_solid_gif_build(local_time: float) -> Image.Image:
             draw,
             52 + 12 * eased,
             52 + 12 * eased,
-            0.6 + 0.4 * eased,
+            eased,
             1.0,
             45 * eased,
             TEAL,
@@ -235,7 +235,7 @@ def render_solid_gif_build(local_time: float) -> Image.Image:
 
 
 def render_solid_gif_core(scale: float) -> Image.Image:
-    """Render only the centre tile for a smooth zero-to-build transition."""
+    """Render the centre tile for the final sub-pixel shrink to zero."""
 
     canvas = Image.new("RGBA", (SIZE * SUPERSAMPLE, SIZE * SUPERSAMPLE), TRANSPARENT)
     draw = ImageDraw.Draw(canvas)
@@ -308,9 +308,10 @@ def generate_ffmpeg_pingpong_gif() -> None:
         return
 
     solid_final = render_solid_gif_final()
-    transparent = Image.new("RGBA", (SIZE, SIZE), TRANSPARENT)
-    first_build_ease = cubic_bezier_y((1 / FPS) / BLOCK_DURATION)
-    first_build_scale = 0.6 + 0.4 * first_build_ease
+    first_build_index = 2
+    first_build_scale = cubic_bezier_y(
+        (first_build_index / FPS) / BLOCK_DURATION
+    )
     core_step_count = round(0.4 * FPS)
     core_frames = []
     for index in range(1, core_step_count + 1):
@@ -320,12 +321,15 @@ def generate_ffmpeg_pingpong_gif() -> None:
             render_solid_gif_core(first_build_scale * smooth_progress)
         )
 
-    # The old Gmail-safe build began with the core already at 60% scale. Add
-    # a true zero-to-core transition so the last tile never pops to white.
-    build_frames = [transparent, *core_frames]
+    # Every tile now scales all the way from zero instead of appearing at 60%.
+    # Reversing these frames therefore shrinks each tile smoothly to nothing.
+    build_frames = [
+        Image.new("RGBA", (SIZE, SIZE), TRANSPARENT),
+        *core_frames,
+    ]
     build_frames += [
         render_solid_gif_build(i / FPS)
-        for i in range(2, math.ceil(BUILD_DURATION * FPS))
+        for i in range(first_build_index, math.ceil(BUILD_DURATION * FPS))
     ]
     build_frames.append(solid_final)
 
