@@ -23,7 +23,7 @@ EMAIL_GIF_PATH = OUT_DIR / "fwp-signature-transparent-v3.gif"
 APNG_PATH = OUT_DIR / "fwp-signature-animated.png"
 WEBP_PATH = OUT_DIR / "fwp-signature-animated.webp"
 FFMPEG_GIF_PATH = OUT_DIR / "fwp-signature-transparent-v4.gif"
-PINGPONG_GIF_PATH = OUT_DIR / "fwp-signature-transparent-v5.gif"
+PINGPONG_GIF_PATH = OUT_DIR / "fwp-signature-transparent-v7.gif"
 PNG_PATH = OUT_DIR / "fwp-signature-static.png"
 
 SIZE = 144
@@ -234,6 +234,16 @@ def render_solid_gif_build(local_time: float) -> Image.Image:
     return canvas.resize((SIZE, SIZE), Image.Resampling.LANCZOS)
 
 
+def render_solid_gif_core(scale: float) -> Image.Image:
+    """Render only the centre tile for a smooth zero-to-build transition."""
+
+    canvas = Image.new("RGBA", (SIZE * SUPERSAMPLE, SIZE * SUPERSAMPLE), TRANSPARENT)
+    draw = ImageDraw.Draw(canvas)
+    if scale > 0:
+        draw_square(draw, 26, 26, scale, 1.0, color=TEAL)
+    return canvas.resize((SIZE, SIZE), Image.Resampling.LANCZOS)
+
+
 def generate_ffmpeg_gif() -> None:
     """Create a broadly compatible transparent GIF with FFmpeg."""
 
@@ -299,22 +309,32 @@ def generate_ffmpeg_pingpong_gif() -> None:
 
     solid_final = render_solid_gif_final()
     transparent = Image.new("RGBA", (SIZE, SIZE), TRANSPARENT)
-    build_frames = [
+    first_build_ease = cubic_bezier_y((1 / FPS) / BLOCK_DURATION)
+    first_build_scale = 0.6 + 0.4 * first_build_ease
+    core_step_count = round(0.4 * FPS)
+    core_frames = []
+    for index in range(1, core_step_count + 1):
+        progress = index / core_step_count
+        smooth_progress = progress * progress * (3 - 2 * progress)
+        core_frames.append(
+            render_solid_gif_core(first_build_scale * smooth_progress)
+        )
+
+    # The old Gmail-safe build began with the core already at 60% scale. Add
+    # a true zero-to-core transition so the last tile never pops to white.
+    build_frames = [transparent, *core_frames]
+    build_frames += [
         render_solid_gif_build(i / FPS)
-        for i in range(math.ceil(BUILD_DURATION * FPS))
+        for i in range(2, math.ceil(BUILD_DURATION * FPS))
     ]
-    # Use exact endpoints so the turnarounds do not flash or repeat a nearly
-    # identical frame with slightly different antialiasing.
-    build_frames[0] = transparent
     build_frames.append(solid_final)
 
     frame_sequence = [
         solid_final.copy() for _ in range(round(1.0 * FPS))
     ]
     frame_sequence += [frame.copy() for frame in reversed(build_frames[:-1])]
-    frame_sequence += [
-        transparent.copy() for _ in range(round(0.27 * FPS))
-    ]
+    # Keep only the single transparent endpoint already present in the reverse
+    # path. A longer blank hold reads as a white flash on light email clients.
     frame_sequence += [frame.copy() for frame in build_frames[1:]]
     frame_sequence += [
         solid_final.copy() for _ in range(round(1.6 * FPS))
