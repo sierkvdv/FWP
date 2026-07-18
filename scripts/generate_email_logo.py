@@ -23,6 +23,7 @@ EMAIL_GIF_PATH = OUT_DIR / "fwp-signature-transparent-v3.gif"
 APNG_PATH = OUT_DIR / "fwp-signature-animated.png"
 WEBP_PATH = OUT_DIR / "fwp-signature-animated.webp"
 FFMPEG_GIF_PATH = OUT_DIR / "fwp-signature-transparent-v4.gif"
+PINGPONG_GIF_PATH = OUT_DIR / "fwp-signature-transparent-v5.gif"
 PNG_PATH = OUT_DIR / "fwp-signature-static.png"
 
 SIZE = 144
@@ -282,6 +283,70 @@ def generate_ffmpeg_gif() -> None:
         )
 
 
+def generate_ffmpeg_pingpong_gif() -> None:
+    """Create a Gmail-safe transparent GIF that loops forward and backward.
+
+    The complete mark remains the first frame so clients that only render a
+    still image show the finished FWP logo. Animated clients first dissolve
+    the mark in reverse, then rebuild it with the original timing. The final
+    and first frames are identical, so the loop boundary is invisible.
+    """
+
+    ffmpeg = shutil.which("ffmpeg")
+    if not ffmpeg:
+        print("Skipped ping-pong GIF: ffmpeg not found")
+        return
+
+    solid_final = render_solid_gif_final()
+    transparent = Image.new("RGBA", (SIZE, SIZE), TRANSPARENT)
+    build_frames = [
+        render_solid_gif_build(i / FPS)
+        for i in range(math.ceil(BUILD_DURATION * FPS))
+    ]
+    # Use exact endpoints so the turnarounds do not flash or repeat a nearly
+    # identical frame with slightly different antialiasing.
+    build_frames[0] = transparent
+    build_frames.append(solid_final)
+
+    frame_sequence = [
+        solid_final.copy() for _ in range(round(1.0 * FPS))
+    ]
+    frame_sequence += [frame.copy() for frame in reversed(build_frames[:-1])]
+    frame_sequence += [
+        transparent.copy() for _ in range(round(0.27 * FPS))
+    ]
+    frame_sequence += [frame.copy() for frame in build_frames[1:]]
+    frame_sequence += [
+        solid_final.copy() for _ in range(round(1.6 * FPS))
+    ]
+
+    with tempfile.TemporaryDirectory(prefix="fwp-email-pingpong-") as tmp:
+        tmp_dir = Path(tmp)
+        for index, frame in enumerate(frame_sequence):
+            frame.save(tmp_dir / f"frame-{index:03d}.png", optimize=True)
+        subprocess.run(
+            [
+                ffmpeg,
+                "-hide_banner",
+                "-loglevel",
+                "error",
+                "-y",
+                "-framerate",
+                str(FPS),
+                "-i",
+                str(tmp_dir / "frame-%03d.png"),
+                "-filter_complex",
+                "[0:v]split[a][b];"
+                "[a]palettegen=reserve_transparent=1:transparency_color=ffffff[p];"
+                "[b][p]paletteuse=dither=none:alpha_threshold=128",
+                "-loop",
+                "0",
+                str(PINGPONG_GIF_PATH),
+            ],
+            check=True,
+        )
+
+
 def render_frame(time_s: float, final_image: Image.Image) -> Image.Image:
     if time_s < INTRO_HOLD:
         return final_image.copy()
@@ -385,6 +450,7 @@ def main() -> None:
     # filename for the Gmail signature whenever the GIF encoding changes.
     shutil.copyfile(GIF_PATH, EMAIL_GIF_PATH)
     generate_ffmpeg_gif()
+    generate_ffmpeg_pingpong_gif()
 
     print(f"Created {GIF_PATH} ({GIF_PATH.stat().st_size / 1024:.1f} KiB)")
     print(
@@ -397,6 +463,11 @@ def main() -> None:
         print(
             f"Created {FFMPEG_GIF_PATH} "
             f"({FFMPEG_GIF_PATH.stat().st_size / 1024:.1f} KiB)"
+        )
+    if PINGPONG_GIF_PATH.exists():
+        print(
+            f"Created {PINGPONG_GIF_PATH} "
+            f"({PINGPONG_GIF_PATH.stat().st_size / 1024:.1f} KiB)"
         )
     print(f"Created {PNG_PATH} ({PNG_PATH.stat().st_size / 1024:.1f} KiB)")
 
