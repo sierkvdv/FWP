@@ -20,17 +20,24 @@ export interface ShowreelVideo {
 
 export const showreel: ShowreelVideo[] = [
   {
+    id: 'de-reis',
+    title: 'Fieldworks Production — "De Reis" (brand film)',
+    mp4: '/videos/ads/de-reis.mp4',
+    poster: '/videos/ads/de-reis.jpg',
+    ratio: '16/9',
+  },
+  {
+    id: 'glod',
+    title: 'GLØD — "De Plons"',
+    mp4: '/videos/ads/glod-de-plons.mp4',
+    poster: '/videos/ads/glod-de-plons.jpg',
+    ratio: '16/9',
+  },
+  {
     id: 'nordax',
     title: 'NORDAX — commercial',
     mp4: '/videos/ads/nordax-hero.mp4',
     poster: '/videos/ads/nordax-hero.jpg',
-    ratio: '16/9',
-  },
-  {
-    id: 'sauna',
-    title: 'Thermen Polair — "Ontdooien doe je hier."',
-    mp4: '/videos/ads/sauna-loop.mp4',
-    poster: '/videos/ads/sauna-loop.jpg',
     ratio: '16/9',
   },
   {
