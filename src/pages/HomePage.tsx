@@ -4,6 +4,7 @@ import { useLanguage } from '../contexts/LanguageContext';
 import { cases, tracks } from '../data/cases';
 import Hero from '../components/Hero';
 import AdShowcase from '../components/AdShowcase';
+import BrandFilm from '../components/BrandFilm';
 import CaseRow from '../components/CaseRow';
 import { Container, Section, Kicker, Reveal } from '../components/primitives';
 
@@ -50,6 +51,9 @@ const HomePage: React.FC = () => {
   return (
     <main>
       <Hero />
+
+      {/* Brand film — De Ontsnapping */}
+      <BrandFilm />
 
       {/* Reclamevideo's — de nieuwe tak, prominent */}
       <AdShowcase />

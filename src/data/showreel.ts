@@ -20,13 +20,6 @@ export interface ShowreelVideo {
 
 export const showreel: ShowreelVideo[] = [
   {
-    id: 'de-reis',
-    title: 'Fieldworks Production — "De Reis" (brand film)',
-    mp4: '/videos/ads/de-reis.mp4',
-    poster: '/videos/ads/de-reis.jpg',
-    ratio: '16/9',
-  },
-  {
     id: 'glod',
     title: 'GLØD — "De Plons"',
     mp4: '/videos/ads/glod-de-plons.mp4',
