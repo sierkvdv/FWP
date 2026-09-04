@@ -375,6 +375,11 @@ export const cases: CaseStudy[] = [
     galleryRatio: '16/9',
     gallery: [
       {
+        mp4: '/videos/ads/glod-de-plons.mp4',
+        poster: '/videos/ads/glod-de-plons.jpg',
+        title: 'GLØD — "De Plons"',
+      },
+      {
         mp4: '/videos/ads/nordax-hero.mp4',
         poster: '/videos/ads/nordax-hero.jpg',
         title: 'NORDAX — commercial',
@@ -383,11 +388,6 @@ export const cases: CaseStudy[] = [
         mp4: '/videos/ads/tij-eb.mp4',
         poster: '/videos/ads/tij-eb.jpg',
         title: 'TIJ — strand-commercial',
-      },
-      {
-        mp4: '/videos/ads/sauna-loop.mp4',
-        poster: '/videos/ads/sauna-loop.jpg',
-        title: 'Thermen Polair — "Ontdooien doe je hier."',
       },
     ],
     year: 2026,
