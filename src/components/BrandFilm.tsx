@@ -1,9 +1,11 @@
 import React from 'react';
 import { useLanguage } from '../contexts/LanguageContext';
 import { Container, Section, Kicker, Reveal } from './primitives';
+import AutoVideo from './AutoVideo';
 
 /* ------------------------------------------------------------------ *
- *  BRAND FILM — "De Ontsnapping". Eén video, start op klik (met geluid).
+ *  BRAND FILM — "De Ontsnapping". Speelt stil mee zodra 'ie in beeld
+ *  komt (ook op iPhone); geluid aan via de controls.
  *  Bestand vervangen = nieuwe bestandsnaam (media wordt 1 jaar gecached).
  * ------------------------------------------------------------------ */
 const FILM = {
@@ -16,11 +18,13 @@ const copy = {
     kicker: 'Brand film',
     title: 'Negen op hun plek. Eén die eruit stapt.',
     sub: 'Elk project bestaat uit bouwstenen die precies goed moeten staan. Onthouden wordt het ene dat de rij verlaat. Dat is wat ik maak.',
+    sound: 'Zet het geluid aan',
   },
   en: {
     kicker: 'Brand film',
     title: 'Nine in place. One that steps out.',
     sub: 'Every project is built from pieces that have to sit exactly right. What people remember is the one that leaves the line. That is what I make.',
+    sound: 'Turn the sound on',
   },
 };
 
@@ -44,15 +48,15 @@ const BrandFilm: React.FC = () => {
             className="overflow-hidden rounded-lg border border-line bg-surface"
             style={{ aspectRatio: '16/9' }}
           >
-            <video
+            <AutoVideo
               src={FILM.mp4}
               poster={FILM.poster}
               className="h-full w-full object-cover"
               controls
-              preload="metadata"
-              playsInline
+              loop={false}
             />
           </div>
+          <p className="mt-3 text-xs uppercase tracking-[0.18em] text-muted">{c.sound}</p>
         </Reveal>
       </Container>
     </Section>
