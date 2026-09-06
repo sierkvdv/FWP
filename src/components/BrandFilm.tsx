@@ -9,8 +9,8 @@ import AutoVideo from './AutoVideo';
  *  Bestand vervangen = nieuwe bestandsnaam (media wordt 1 jaar gecached).
  * ------------------------------------------------------------------ */
 const FILM = {
-  mp4: '/videos/brandfilm/de-ontsnapping-v4.mp4',
-  poster: '/videos/brandfilm/de-ontsnapping-v4.jpg',
+  mp4: '/videos/brandfilm/de-ontsnapping-v6.mp4',
+  poster: '/videos/brandfilm/de-ontsnapping-v6.jpg',
 };
 
 const copy = {
