@@ -158,6 +158,30 @@ export const cases: CaseStudy[] = [
     featured: false,
   },
 
+  {
+    id: 'clipfarm',
+    title: 'Clipfarm',
+    client: 'Eigen product',
+    image: '/images/cases/clipfarm.webp',
+    video: '/videos/cases/clipfarm.mp4',
+    videoPoster: '/videos/cases/clipfarm.jpg',
+    track: 'automatiseren',
+    problem: {
+      nl: 'Een goede Short maken kost een dag: trend zoeken, idee, script, beeld, stem en montage.',
+      en: 'Making a good Short takes a day: finding a trend, the idea, script, visuals, voice and edit.',
+    },
+    solution: {
+      nl: 'Agents pakken actuele trends, bedenken en bekritiseren ideeën en renderen de beste tot een anime-Short met vaste stijl en stem. Bij elke stap beslist een mens.',
+      en: 'Agents pick up live trends, pitch and critique ideas, and render the best one into an anime Short with a fixed style and voice. A human decides at every step.',
+    },
+    result: {
+      nl: 'Van trend tot kant-en-klare video in minuten in plaats van een dag.',
+      en: 'From trend to finished video in minutes instead of a day.',
+    },
+    liveUrl: 'https://clipfarm.sierk.dev',
+    year: 2026,
+    featured: false,
+  },
   // ------------------------------- BOUWEN --------------------------------
   {
     id: 'wondertale',
@@ -279,6 +303,54 @@ export const cases: CaseStudy[] = [
     },
     liveUrl: 'https://clonebox.uk',
     year: 2025,
+    featured: true,
+  },
+  {
+    id: 'wikowiwa',
+    title: 'Wikowiwa',
+    client: 'Eigen product',
+    image: '/images/cases/wikowiwa.webp',
+    video: '/videos/cases/wikowiwa.mp4',
+    videoPoster: '/videos/cases/wikowiwa.jpg',
+    track: 'bouwen',
+    problem: {
+      nl: 'Wat een gram kost en waar, staat verspreid over krijtborden, sites en foto’s. En shops houden hun menubord nog met de hand bij.',
+      en: 'What a gram costs and where is scattered across chalkboards, sites and photos. And shops still update their menu board by hand.',
+    },
+    solution: {
+      nl: 'Alle coffeeshops van Nederland naar één prijs per gram, elke maandag automatisch ververst. Voor de shop: fotografeer je menu één keer, beheer het vanaf je telefoon en het draait op de tv in de zaak.',
+      en: 'Every coffeeshop in the Netherlands normalised to one price per gram, refreshed automatically every Monday. For the shop: photograph your menu once, manage it from your phone and it runs on the TV in store.',
+    },
+    result: {
+      nl: '437 coffeeshops in 83 steden op één rij, plus een menubord dat de shop zelf vanaf de telefoon bijwerkt.',
+      en: '437 coffeeshops in 83 cities side by side, plus a menu board the shop updates from its own phone.',
+    },
+    liveUrl: 'https://wikowiwa.com',
+    year: 2026,
+    featured: true,
+  },
+  {
+    id: 'codebuddy',
+    title: 'CodeBuddy',
+    client: 'Eigen product',
+    image: '/images/cases/codebuddy.webp',
+    video: '/videos/cases/codebuddy.mp4',
+    videoPoster: '/videos/cases/codebuddy.jpg',
+    track: 'bouwen',
+    problem: {
+      nl: 'Programmeren leren begint voor beginners met installeren, accounts en een leeg scherm. De meesten haken af voordat ze iets gemaakt hebben.',
+      en: 'Learning to code starts with installs, accounts and a blank screen. Most beginners quit before they make anything.',
+    },
+    solution: {
+      nl: 'Je leert Python door robot Buddy te repareren. Python draait gewoon in de browser: geen account, geen installatie. Elke les maakt een stukje van Buddy weer heel.',
+      en: 'You learn Python by repairing Buddy the robot. Python runs right in the browser: no account, no install. Every lesson fixes another part of Buddy.',
+    },
+    result: {
+      nl: 'Twintig minuten per keer en je hebt iets dat werkt, opgebouwd voor absolute beginners vanaf 14.',
+      en: 'Twenty minutes at a time and you have something that works, built for absolute beginners aged 14 and up.',
+    },
+    liveUrl: 'https://codebuddy.sierk.dev',
+    year: 2026,
     featured: true,
   },
   // ------------------------------ CREËREN --------------------------------
@@ -452,6 +524,30 @@ export const cases: CaseStudy[] = [
       { img: '/images/grafisch/wt-reveal.webp', title: 'Wondertale — campagnebeeld' },
     ],
     year: 2025,
+    featured: false,
+  },
+  {
+    id: 'zalm',
+    title: 'Zalmtrek',
+    client: 'Eigen project',
+    image: '/images/cases/zalm.webp',
+    video: '/videos/cases/zalm.mp4',
+    videoPoster: '/videos/cases/zalm.jpg',
+    track: 'creeren',
+    problem: {
+      nl: 'Hoe acht zalmsoorten over de oceanen trekken, komt in tekst en platte kaartjes niet binnen.',
+      en: 'How eight salmon species migrate across the oceans doesn’t land in text and flat maps.',
+    },
+    solution: {
+      nl: 'Een draaibare 3D-wereldbol waarop de zalmen continu trekken, elke soort in een eigen kleur. Tik een soort aan en de bol draait erheen.',
+      en: 'A rotating 3D globe on which the salmon migrate continuously, each species in its own colour. Tap a species and the globe turns to it.',
+    },
+    result: {
+      nl: 'Data die je wil aanraken: rondkijken, inzoomen, en overal op de bol beweegt iets.',
+      en: 'Data you want to touch: look around, zoom in, and something moves everywhere on the globe.',
+    },
+    liveUrl: 'https://zalm.sierk.dev',
+    year: 2026,
     featured: false,
   },
 ];
