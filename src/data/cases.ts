@@ -306,30 +306,6 @@ export const cases: CaseStudy[] = [
     featured: true,
   },
   {
-    id: 'wikowiwa',
-    title: 'Wikowiwa',
-    client: 'Eigen product',
-    image: '/images/cases/wikowiwa.webp',
-    video: '/videos/cases/wikowiwa.mp4',
-    videoPoster: '/videos/cases/wikowiwa.jpg',
-    track: 'bouwen',
-    problem: {
-      nl: 'Wat een gram kost en waar, staat verspreid over krijtborden, sites en foto’s. En shops houden hun menubord nog met de hand bij.',
-      en: 'What a gram costs and where is scattered across chalkboards, sites and photos. And shops still update their menu board by hand.',
-    },
-    solution: {
-      nl: 'Alle coffeeshops van Nederland naar één prijs per gram, elke maandag automatisch ververst. Voor de shop: fotografeer je menu één keer, beheer het vanaf je telefoon en het draait op de tv in de zaak.',
-      en: 'Every coffeeshop in the Netherlands normalised to one price per gram, refreshed automatically every Monday. For the shop: photograph your menu once, manage it from your phone and it runs on the TV in store.',
-    },
-    result: {
-      nl: '437 coffeeshops in 83 steden op één rij, plus een menubord dat de shop zelf vanaf de telefoon bijwerkt.',
-      en: '437 coffeeshops in 83 cities side by side, plus a menu board the shop updates from its own phone.',
-    },
-    liveUrl: 'https://wikowiwa.com',
-    year: 2026,
-    featured: true,
-  },
-  {
     id: 'codebuddy',
     title: 'CodeBuddy',
     client: 'Eigen product',
