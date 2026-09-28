@@ -27,6 +27,13 @@ export const showreel: ShowreelVideo[] = [
     ratio: '16/9',
   },
   {
+    id: 'ombra',
+    title: 'OMBRA — "Find your shade"',
+    mp4: '/videos/ads/ombra-find-your-shade.mp4',
+    poster: '/videos/ads/ombra-find-your-shade.jpg',
+    ratio: '16/9',
+  },
+  {
     id: 'nordax',
     title: 'NORDAX — commercial',
     mp4: '/videos/ads/nordax-hero.mp4',
