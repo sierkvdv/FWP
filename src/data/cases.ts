@@ -380,6 +380,11 @@ export const cases: CaseStudy[] = [
         title: 'GLØD — "De Plons"',
       },
       {
+        mp4: '/videos/ads/ombra-find-your-shade.mp4',
+        poster: '/videos/ads/ombra-find-your-shade.jpg',
+        title: 'OMBRA — "Find your shade"',
+      },
+      {
         mp4: '/videos/ads/nordax-hero.mp4',
         poster: '/videos/ads/nordax-hero.jpg',
         title: 'NORDAX — commercial',
