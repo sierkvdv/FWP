@@ -394,6 +394,11 @@ export const cases: CaseStudy[] = [
         poster: '/videos/ads/tij-eb.jpg',
         title: 'TIJ — strand-commercial',
       },
+      {
+        mp4: '/videos/ads/look-up-the-modern-human.mp4',
+        poster: '/videos/ads/look-up-the-modern-human.jpg',
+        title: 'LOOK UP — "The modern human"',
+      },
     ],
     year: 2026,
     featured: true,

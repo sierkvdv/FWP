@@ -47,4 +47,11 @@ export const showreel: ShowreelVideo[] = [
     poster: '/videos/ads/tij-eb.jpg',
     ratio: '16/9',
   },
+  {
+    id: 'lookup',
+    title: 'LOOK UP — "The modern human"',
+    mp4: '/videos/ads/look-up-the-modern-human.mp4',
+    poster: '/videos/ads/look-up-the-modern-human.jpg',
+    ratio: '16/9',
+  },
 ];
