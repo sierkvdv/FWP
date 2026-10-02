@@ -375,7 +375,7 @@ export const cases: CaseStudy[] = [
     galleryRatio: '16/9',
     gallery: [
       {
-        mp4: '/videos/ads/glod-de-plons.mp4',
+        mp4: '/videos/ads/glod-de-plons-v2.mp4',
         poster: '/videos/ads/glod-de-plons.jpg',
         title: 'GLØD — "De Plons"',
       },
