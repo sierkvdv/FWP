@@ -4,6 +4,8 @@ import { useLanguage } from '../contexts/LanguageContext';
 import { showreel, ShowreelVideo } from '../data/showreel';
 import { Container, Section, Kicker, Reveal } from './primitives';
 import AutoVideo from './AutoVideo';
+import ShareButton from './ShareButton';
+import { filmSlug } from '../data/films';
 
 const copy = {
   nl: {
@@ -69,6 +71,14 @@ const VideoFrame: React.FC<{ video: ShowreelVideo; large?: boolean }> = ({ video
   );
 };
 
+/** Titel + deelknop onder een video (alleen mp4's hebben een eigen deelpagina). */
+const VideoCaption: React.FC<{ video: ShowreelVideo }> = ({ video }) => (
+  <div className="mt-3 flex items-start justify-between gap-4">
+    <p className="text-sm text-muted">{video.title}</p>
+    {video.mp4 && <ShareButton slug={filmSlug(video.mp4)} title={video.title || 'FWP'} />}
+  </div>
+);
+
 const AdShowcase: React.FC = () => {
   const { language } = useLanguage();
   const c = copy[language];
@@ -104,7 +114,10 @@ const AdShowcase: React.FC = () => {
 
           <Reveal delay={0.1} className="lg:col-span-7">
             {first ? (
-              <VideoFrame video={first} large />
+              <>
+                <VideoFrame video={first} large />
+                <VideoCaption video={first} />
+              </>
             ) : (
               <div
                 className="overflow-hidden rounded-lg border border-line"
@@ -132,7 +145,7 @@ const AdShowcase: React.FC = () => {
             {rest.map((v) => (
               <Reveal key={v.id}>
                 <VideoFrame video={v} />
-                {v.title && <p className="mt-3 text-sm text-muted">{v.title}</p>}
+                <VideoCaption video={v} />
               </Reveal>
             ))}
           </div>

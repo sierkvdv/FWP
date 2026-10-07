@@ -6,6 +6,8 @@ import { moreWork } from '../data/moreWork';
 import CaseMedia from '../components/CaseMedia';
 import { domainOf } from '../components/CaseRow';
 import { Container, Section, Kicker } from '../components/primitives';
+import ShareButton from '../components/ShareButton';
+import { filmSlug } from '../data/films';
 
 const t = {
   nl: {
@@ -186,7 +188,17 @@ const ProjectDetailPage: React.FC = () => {
                             />
                           )}
                         </div>
-                        {g.title && <p className="mt-3 text-sm text-muted">{g.title}</p>}
+                        {(g.title || g.mp4) && (
+                          <div className="mt-3 flex items-start justify-between gap-4">
+                            <p className="text-sm text-muted">{g.title}</p>
+                            {g.mp4 && (
+                              <ShareButton
+                                slug={filmSlug(g.mp4)}
+                                title={g.title || caseStudy.title}
+                              />
+                            )}
+                          </div>
+                        )}
                       </div>
                     );
                   })}

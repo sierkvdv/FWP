@@ -13,6 +13,7 @@ React 18 + TypeScript (CRA), react-router 6, Tailwind 3, Framer Motion. Openbare
 - Cases: `src/data/cases.ts` (tweetalig NL/EN, drie sporen: automatiseren, bouwen, creëren). Oud werk: `src/data/moreWork.ts`.
 - Reclamevideo's staan op twee plekken: `src/data/showreel.ts` (homepage-blok; de eerste entry wordt groot getoond) en de `gallery` van case `reclamevideos` in `cases.ts`. Altijd allebei bijwerken en daarna `grep -rn <bestandsnaam> src public`.
 - Media staan in `public/videos/...`. Bij gewijzigde inhoud altijd een nieuwe bestandsnaam, want media worden een jaar gecachet.
+- Deellinks: elke video met geluid (brand film, showreel, case-galerijen) heeft een eigen pagina `/v/<slug>/` en een knop "Deel" (`ShareButton`). De lijst bouwt zichzelf in `src/data/films.ts` (slug = bestandsnaam zonder `-v2`/`-9x16`). `npm run build` schrijft daarna per film een HTML met preview (`scripts/deelpaginas.js`). Nieuwe video: `node scripts/og-beelden.js` maakt het lichte previewbeeld `public/og/<slug>.jpg` (WhatsApp toont niets boven ~300 KB).
 - Video's altijd via `AutoVideo` (stil, autoplay zodra in beeld, werkt op iOS). Een kale `<video controls>` speelt op de telefoon niet vanzelf.
 - Ad-video's: 1920×1080, H.264 rond 3,3 Mbit/s, AAC 160k, `-movflags +faststart`, poster-jpg 1920×1080 uit een sterk frame.
 - `vercel.json` gebruikt `rewrites` (niet `routes`), anders breken `/videos` en `/images`.
