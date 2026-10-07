@@ -2,16 +2,15 @@ import React from 'react';
 import { useLanguage } from '../contexts/LanguageContext';
 import { Container, Section, Kicker, Reveal } from './primitives';
 import AutoVideo from './AutoVideo';
+import ShareButton from './ShareButton';
+import { brandFilm as FILM } from '../data/brandfilm';
+import { filmSlug } from '../data/films';
 
 /* ------------------------------------------------------------------ *
  *  BRAND FILM — "De Ontsnapping". Speelt stil mee zodra 'ie in beeld
  *  komt (ook op iPhone); geluid aan via de controls.
- *  Bestand vervangen = nieuwe bestandsnaam (media wordt 1 jaar gecached).
+ *  Bestand en titel: src/data/brandfilm.ts.
  * ------------------------------------------------------------------ */
-const FILM = {
-  mp4: '/videos/brandfilm/de-ontsnapping-v6.mp4',
-  poster: '/videos/brandfilm/de-ontsnapping-v6.jpg',
-};
 
 const copy = {
   nl: {
@@ -56,7 +55,10 @@ const BrandFilm: React.FC = () => {
               loop={false}
             />
           </div>
-          <p className="mt-3 text-xs uppercase tracking-[0.18em] text-muted">{c.sound}</p>
+          <div className="mt-3 flex items-center justify-between gap-4">
+            <p className="text-xs uppercase tracking-[0.18em] text-muted">{c.sound}</p>
+            <ShareButton slug={filmSlug(FILM.mp4)} title={FILM.title} />
+          </div>
         </Reveal>
       </Container>
     </Section>
