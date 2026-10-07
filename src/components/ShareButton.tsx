@@ -24,7 +24,12 @@ async function kopieer(tekst: string): Promise<boolean> {
     el.style.opacity = '0';
     document.body.appendChild(el);
     el.select();
-    const ok = document.execCommand('copy');
+    let ok = false;
+    try {
+      ok = document.execCommand('copy');
+    } catch {
+      ok = false;
+    }
     document.body.removeChild(el);
     return ok;
   }
@@ -57,6 +62,9 @@ const ShareButton: React.FC<{ slug: string; title: string; className?: string }>
     if (await kopieer(url)) {
       setCopied(true);
       window.setTimeout(() => setCopied(false), 2200);
+    } else {
+      // Kopiëren geweigerd (bv. venster zonder focus): link tonen om zelf te kopiëren.
+      window.prompt(language === 'nl' ? 'Kopieer deze link' : 'Copy this link', url);
     }
   };
 
