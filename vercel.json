@@ -3,6 +3,17 @@
   "outputDirectory": "build",
   "installCommand": "npm install",
   "rewrites": [
-    { "source": "/(.*)", "destination": "/index.html" }
+    {
+      "source": "/v/:slug",
+      "destination": "/v/:slug/index.html"
+    },
+    {
+      "source": "/v/:slug/",
+      "destination": "/v/:slug/index.html"
+    },
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
   ]
 }
