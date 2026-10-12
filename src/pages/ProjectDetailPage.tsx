@@ -15,6 +15,7 @@ const t = {
     problem: 'Het probleem',
     solution: 'De oplossing',
     result: 'Het resultaat',
+    features: 'Wat het doet',
     live: 'Bekijk live ↗',
     video: 'Bekijk video ↗',
     notFound: 'Niet gevonden.',
@@ -27,6 +28,7 @@ const t = {
     problem: 'The problem',
     solution: 'The solution',
     result: 'The result',
+    features: 'What it does',
     live: 'View live ↗',
     video: 'Watch video ↗',
     notFound: 'Not found.',
@@ -132,6 +134,22 @@ const ProjectDetailPage: React.FC = () => {
                 </p>
               </div>
             </div>
+
+            {caseStudy.features && caseStudy.features.length > 0 && (
+              <div className="mt-20">
+                <Kicker>{c.features}</Kicker>
+                <div className="mt-8 grid grid-cols-1 gap-x-12 gap-y-10 sm:grid-cols-2 lg:grid-cols-4">
+                  {caseStudy.features.map((f) => (
+                    <div key={f.title.nl} className="border-t border-line pt-5">
+                      <h3 className="text-lg font-light tracking-display text-ink">
+                        {f.title[language]}
+                      </h3>
+                      <p className="mt-3 text-[15px] leading-relaxed text-muted">{f.text[language]}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
 
             {caseStudy.liveUrl && (
               <a

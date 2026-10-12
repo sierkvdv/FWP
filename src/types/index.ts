@@ -51,6 +51,8 @@ export interface CaseStudy {
   galleryFit?: 'cover' | 'contain';
   /** Kopje boven de galerij (default 'Uit de campagne'). */
   galleryLabel?: Localized;
+  /** Wat het systeem concreet doet: korte blokken onder probleem/oplossing/resultaat. */
+  features?: { title: Localized; text: Localized }[];
   liveUrl?: string;
   year: number;
   /** Toont op de homepage. */

@@ -86,6 +86,93 @@ export const cases: CaseStudy[] = [
     featured: true,
   },
   {
+    // Sierks eigen administratie (repo sierkvdv/uren). Beelden = testomgeving met demodata, geen echte cijfers.
+    id: 'bedrijfssysteem',
+    title: 'Eigen bedrijfssysteem',
+    image: '/images/cases/bedrijfssysteem.webp',
+    track: 'automatiseren',
+    problem: {
+      nl: 'Als zelfstandige kostte de administratie me elke week uren: uren bijhouden, facturen maken, betalingen nalopen, bonnetjes zoeken, mail sorteren. Tijd die niet naar klanten ging.',
+      en: 'As a freelancer, admin cost me hours every week: tracking time, writing invoices, chasing payments, finding receipts, sorting email. Time that didn’t go to clients.',
+    },
+    solution: {
+      nl: 'Een eigen systeem dat de hele administratie draait: uren, facturen, bank, bonnetjes, mail en agenda in één geheel. Ik bedien het in gewone taal, via Telegram of mijn AI-assistent, en keur goed wat er klaarstaat. Gebouwd met Next.js en Postgres, gekoppeld aan Mollie, Rabobank, Wise, PayPal, Gmail en Telegram.',
+      en: 'A system of my own that runs the whole back office: hours, invoices, bank, receipts, email and calendar in one place. I operate it in plain language, via Telegram or my AI assistant, and approve what’s prepared. Built with Next.js and Postgres, connected to Mollie, Rabobank, Wise, PayPal, Gmail and Telegram.',
+    },
+    result: {
+      nl: 'De administratie loopt grotendeels vanzelf; ik keur alleen nog. Hetzelfde kan ik inrichten voor andere zelfstandigen en kleine bedrijven.',
+      en: 'The admin largely runs itself; I only approve. I can set up the same for other freelancers and small businesses.',
+    },
+    features: [
+      {
+        title: { nl: 'Uren en klantportaal', en: 'Hours and client portal' },
+        text: {
+          nl: 'Timer per klant en project. Elke klant krijgt een eigen link met zijn uren en facturen, zonder wachtwoord.',
+          en: 'A timer per client and project. Every client gets a private link to their hours and invoices, no password needed.',
+        },
+      },
+      {
+        title: { nl: 'Facturen', en: 'Invoices' },
+        text: {
+          nl: 'Pdf in eigen huisstijl, nummering vanzelf, verstuurd vanaf het eigen domein met een betaallink. Maandfacturen gaan op de 1e automatisch de deur uit; wie te laat is, krijgt een herinnering.',
+          en: 'PDF in house style, automatic numbering, sent from my own domain with a payment link. Monthly invoices go out automatically on the 1st; late payers get a reminder.',
+        },
+      },
+      {
+        title: { nl: 'Abonnementen', en: 'Subscriptions' },
+        text: {
+          nl: 'Vaste klanten betalen per maand via automatische incasso. De factuur staat daarna vanzelf op betaald; een storno wordt gemeld.',
+          en: 'Recurring clients pay monthly by direct debit. The invoice then marks itself as paid; a reversed payment gets flagged.',
+        },
+      },
+      {
+        title: { nl: 'Bank en boekhouding', en: 'Bank and bookkeeping' },
+        text: {
+          nl: 'Transacties van Rabobank, Wise en PayPal komen automatisch binnen en worden aan facturen en kosten gekoppeld. Wat de regels niet herkennen, plaatst AI; bij twijfel krijg ik een vraag. Omzet, kosten en winst per kwartaal zijn altijd actueel.',
+          en: 'Transactions from Rabobank, Wise and PayPal come in automatically and are matched to invoices and costs. What the rules don’t recognise, AI places; when in doubt, I get a question. Revenue, costs and profit per quarter are always up to date.',
+        },
+      },
+      {
+        title: { nl: 'Bonnetjes', en: 'Receipts' },
+        text: {
+          nl: 'Facturen van leveranciers worden uit de mail gehaald en aan de juiste kostenpost gehangen. Een papieren bon? Foto naar de Telegram-bot, die vraagt bij welke uitgave hij hoort.',
+          en: 'Supplier invoices are pulled from email and attached to the right expense. A paper receipt? Send a photo to the Telegram bot and it asks which expense it belongs to.',
+        },
+      },
+      {
+        title: { nl: 'Mail', en: 'Email' },
+        text: {
+          nl: 'De inbox wordt gesorteerd op wat belangrijk is, rekeningen in de mail worden herkend en op klantmail staat een concept-antwoord klaar.',
+          en: 'The inbox is sorted by what matters, bills in email are recognised and client emails get a draft reply ready.',
+        },
+      },
+      {
+        title: { nl: 'Assistent in gewone taal', en: 'Assistant in plain language' },
+        text: {
+          nl: 'Via Telegram vraag ik ‘wat heb ik dit kwartaal omgezet?’ of ‘zet morgen om 10 een taak’. Elke ochtend een overzicht van agenda en taken, die ook in mijn iPhone-agenda staan.',
+          en: 'On Telegram I ask ‘what did I bill this quarter?’ or ‘add a task for 10 tomorrow’. Every morning an overview of calendar and tasks, which also show up in my iPhone calendar.',
+        },
+      },
+      {
+        title: { nl: 'Jij houdt de regie', en: 'You stay in control' },
+        text: {
+          nl: 'Acties en antwoorden komen als voorstel met ja/nee-knoppen. Valt een koppeling stil, dan krijg ik direct een melding.',
+          en: 'Actions and replies arrive as a proposal with yes/no buttons. If a connection stops working, I get notified right away.',
+        },
+      },
+    ],
+    gallery: [
+      { img: '/images/cases/bedrijfssysteem-boekhouding.webp', title: 'Boekhouding' },
+      { img: '/images/cases/bedrijfssysteem-facturen.webp', title: 'Facturen' },
+      { img: '/images/cases/bedrijfssysteem-factuur.webp', title: 'Factuur (pdf)' },
+      { img: '/images/cases/bedrijfssysteem-uren.webp', title: 'Uren' },
+    ],
+    galleryRatio: '16/9',
+    galleryLabel: { nl: 'Uit het systeem (testomgeving, demodata)', en: 'From the system (test environment, demo data)' },
+    year: 2023,
+    featured: false,
+  },
+  {
     id: 'sfeerbaas',
     title: 'Sfeerbaas Configurator',
     client: 'Sfeerbaas',
