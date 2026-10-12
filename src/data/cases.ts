@@ -90,6 +90,7 @@ export const cases: CaseStudy[] = [
     id: 'bedrijfssysteem',
     title: 'Eigen bedrijfssysteem',
     image: '/images/cases/bedrijfssysteem.webp',
+    demo: 'bedrijfssysteem',
     track: 'automatiseren',
     problem: {
       nl: 'Als zelfstandige kostte de administratie me elke week uren: uren bijhouden, facturen maken, betalingen nalopen, bonnetjes zoeken, mail sorteren. Tijd die niet naar klanten ging.',
@@ -162,14 +163,6 @@ export const cases: CaseStudy[] = [
         },
       },
     ],
-    gallery: [
-      { img: '/images/cases/bedrijfssysteem-boekhouding.webp', title: 'Boekhouding' },
-      { img: '/images/cases/bedrijfssysteem-facturen.webp', title: 'Facturen' },
-      { img: '/images/cases/bedrijfssysteem-factuur.webp', title: 'Factuur (pdf)' },
-      { img: '/images/cases/bedrijfssysteem-uren.webp', title: 'Uren' },
-    ],
-    galleryRatio: '16/9',
-    galleryLabel: { nl: 'Uit het systeem (testomgeving, demodata)', en: 'From the system (test environment, demo data)' },
     year: 2023,
     featured: false,
   },
