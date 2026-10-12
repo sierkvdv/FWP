@@ -17,3 +17,4 @@ React 18 + TypeScript (CRA), react-router 6, Tailwind 3, Framer Motion. Openbare
 - Video's altijd via `AutoVideo` (stil, autoplay zodra in beeld, werkt op iOS). Een kale `<video controls>` speelt op de telefoon niet vanzelf.
 - Ad-video's: 1920×1080, H.264 rond 3,3 Mbit/s, AAC 160k, `-movflags +faststart`, poster-jpg 1920×1080 uit een sterk frame.
 - `vercel.json` gebruikt `rewrites` (niet `routes`), anders breken `/videos` en `/images`.
+- Demo bedrijfssysteem (`public/demo/systeem/`, case `bedrijfssysteem`): echte schermen van het uren-systeem, opgeslagen vanaf de database `uren_demo` (verzonnen data). Opnieuw maken: `scripts/demo-systeem/` (seed.cjs → start-demo.cjs → capture.mjs → bouw.py).
