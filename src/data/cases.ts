@@ -101,8 +101,8 @@ export const cases: CaseStudy[] = [
       en: 'A system of my own that runs the whole back office: hours, invoices, bank, receipts, email and calendar in one place. I operate it in plain language, via Telegram or my AI assistant, and approve what’s prepared. Built with Next.js and Postgres, connected to Rabobank, Wise, Mollie, Gmail, the iPhone calendar and Telegram.',
     },
     result: {
-      nl: 'Van de 1.348 banktransacties van dit jaar zijn er 1.334 vanzelf geboekt; 11 deed ik zelf. In de eerste maand werden 1.422 mails gesorteerd en 42 bonnetjes uit de mail gekoppeld. Ik keur alleen nog, en hetzelfde kan ik inrichten voor andere zelfstandigen en kleine bedrijven.',
-      en: 'Of this year’s 1,348 bank transactions, 1,334 were booked automatically; I did 11 myself. In the first month, 1,422 emails were sorted and 42 receipts from email were matched. I only approve, and I can set up the same for other freelancers and small businesses.',
+      nl: 'Van de 1.348 banktransacties van dit jaar zijn er 1.334 vanzelf geboekt. Over de andere 14 stelde het systeem me een vraag, zoals ‘zakelijk of privé?’. In de eerste maand werden ook 1.422 mails gesorteerd en 42 bonnetjes uit de mail gekoppeld. Ik keur alleen nog, en hetzelfde kan ik inrichten voor andere zelfstandigen en kleine bedrijven.',
+      en: 'Of this year’s 1,348 bank transactions, 1,334 were booked automatically. For the other 14 the system asked me a question, like ‘business or private?’. In the first month, 1,422 emails were also sorted and 42 receipts from email were matched. I only approve, and I can set up the same for other freelancers and small businesses.',
     },
     metric: '99% vanzelf geboekt',
     features: [
