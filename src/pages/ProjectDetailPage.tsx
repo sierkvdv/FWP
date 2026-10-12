@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Suspense, lazy } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { useLanguage } from '../contexts/LanguageContext';
 import { cases, tracks } from '../data/cases';
@@ -7,6 +7,8 @@ import CaseMedia from '../components/CaseMedia';
 import { domainOf } from '../components/CaseRow';
 import { Container, Section, Kicker } from '../components/primitives';
 
+const BedrijfssysteemDemo = lazy(() => import('../components/demos/BedrijfssysteemDemo'));
+
 const t = {
   nl: {
     back: '← Terug naar werk',
@@ -14,6 +16,7 @@ const t = {
     solution: 'De oplossing',
     result: 'Het resultaat',
     features: 'Wat het doet',
+    demo: 'Klik er doorheen · demo met verzonnen cijfers',
     live: 'Bekijk live ↗',
     video: 'Bekijk video ↗',
     notFound: 'Niet gevonden.',
@@ -27,6 +30,7 @@ const t = {
     solution: 'The solution',
     result: 'The result',
     features: 'What it does',
+    demo: 'Click through it · demo with made-up numbers',
     live: 'View live ↗',
     video: 'Watch video ↗',
     notFound: 'Not found.',
@@ -99,13 +103,26 @@ const ProjectDetailPage: React.FC = () => {
 
         <Section>
           <Container>
-            <CaseMedia
-              src={caseStudy.image}
-              video={caseStudy.video}
-              poster={caseStudy.videoPoster}
-              label={caseStudy.title}
-              ratio={caseStudy.video ? '16/9' : '21/9'}
-            />
+            {caseStudy.demo === 'bedrijfssysteem' ? (
+              <>
+                <Kicker className="text-accent">{c.demo}</Kicker>
+                <div className="mt-6">
+                  <Suspense
+                    fallback={<div className="min-h-[34rem] rounded-lg border border-line bg-surface" />}
+                  >
+                    <BedrijfssysteemDemo />
+                  </Suspense>
+                </div>
+              </>
+            ) : (
+              <CaseMedia
+                src={caseStudy.image}
+                video={caseStudy.video}
+                poster={caseStudy.videoPoster}
+                label={caseStudy.title}
+                ratio={caseStudy.video ? '16/9' : '21/9'}
+              />
+            )}
 
             <div className="mt-16 grid grid-cols-1 gap-12 md:grid-cols-3">
               <div className="border-t border-line pt-6">
