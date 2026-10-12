@@ -96,13 +96,14 @@ export const cases: CaseStudy[] = [
       en: 'As a freelancer, admin cost me hours every week: tracking time, writing invoices, chasing payments, finding receipts, sorting email. Time that didn’t go to clients.',
     },
     solution: {
-      nl: 'Een eigen systeem dat de hele administratie draait: uren, facturen, bank, bonnetjes, mail en agenda in één geheel. Ik bedien het in gewone taal, via Telegram of mijn AI-assistent, en keur goed wat er klaarstaat. Gebouwd met Next.js en Postgres, gekoppeld aan Mollie, Rabobank, Wise, PayPal, Gmail en Telegram.',
-      en: 'A system of my own that runs the whole back office: hours, invoices, bank, receipts, email and calendar in one place. I operate it in plain language, via Telegram or my AI assistant, and approve what’s prepared. Built with Next.js and Postgres, connected to Mollie, Rabobank, Wise, PayPal, Gmail and Telegram.',
+      nl: 'Een eigen systeem dat de hele administratie draait: uren, facturen, bank, bonnetjes, mail en agenda in één geheel. Ik bedien het in gewone taal, via Telegram of mijn AI-assistent, en keur goed wat er klaarstaat. Gebouwd met Next.js en Postgres, gekoppeld aan Rabobank, Wise, Mollie, Gmail, de iPhone-agenda en Telegram.',
+      en: 'A system of my own that runs the whole back office: hours, invoices, bank, receipts, email and calendar in one place. I operate it in plain language, via Telegram or my AI assistant, and approve what’s prepared. Built with Next.js and Postgres, connected to Rabobank, Wise, Mollie, Gmail, the iPhone calendar and Telegram.',
     },
     result: {
-      nl: 'De administratie loopt grotendeels vanzelf; ik keur alleen nog. Hetzelfde kan ik inrichten voor andere zelfstandigen en kleine bedrijven.',
-      en: 'The admin largely runs itself; I only approve. I can set up the same for other freelancers and small businesses.',
+      nl: 'Van de 1.348 banktransacties van dit jaar zijn er 1.334 vanzelf geboekt; 11 deed ik zelf. In de eerste maand werden 1.422 mails gesorteerd en 42 bonnetjes uit de mail gekoppeld. Ik keur alleen nog, en hetzelfde kan ik inrichten voor andere zelfstandigen en kleine bedrijven.',
+      en: 'Of this year’s 1,348 bank transactions, 1,334 were booked automatically; I did 11 myself. In the first month, 1,422 emails were sorted and 42 receipts from email were matched. I only approve, and I can set up the same for other freelancers and small businesses.',
     },
+    metric: '99% vanzelf geboekt',
     features: [
       {
         title: { nl: 'Uren en klantportaal', en: 'Hours and client portal' },
@@ -128,15 +129,15 @@ export const cases: CaseStudy[] = [
       {
         title: { nl: 'Bank en boekhouding', en: 'Bank and bookkeeping' },
         text: {
-          nl: 'Transacties van Rabobank, Wise en PayPal komen automatisch binnen en worden aan facturen en kosten gekoppeld. Wat de regels niet herkennen, plaatst AI; bij twijfel krijg ik een vraag. Omzet, kosten en winst per kwartaal zijn altijd actueel.',
-          en: 'Transactions from Rabobank, Wise and PayPal come in automatically and are matched to invoices and costs. What the rules don’t recognise, AI places; when in doubt, I get a question. Revenue, costs and profit per quarter are always up to date.',
+          nl: 'Transacties van Rabobank en Wise komen automatisch binnen en worden aan facturen en kosten gekoppeld. Wat de regels niet herkennen, plaatst AI; bij twijfel krijg ik een vraag. Omzet, kosten en winst per kwartaal zijn altijd actueel.',
+          en: 'Transactions from Rabobank and Wise come in automatically and are matched to invoices and costs. What the rules don’t recognise, AI places; when in doubt, I get a question. Revenue, costs and profit per quarter are always up to date.',
         },
       },
       {
         title: { nl: 'Bonnetjes', en: 'Receipts' },
         text: {
-          nl: 'Facturen van leveranciers worden uit de mail gehaald en aan de juiste kostenpost gehangen. Een papieren bon? Foto naar de Telegram-bot, die vraagt bij welke uitgave hij hoort.',
-          en: 'Supplier invoices are pulled from email and attached to the right expense. A paper receipt? Send a photo to the Telegram bot and it asks which expense it belongs to.',
+          nl: 'Facturen van leveranciers en PayPal-bonnen worden uit de mail gehaald en aan de juiste afschrijving gehangen. Een papieren bon? Foto naar de Telegram-bot, die vraagt bij welke uitgave hij hoort.',
+          en: 'Supplier invoices and PayPal receipts are pulled from email and attached to the right payment. A paper receipt? Send a photo to the Telegram bot and it asks which expense it belongs to.',
         },
       },
       {
