@@ -9,6 +9,10 @@ RAW = os.path.join(HIER, "raw")
 UIT = sys.argv[1]
 routes = json.load(open(os.path.join(RAW, "routes.json"), encoding="utf-8"))
 routes["/"] = "index.html"
+# Alleen de administratie: Projecten (Ableton-sync) en Bestanden horen niet in deze demo.
+WEG = ("/admin/projecten", "/admin/bestanden")
+for w in WEG:
+    routes.pop(w, None)
 
 if os.path.isdir(UIT):
     shutil.rmtree(UIT)
@@ -53,6 +57,9 @@ for pad, naam in routes.items():
     head = soup.head
     head.append(soup.new_tag("meta", attrs={"name": "robots", "content": "noindex"}))
     for a in soup.find_all("a", href=True):
+        if a["href"].split("?")[0] in WEG:
+            (a.parent if a.parent.name == "li" else a).decompose()
+            continue
         d = doel(a["href"])
         if d is None:
             a["target"] = "_blank"
@@ -85,6 +92,8 @@ for pad, naam in routes.items():
                  ("http%3A%2F%2Flocalhost%3A3004", "https%3A%2F%2Fadministratie.voorbeeld.nl"),
                  ("http%3A%2F%2Flocalhost%3A3005", "https%3A%2F%2Fadministratie.voorbeeld.nl")):
         html = html.replace(a, b)
+    html = html.replace("repeat(7, minmax(0, 1fr))", "repeat(5, minmax(0, 1fr))")
+    html = html.replace("Mollie is niet ingesteld, dus incasso kan nog niet.", "Geen lopende incasso voor deze klant.")
     open(os.path.join(UIT, naam), "w", encoding="utf-8").write(html)
 
 print(len(routes) - 1, "pagina's ->", UIT)
