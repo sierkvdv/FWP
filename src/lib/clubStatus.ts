@@ -7,7 +7,7 @@ import { useEffect, useState } from 'react';
  */
 export const CLUB_URL = 'https://club.sierk.dev/live/';
 export const STATUS_URL = 'https://club.sierk.dev/live/status';
-export const TWITCH_KANAAL = '';
+export const TWITCH_KANAAL = 'deepsamsoclub';
 
 export type ClubStatus = {
   live: boolean;
