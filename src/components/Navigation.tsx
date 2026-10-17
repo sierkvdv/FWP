@@ -5,10 +5,13 @@ import Wordmark from './Wordmark';
 import { useClubStatus } from '../lib/clubStatus';
 
 /** LIVE-bolletje in de navigatie: rood en kloppend als Sierk draait in de Deep SamSo Club, anders stil grijs. */
-const LiveDot: React.FC<{ live: boolean }> = ({ live }) => (
-  <span className={`relative mr-1.5 inline-flex h-2 w-2 rounded-full align-middle ${live ? 'bg-red-500' : 'bg-line'}`} aria-hidden>
-    {live && <span className="absolute inset-0 animate-ping rounded-full bg-red-500 opacity-75" />}
+const LiveDot: React.FC<{ live: boolean }> = ({ live }) => live ? (
+  <span className="mr-2 inline-flex items-center gap-1 rounded-full bg-red-600 px-2 py-0.5 align-middle text-[10px] font-semibold uppercase tracking-[0.18em] text-white" aria-hidden>
+    <span className="relative inline-flex h-1.5 w-1.5"><span className="absolute inset-0 animate-ping rounded-full bg-white opacity-80" /><span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-white" /></span>
+    Live
   </span>
+) : (
+  <span className="relative mr-1.5 inline-flex h-2 w-2 rounded-full bg-line align-middle" aria-hidden />
 );
 
 const Navigation: React.FC = () => {

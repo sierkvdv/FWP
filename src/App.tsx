@@ -10,6 +10,7 @@ import ProjectDetailPage from './pages/ProjectDetailPage';
 import AboutPage from './pages/AboutPage';
 import ContactPage from './pages/ContactPage';
 import LivePage from './pages/LivePage';
+import LiveBadge from './components/LiveBadge';
 import PageTransition from './components/PageTransition';
 
 function AppContent() {
@@ -33,6 +34,7 @@ function AppContent() {
         </AnimatePresence>
       </div>
       <Footer />
+      <LiveBadge />
     </div>
   );
 }
