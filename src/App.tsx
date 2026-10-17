@@ -9,6 +9,7 @@ import ProjectsPage from './pages/ProjectsPage';
 import ProjectDetailPage from './pages/ProjectDetailPage';
 import AboutPage from './pages/AboutPage';
 import ContactPage from './pages/ContactPage';
+import LivePage from './pages/LivePage';
 import PageTransition from './components/PageTransition';
 
 function AppContent() {
@@ -26,6 +27,7 @@ function AppContent() {
               <Route path="/projects/:id" element={<ProjectDetailPage />} />
               <Route path="/about" element={<AboutPage />} />
               <Route path="/contact" element={<ContactPage />} />
+              <Route path="/live" element={<LivePage />} />
             </Routes>
           </PageTransition>
         </AnimatePresence>
