@@ -2,15 +2,25 @@ import React, { useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import { useLanguage } from '../contexts/LanguageContext';
 import Wordmark from './Wordmark';
+import { useClubStatus } from '../lib/clubStatus';
+
+/** LIVE-bolletje in de navigatie: rood en kloppend als Sierk draait in de Deep SamSo Club, anders stil grijs. */
+const LiveDot: React.FC<{ live: boolean }> = ({ live }) => (
+  <span className={`relative mr-1.5 inline-flex h-2 w-2 rounded-full align-middle ${live ? 'bg-red-500' : 'bg-line'}`} aria-hidden>
+    {live && <span className="absolute inset-0 animate-ping rounded-full bg-red-500 opacity-75" />}
+  </span>
+);
 
 const Navigation: React.FC = () => {
   const { language, setLanguage } = useLanguage();
   const [open, setOpen] = useState(false);
+  const club = useClubStatus(30000);
 
   const nav = [
     { to: '/projects', label: { nl: 'Werk', en: 'Work' } },
     { to: '/about', label: { nl: 'Aanpak', en: 'Approach' } },
     { to: '/contact', label: { nl: 'Contact', en: 'Contact' } },
+    { to: '/live', label: { nl: 'Live', en: 'Live' }, dot: true },
   ];
 
   const linkClass = ({ isActive }: { isActive: boolean }) =>
@@ -29,6 +39,7 @@ const Navigation: React.FC = () => {
         <nav className="hidden items-center gap-8 md:flex">
           {nav.map((item) => (
             <NavLink key={item.to} to={item.to} className={linkClass}>
+              {item.dot && <LiveDot live={club.live} />}
               {item.label[language]}
             </NavLink>
           ))}
@@ -68,7 +79,8 @@ const Navigation: React.FC = () => {
                 className="py-2 text-base text-muted hover:text-ink"
                 onClick={() => setOpen(false)}
               >
-                {item.label[language]}
+                {item.dot && <LiveDot live={club.live} />}
+              {item.label[language]}
               </NavLink>
             ))}
             <div className="pt-3">

@@ -10,6 +10,7 @@ import ProjectDetailPage from './pages/ProjectDetailPage';
 import AboutPage from './pages/AboutPage';
 import ContactPage from './pages/ContactPage';
 import VideoPage from './pages/VideoPage';
+import LivePage from './pages/LivePage';
 import PageTransition from './components/PageTransition';
 
 function AppContent() {
@@ -28,6 +29,7 @@ function AppContent() {
               <Route path="/about" element={<AboutPage />} />
               <Route path="/contact" element={<ContactPage />} />
               <Route path="/v/:slug" element={<VideoPage />} />
+              <Route path="/live" element={<LivePage />} />
             </Routes>
           </PageTransition>
         </AnimatePresence>

@@ -1,0 +1,52 @@
+import { useEffect, useState } from 'react';
+
+/**
+ * Status van de Deep SamSo Club LIVE (club.sierk.dev/live/): is Sierk aan het draaien, hoeveel mensen zijn er binnen,
+ * hoeveel staan er in de rij. Gelezen uit /live/status (alleen lezen, CORS open). Gebruikt door de navigatie (rood bolletje)
+ * en de pagina /live. TWITCH_KANAAL leeg = geen speler, alleen de club-knop.
+ */
+export const CLUB_URL = 'https://club.sierk.dev/live/';
+export const STATUS_URL = 'https://club.sierk.dev/live/status';
+export const TWITCH_KANAAL = '';
+
+export type ClubStatus = {
+  live: boolean;
+  bezoekers: number;
+  rij: number;
+  max: number;
+  titel: string;
+  ok: boolean;
+};
+
+const leeg: ClubStatus = { live: false, bezoekers: 0, rij: 0, max: 0, titel: '', ok: false };
+
+export async function haalClubStatus(): Promise<ClubStatus> {
+  try {
+    const r = await fetch(STATUS_URL, { cache: 'no-store' });
+    if (!r.ok) return leeg;
+    const j = await r.json();
+    const relay = j.relay || {};
+    return {
+      live: !!relay.live,
+      bezoekers: +j.bezoekers || 0,
+      rij: +j.rij || 0,
+      max: +j.max || 0,
+      titel: relay.titel ? decodeURIComponent(String(relay.titel)) : '',
+      ok: true,
+    };
+  } catch {
+    return leeg;
+  }
+}
+
+export function useClubStatus(intervalMs = 15000): ClubStatus {
+  const [s, setS] = useState<ClubStatus>(leeg);
+  useEffect(() => {
+    let weg = false;
+    const tik = async () => { const r = await haalClubStatus(); if (!weg) setS(r); };
+    tik();
+    const t = setInterval(tik, intervalMs);
+    return () => { weg = true; clearInterval(t); };
+  }, [intervalMs]);
+  return s;
+}
