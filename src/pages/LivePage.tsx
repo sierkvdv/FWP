@@ -9,7 +9,7 @@ const t = {
     titel: 'Deep SamSo Club',
     live: 'Nu live',
     uit: 'Nu niet live',
-    intro: 'Een club in 3D. Sierk draait, jij loopt rond met je eigen poppetje, praat met wie er is en ziet hem als hologram achter de decks.',
+    intro: 'Een club in 3D die 24/7 draait op de mixen van Deepstepper. Jij loopt rond met je eigen poppetje, danst en praat met wie er is. Het is een beta: typ in de chat !idea met wat erbij moet, de beste ideeën bouw ik erin.',
     binnen: 'in de club',
     rij: 'in de rij',
     knop: 'Ga de club in',
@@ -22,7 +22,7 @@ const t = {
     titel: 'Deep SamSo Club',
     live: 'Live now',
     uit: 'Not live right now',
-    intro: 'A club in 3D. Sierk plays, you walk around as your own character, talk to whoever is there and see him as a hologram behind the decks.',
+    intro: "A 3D club running 24/7 on Deepstepper's DJ mixes. Walk around as your own character, dance and talk to whoever is there. It's a beta: type !idea in the chat with what you want added, I build the best ones.",
     binnen: 'in the club',
     rij: 'in line',
     knop: 'Enter the club',
@@ -56,7 +56,7 @@ const LivePage: React.FC = () => {
               <span className={`relative inline-flex h-2.5 w-2.5 rounded-full ${s.live ? 'bg-red-500' : 'bg-line'}`}>
                 {s.live && <span className="absolute inset-0 animate-ping rounded-full bg-red-500 opacity-75" />}
               </span>
-              {s.live ? c.live : c.uit}
+              {!s.ok ? '…' : s.live ? c.live : c.uit}
             </span>
           </div>
           <p className="mt-6 max-w-2xl text-lg text-muted">{c.intro}</p>
