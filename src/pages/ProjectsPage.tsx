@@ -5,6 +5,7 @@ import { cases, tracks } from '../data/cases';
 import { moreWork } from '../data/moreWork';
 import CaseRow from '../components/CaseRow';
 import CaseMedia from '../components/CaseMedia';
+import BetaLab from '../components/BetaLab';
 import { Container, Section, Kicker, Reveal } from '../components/primitives';
 
 const t = {
@@ -48,6 +49,9 @@ const ProjectsPage: React.FC = () => {
           </p>
         </Container>
       </Section>
+
+      {/* Nu in beta — testers gezocht */}
+      <BetaLab className="border-b border-line" />
 
       {/* Cases, gegroepeerd per spoor */}
       {tracks.map((track) => {

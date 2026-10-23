@@ -6,6 +6,7 @@ import Hero from '../components/Hero';
 import AdShowcase from '../components/AdShowcase';
 import BrandFilm from '../components/BrandFilm';
 import CaseRow from '../components/CaseRow';
+import BetaLab from '../components/BetaLab';
 import { Container, Section, Kicker, Reveal } from '../components/primitives';
 
 const t = {
@@ -51,6 +52,9 @@ const HomePage: React.FC = () => {
   return (
     <main>
       <Hero />
+
+      {/* Nu in beta — testers gezocht */}
+      <BetaLab className="border-t border-line" />
 
       {/* Brand film — De Ontsnapping */}
       <BrandFilm />

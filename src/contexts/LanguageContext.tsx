@@ -202,6 +202,9 @@ const translations: Record<Language, Record<string, string>> = {
 
 export const LanguageProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [language, setLanguageState] = useState<Language>(() => {
+    // ?lang=en / ?lang=nl in de link wint (deelbare Engelse link, bv. fwp.one/live?lang=en); daarna de bewaarde keuze; anders NL.
+    const url = new URLSearchParams(window.location.search).get('lang');
+    if (url === 'nl' || url === 'en') { localStorage.setItem('language', url); return url; }
     // Bewaarde keuze wint; anders is NL de default (NL-markt eerst).
     const saved = localStorage.getItem('language') as Language;
     if (saved && (saved === 'nl' || saved === 'en')) {
