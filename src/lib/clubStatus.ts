@@ -4,10 +4,13 @@ import { useEffect, useState } from 'react';
  * Status van de Deep SamSo Club LIVE (club.sierk.dev/live/): is Sierk aan het draaien, hoeveel mensen zijn er binnen,
  * hoeveel staan er in de rij. Gelezen uit /live/status (alleen lezen, CORS open). Gebruikt door de navigatie (rood bolletje)
  * en de pagina /live. TWITCH_KANAAL leeg = geen speler, alleen de club-knop.
+ * 25-10-2026: Twitch geschorst wegens 24/7 heruitzending van opgenomen dj-sets (niet toegestaan in het DJ-programma): geen Twitch meer,
+ * /live speelt de radio zelf (RADIO_URL). CLUB_URL met ?wandelen=1, anders stuurt de club je door naar /kijken.
  */
-export const CLUB_URL = 'https://club.sierk.dev/live/';
+export const CLUB_URL = 'https://club.sierk.dev/live/?wandelen=1';
+export const RADIO_URL = 'https://club.sierk.dev/live/stream';
 export const STATUS_URL = 'https://club.sierk.dev/live/status';
-export const TWITCH_KANAAL = 'deepsamsoclub';
+export const TWITCH_KANAAL = '';
 
 export type ClubStatus = {
   live: boolean;
