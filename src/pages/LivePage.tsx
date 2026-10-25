@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useLanguage } from '../contexts/LanguageContext';
 import { Container, Section, Kicker } from '../components/primitives';
-import { CLUB_URL, TWITCH_KANAAL, useClubStatus } from '../lib/clubStatus';
+import { CLUB_URL, RADIO_URL, TWITCH_KANAAL, useClubStatus } from '../lib/clubStatus';
 
 const t = {
   nl: {
@@ -9,26 +9,32 @@ const t = {
     titel: 'Deep SamSo Club',
     live: 'Nu live',
     uit: 'Nu niet live',
-    intro: 'Een club in 3D die 24/7 draait op de mixen van Deepstepper. Jij loopt rond met je eigen poppetje, danst en praat met wie er is. Het is een beta: typ in de chat !idea met wat erbij moet, de beste ideeën bouw ik erin.',
+    intro: 'Een club in 3D die 24/7 draait op de mixen van Deepstepper. Jij loopt rond met je eigen poppetje, danst en praat met wie er is. Het is een beta: tik in de club op 💡 of typ !idea in de chat met wat erbij moet, de beste ideeën bouw ik erin.',
     binnen: 'in de club',
     rij: 'in de rij',
     knop: 'Ga de club in',
     hoe: 'Werkt in de browser, op telefoon, pc of VR-bril. Geen account, geen app.',
     kijk: 'Alleen kijken? De stream staat hieronder.',
     geenKanaal: 'De uitzending komt hier zodra er gedraaid wordt.',
+    radio: 'Deep SamSo Radio, 24/7',
+    nu: 'Nu',
+    luister: 'Alleen luisteren kan ook: druk op play.',
   },
   en: {
     kicker: 'Live',
     titel: 'Deep SamSo Club',
     live: 'Live now',
     uit: 'Not live right now',
-    intro: "A 3D club running 24/7 on Deepstepper's DJ mixes. Walk around as your own character, dance and talk to whoever is there. It's a beta: type !idea in the chat with what you want added, I build the best ones.",
+    intro: "A 3D club running 24/7 on Deepstepper's DJ mixes. Walk around as your own character, dance and talk to whoever is there. It's a beta: tap 💡 in the club or type !idea in the chat with what you want added, I build the best ones.",
     binnen: 'in the club',
     rij: 'in line',
     knop: 'Enter the club',
     hoe: 'Runs in the browser, on phone, pc or VR headset. No account, no app.',
     kijk: 'Just watching? The stream is below.',
     geenKanaal: 'The broadcast appears here when a set is on.',
+    radio: 'Deep SamSo Radio, 24/7',
+    nu: 'Now',
+    luister: 'Just want to listen? Press play.',
   },
 };
 
@@ -73,8 +79,11 @@ const LivePage: React.FC = () => {
                 />
               </div>
             ) : (
-              <div className="flex aspect-video items-center justify-center px-6 text-center text-sm text-muted">
-                {s.titel ? `${c.live}: ${s.titel}` : c.geenKanaal}
+              <div className="flex flex-col items-center justify-center gap-4 px-6 py-12 text-center">
+                <div className="text-xs uppercase tracking-label text-muted">{c.radio}</div>
+                <div className="text-xl font-light text-ink sm:text-2xl">{s.titel ? `${c.nu}: ${s.titel}` : c.geenKanaal}</div>
+                <audio controls preload="none" src={RADIO_URL} className="w-full max-w-md" />
+                <div className="text-sm text-muted">{c.luister}</div>
               </div>
             )}
           </div>
