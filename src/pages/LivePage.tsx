@@ -1,7 +1,7 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useLanguage } from '../contexts/LanguageContext';
 import { Container, Section, Kicker } from '../components/primitives';
-import { CLUB_URL, RADIO_URL, TWITCH_KANAAL, useClubStatus } from '../lib/clubStatus';
+import { CLUB_URL, RADIO_URL, TV_URL, TWITCH_KANAAL, useClubStatus } from '../lib/clubStatus';
 
 const t = {
   nl: {
@@ -19,6 +19,7 @@ const t = {
     radio: 'Deep SamSo Radio, 24/7',
     nu: 'Nu',
     luister: 'Alleen luisteren kan ook: druk op play.',
+    geluid: 'Geluid aan',
   },
   en: {
     kicker: 'Live',
@@ -35,7 +36,41 @@ const t = {
     radio: 'Deep SamSo Radio, 24/7',
     nu: 'Now',
     luister: 'Just want to listen? Press play.',
+    geluid: 'Sound on',
   },
+};
+
+/** Eigen uitzending (HLS van club.sierk.dev/tv): Safari speelt het zelf, elders hls.js van cdnjs. Geen beeld binnen 15 s = onFout. */
+const Tv: React.FC<{ onFout: () => void; geluidTekst: string }> = ({ onFout, geluidTekst }) => {
+  const v = useRef<HTMLVideoElement>(null);
+  const [stil, setStil] = useState(true);
+  useEffect(() => {
+    const el = v.current; if (!el) return;
+    let speelt = false, hls: any = null, weg = false;
+    const klaar = () => { speelt = true; };
+    el.addEventListener('playing', klaar);
+    const t = setTimeout(() => { if (!speelt && !weg) onFout(); }, 15000);
+    if (el.canPlayType('application/vnd.apple.mpegurl')) { el.src = TV_URL; el.play().catch(() => {}); }
+    else {
+      const sc = document.createElement('script');
+      sc.src = 'https://cdnjs.cloudflare.com/ajax/libs/hls.js/1.5.15/hls.min.js';
+      sc.onload = () => { const H = (window as any).Hls; if (weg || !H || !H.isSupported()) return; hls = new H({ liveSyncDurationCount: 3 }); hls.loadSource(TV_URL); hls.attachMedia(el); el.play().catch(() => {}); };
+      sc.onerror = () => onFout();
+      document.head.appendChild(sc);
+    }
+    return () => { weg = true; clearTimeout(t); el.removeEventListener('playing', klaar); if (hls) hls.destroy(); };
+  }, [onFout]);
+  return (
+    <div className="relative w-full" style={{ paddingTop: '56.25%' }}>
+      <video ref={v} className="absolute inset-0 h-full w-full bg-black" playsInline controls muted autoPlay onVolumeChange={(e) => setStil((e.target as HTMLVideoElement).muted)} />
+      {stil && (
+        <button onClick={() => { if (v.current) { v.current.muted = false; v.current.play(); } }}
+          className="absolute bottom-6 left-1/2 -translate-x-1/2 rounded-full bg-accent px-5 py-2 text-sm font-medium text-bg">
+          🔊 {geluidTekst}
+        </button>
+      )}
+    </div>
+  );
 };
 
 /**
@@ -46,6 +81,8 @@ const LivePage: React.FC = () => {
   const { language } = useLanguage();
   const c = t[language];
   const s = useClubStatus(10000);
+  const [tvWeg, setTvWeg] = useState(false);
+  const tvFout = React.useCallback(() => setTvWeg(true), []);
   const host = typeof window !== 'undefined' ? window.location.hostname : 'fwp.one';
   const parents = ['fwp.one', 'www.fwp.one', 'fwp.sierk.dev', 'localhost', host].filter((v, i, a) => a.indexOf(v) === i);
 
@@ -78,6 +115,8 @@ const LivePage: React.FC = () => {
                   allow="autoplay; fullscreen"
                 />
               </div>
+            ) : !tvWeg ? (
+              <Tv onFout={tvFout} geluidTekst={c.geluid} />
             ) : (
               <div className="flex flex-col items-center justify-center gap-4 px-6 py-12 text-center">
                 <div className="text-xs uppercase tracking-label text-muted">{c.radio}</div>
