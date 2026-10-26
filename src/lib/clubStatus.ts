@@ -9,6 +9,7 @@ import { useEffect, useState } from 'react';
  */
 export const CLUB_URL = 'https://club.sierk.dev/live/?wandelen=1';
 export const RADIO_URL = 'https://club.sierk.dev/live/stream';
+export const TV_URL = 'https://club.sierk.dev/tv/club.m3u8';  // 26-10: eigen uitzending (OBS -> VPS), HLS
 export const STATUS_URL = 'https://club.sierk.dev/live/status';
 export const TWITCH_KANAAL = '';
 
