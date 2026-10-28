@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useLanguage } from '../contexts/LanguageContext';
 import { Container, Section, Kicker } from '../components/primitives';
-import { CLUB_URL, RADIO_URL, TV_URL, TWITCH_KANAAL, useClubStatus } from '../lib/clubStatus';
+import { CLUB_KIJK_URL, CLUB_URL, RADIO_URL, TV_URL, TWITCH_KANAAL, useClubStatus } from '../lib/clubStatus';
 
 const t = {
   nl: {
@@ -20,6 +20,7 @@ const t = {
     nu: 'Nu',
     luister: 'Alleen luisteren kan ook: druk op play.',
     geluid: 'Geluid aan',
+    kijkGeluid: 'Geluid: klik in beeld op 🔊 Listen along, of zet hier de radio aan.',
   },
   en: {
     kicker: 'Live',
@@ -37,6 +38,7 @@ const t = {
     nu: 'Now',
     luister: 'Just want to listen? Press play.',
     geluid: 'Sound on',
+    kijkGeluid: 'Sound: click 🔊 Listen along in the picture, or play the radio here.',
   },
 };
 
@@ -118,12 +120,18 @@ const LivePage: React.FC = () => {
             ) : !tvWeg ? (
               <Tv onFout={tvFout} geluidTekst={c.geluid} />
             ) : (
-              <div className="flex flex-col items-center justify-center gap-4 px-6 py-12 text-center">
-                <div className="text-xs uppercase tracking-label text-muted">{c.radio}</div>
-                <div className="text-xl font-light text-ink sm:text-2xl">{s.titel ? `${c.nu}: ${s.titel}` : c.geenKanaal}</div>
-                <audio controls preload="none" src={RADIO_URL} className="w-full max-w-md" />
-                <div className="text-sm text-muted">{c.luister}</div>
-              </div>
+              // 28-10: geen uitzending (pc van Sierk uit): de club zelf in kijkmodus, getekend in de browser van de kijker,
+              // met de radio van de server als geluid ('Listen along' in beeld). Daaronder de radio los.
+              <>
+                <div className="relative w-full" style={{ paddingTop: '56.25%' }}>
+                  <iframe title="Deep SamSo Club" className="absolute inset-0 h-full w-full" src={CLUB_KIJK_URL} allow="autoplay; fullscreen" allowFullScreen />
+                </div>
+                <div className="flex flex-wrap items-center justify-center gap-4 px-6 py-5 text-center">
+                  <div className="text-sm text-ink">{s.titel ? `${c.nu}: ${s.titel}` : c.radio}</div>
+                  <audio controls preload="none" src={RADIO_URL} className="w-full max-w-xs" />
+                  <div className="text-sm text-muted">{c.kijkGeluid}</div>
+                </div>
+              </>
             )}
           </div>
 
