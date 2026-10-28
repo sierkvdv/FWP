@@ -60,7 +60,21 @@ const Tv: React.FC<{ onFout: () => void; geluidTekst: string }> = ({ onFout, gel
       sc.onerror = () => onFout();
       document.head.appendChild(sc);
     }
-    return () => { weg = true; clearTimeout(t); el.removeEventListener('playing', klaar); if (hls) hls.destroy(); };
+    // 28-10: telefoonscherm uit = de browser pauzeert de video (en het geluid). Dan de radio (alleen geluid, speelt op de achtergrond
+    // door) en terug naar de video als je weer kijkt. De radio wordt bij de eerste keer geluid aan vrijgegeven (iOS eist een tik).
+    const radio = new Audio(); radio.preload = 'none'; let opRadio = false, vrij = false;
+    const geefVrij = () => { if (vrij || el.muted) return; vrij = true; radio.src = RADIO_URL; radio.play().then(() => radio.pause()).catch(() => {}); };
+    el.addEventListener('volumechange', geefVrij);
+    const zicht = () => {
+      if (document.hidden && !el.muted && speelt) { opRadio = true; radio.src = RADIO_URL + '?t=' + Date.now(); radio.play().catch(() => {}); el.pause(); }
+      else if (!document.hidden && opRadio) {
+        opRadio = false; radio.pause(); radio.removeAttribute('src'); radio.load();
+        if (el.seekable && el.seekable.length) el.currentTime = el.seekable.end(el.seekable.length - 1) - 4;
+        el.play().catch(() => {});
+      }
+    };
+    document.addEventListener('visibilitychange', zicht);
+    return () => { weg = true; clearTimeout(t); el.removeEventListener('playing', klaar); el.removeEventListener('volumechange', geefVrij); document.removeEventListener('visibilitychange', zicht); radio.pause(); if (hls) hls.destroy(); };
   }, [onFout]);
   return (
     <div className="relative w-full" style={{ paddingTop: '56.25%' }}>
