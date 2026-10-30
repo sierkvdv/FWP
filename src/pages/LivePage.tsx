@@ -81,8 +81,22 @@ const Tv: React.FC<{ onFout: () => void; geluidTekst: string }> = ({ onFout, gel
       }
     };
     el.addEventListener('pause', naarRadio);
+    // 30-10: na een telefoongesprek houdt iOS het geluid nog even vast: afspelen mislukt dan. Terug op de pagina: elke 5 s opnieuw proberen,
+    // max 2 min. Alleen als je niet zelf op pauze drukte (pauze terwijl de pagina zichtbaar is = jij).
+    let zelfPauze = false, poging: ReturnType<typeof setInterval> | null = null;
+    const stopPoging = () => { if (poging) { clearInterval(poging); poging = null; } };
+    const opPauze = () => { if (!document.hidden && !volScherm()) zelfPauze = true; };
+    const opSpelen = () => { zelfPauze = false; stopPoging(); };
+    const blijfProberen = () => {
+      if (poging || zelfPauze || !speelt || !el.paused) return;
+      let n = 0; el.play().catch(() => {});
+      poging = setInterval(() => { if (!el.paused || ++n > 24) { stopPoging(); return; } el.play().catch(() => {}); }, 5000);
+    };
+    const terugOpPagina = () => { if (!document.hidden) setTimeout(blijfProberen, 500); };
+    el.addEventListener('pause', opPauze); el.addEventListener('playing', opSpelen);
+    document.addEventListener('visibilitychange', terugOpPagina); window.addEventListener('focus', terugOpPagina);
     document.addEventListener('visibilitychange', zicht);
-    return () => { weg = true; clearTimeout(t); el.removeEventListener('playing', klaar); el.removeEventListener('volumechange', geefVrij); el.removeEventListener('pause', naarRadio); document.removeEventListener('visibilitychange', zicht); radio.pause(); if (hls) hls.destroy(); };
+    return () => { weg = true; clearTimeout(t); el.removeEventListener('playing', klaar); el.removeEventListener('volumechange', geefVrij); el.removeEventListener('pause', naarRadio); el.removeEventListener('pause', opPauze); el.removeEventListener('playing', opSpelen); document.removeEventListener('visibilitychange', terugOpPagina); window.removeEventListener('focus', terugOpPagina); stopPoging(); document.removeEventListener('visibilitychange', zicht); radio.pause(); if (hls) hls.destroy(); };
   }, [onFout]);
   return (
     <div className="relative w-full" style={{ paddingTop: '56.25%' }}>
