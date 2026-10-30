@@ -65,16 +65,24 @@ const Tv: React.FC<{ onFout: () => void; geluidTekst: string }> = ({ onFout, gel
     const radio = new Audio(); radio.preload = 'none'; let opRadio = false, vrij = false;
     const geefVrij = () => { if (vrij || el.muted) return; vrij = true; radio.src = RADIO_URL; radio.play().then(() => radio.pause()).catch(() => {}); };
     el.addEventListener('volumechange', geefVrij);
+    // 30-10: de video nooit zelf stoppen. Alleen als de telefoon hem echt heeft gepauzeerd terwijl de pagina weg is, de radio; niet bij volledig
+    // scherm (iPhone: draaien = volledig scherm = pagina telt als verborgen, dat stopte de video).
+    const volScherm = () => !!((el as any).webkitDisplayingFullscreen || document.fullscreenElement || (document as any).webkitFullscreenElement);
+    const naarRadio = () => {
+      if (opRadio || !document.hidden || el.muted || !speelt || !el.paused || volScherm()) return;
+      opRadio = true; radio.src = RADIO_URL + '?t=' + Date.now(); radio.play().catch(() => {});
+    };
     const zicht = () => {
-      if (document.hidden && !el.muted && speelt) { opRadio = true; radio.src = RADIO_URL + '?t=' + Date.now(); radio.play().catch(() => {}); el.pause(); }
-      else if (!document.hidden && opRadio) {
+      if (document.hidden) naarRadio();
+      else if (opRadio) {
         opRadio = false; radio.pause(); radio.removeAttribute('src'); radio.load();
         if (el.seekable && el.seekable.length) el.currentTime = el.seekable.end(el.seekable.length - 1) - 4;
         el.play().catch(() => {});
       }
     };
+    el.addEventListener('pause', naarRadio);
     document.addEventListener('visibilitychange', zicht);
-    return () => { weg = true; clearTimeout(t); el.removeEventListener('playing', klaar); el.removeEventListener('volumechange', geefVrij); document.removeEventListener('visibilitychange', zicht); radio.pause(); if (hls) hls.destroy(); };
+    return () => { weg = true; clearTimeout(t); el.removeEventListener('playing', klaar); el.removeEventListener('volumechange', geefVrij); el.removeEventListener('pause', naarRadio); document.removeEventListener('visibilitychange', zicht); radio.pause(); if (hls) hls.destroy(); };
   }, [onFout]);
   return (
     <div className="relative w-full" style={{ paddingTop: '56.25%' }}>
