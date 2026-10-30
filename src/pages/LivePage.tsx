@@ -103,8 +103,7 @@ const Tv: React.FC<{ onFout: () => void; geluidTekst: string }> = ({ onFout, gel
       if (!geluid || !geluid.src || document.hidden) return;
       if (geluid.paused) geluid.play().catch(() => {});
       el.play().catch(() => {});
-      const d = geluid.currentTime - el.currentTime;
-      if (Math.abs(d) > 0.5 && Math.abs(d) < 60) el.currentTime = geluid.currentTime;
+      if (el.seekable && el.seekable.length) el.currentTime = Math.max(0, el.seekable.end(el.seekable.length - 1) - 6);  // beeld terug naar het live punt, daar zit het geluid ook
     };
     document.addEventListener('visibilitychange', beeldBijGeluid);
     // 30-10: de video nooit zelf stoppen. Alleen als de telefoon hem echt heeft gepauzeerd terwijl de pagina weg is, de radio; niet bij volledig
