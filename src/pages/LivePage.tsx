@@ -94,9 +94,16 @@ const Tv: React.FC<{ onFout: () => void; geluidTekst: string }> = ({ onFout, gel
     };
     const terugOpPagina = () => { if (!document.hidden) setTimeout(blijfProberen, 500); };
     el.addEventListener('pause', opPauze); el.addEventListener('playing', opSpelen);
+    // 30-10: valt de uitzending weg terwijl je kijkt (pc uit): beeld staat 25 s stil = alsnog de club, getekend op dit apparaat.
+    let tVorig = -1, stil = 0;
+    const wacht = setInterval(() => {
+      if (!speelt || document.hidden || el.paused) return;
+      if (el.currentTime === tVorig) { stil += 5; if (stil >= 25) { clearInterval(wacht); onFout(); } }
+      else { stil = 0; tVorig = el.currentTime; }
+    }, 5000);
     document.addEventListener('visibilitychange', terugOpPagina); window.addEventListener('focus', terugOpPagina);
     document.addEventListener('visibilitychange', zicht);
-    return () => { weg = true; clearTimeout(t); el.removeEventListener('playing', klaar); el.removeEventListener('volumechange', geefVrij); el.removeEventListener('pause', naarRadio); el.removeEventListener('pause', opPauze); el.removeEventListener('playing', opSpelen); document.removeEventListener('visibilitychange', terugOpPagina); window.removeEventListener('focus', terugOpPagina); stopPoging(); document.removeEventListener('visibilitychange', zicht); radio.pause(); if (hls) hls.destroy(); };
+    return () => { weg = true; clearTimeout(t); el.removeEventListener('playing', klaar); el.removeEventListener('volumechange', geefVrij); el.removeEventListener('pause', naarRadio); el.removeEventListener('pause', opPauze); el.removeEventListener('playing', opSpelen); document.removeEventListener('visibilitychange', terugOpPagina); window.removeEventListener('focus', terugOpPagina); stopPoging(); clearInterval(wacht); document.removeEventListener('visibilitychange', zicht); radio.pause(); if (hls) hls.destroy(); };
   }, [onFout]);
   return (
     <div className="relative w-full" style={{ paddingTop: '56.25%' }}>
