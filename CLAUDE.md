@@ -10,6 +10,7 @@ React 18 + TypeScript (CRA), react-router 6, Tailwind 3, Framer Motion. Openbare
 - Na elke productie-deploy de live bundle checken: haal `static/js/main.*.js` van fwp.one en grep op de nieuwe (en de oude) bestandsnaam.
 
 ## Inhoud
+- Beta-blok "Nu in beta" (testers gezocht): `src/components/BetaLab.tsx`, op home onder de hero en bovenaan /projects. Nu: Deep SamSo Club en DIEPTE (diep.sierk.dev). Project klaar of nieuw: daar weghalen of toevoegen.
 - Cases: `src/data/cases.ts` (tweetalig NL/EN, drie sporen: automatiseren, bouwen, creëren). Oud werk: `src/data/moreWork.ts`.
 - Reclamevideo's staan op twee plekken: `src/data/showreel.ts` (homepage-blok; de eerste entry wordt groot getoond) en de `gallery` van case `reclamevideos` in `cases.ts`. Altijd allebei bijwerken en daarna `grep -rn <bestandsnaam> src public`.
 - Media staan in `public/videos/...`. Bij gewijzigde inhoud altijd een nieuwe bestandsnaam, want media worden een jaar gecachet.
