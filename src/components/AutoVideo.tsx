@@ -2,6 +2,9 @@ import React, { useEffect, useRef } from 'react';
 
 interface AutoVideoProps extends React.VideoHTMLAttributes<HTMLVideoElement> {
   src: string;
+  /** Verberg de video als autoplay wordt geweigerd (iOS-spaarstand), zodat
+   *  een achterliggend stilstaand beeld zichtbaar blijft zonder afspeelknop. */
+  hideWhenBlocked?: boolean;
 }
 
 /**
@@ -11,7 +14,7 @@ interface AutoVideoProps extends React.VideoHTMLAttributes<HTMLVideoElement> {
  * iPhone. muted/playsInline worden imperatief gezet (React rendert het
  * muted-attribuut niet altijd, wat iOS-autoplay blokkeert).
  */
-const AutoVideo: React.FC<AutoVideoProps> = ({ src, ...rest }) => {
+const AutoVideo: React.FC<AutoVideoProps> = ({ src, hideWhenBlocked, ...rest }) => {
   const ref = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
@@ -27,9 +30,14 @@ const AutoVideo: React.FC<AutoVideoProps> = ({ src, ...rest }) => {
     const io = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          v.play().catch(() => {
-            /* autoplay geweigerd — poster blijft staan */
-          });
+          v.play()
+            .then(() => {
+              v.style.opacity = '';
+            })
+            .catch(() => {
+              /* autoplay geweigerd — poster blijft staan, of de video gaat weg */
+              if (hideWhenBlocked) v.style.opacity = '0';
+            });
         } else {
           v.pause();
         }
@@ -38,7 +46,7 @@ const AutoVideo: React.FC<AutoVideoProps> = ({ src, ...rest }) => {
     );
     io.observe(v);
     return () => io.disconnect();
-  }, [src]);
+  }, [src, hideWhenBlocked]);
 
   return (
     <video ref={ref} src={src} loop muted playsInline preload="metadata" {...rest} />
