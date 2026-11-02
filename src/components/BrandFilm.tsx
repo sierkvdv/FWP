@@ -4,26 +4,26 @@ import { Container, Section, Kicker, Reveal } from './primitives';
 import AutoVideo from './AutoVideo';
 
 /* ------------------------------------------------------------------ *
- *  BRAND FILM — "De Ontsnapping". Speelt stil mee zodra 'ie in beeld
+ *  FILM — eigen tv-software (De Ontsnapping is nog niet af). Speelt stil mee zodra 'ie in beeld
  *  komt (ook op iPhone); geluid aan via de controls.
  *  Bestand vervangen = nieuwe bestandsnaam (media wordt 1 jaar gecached).
  * ------------------------------------------------------------------ */
 const FILM = {
-  mp4: '/videos/brandfilm/de-ontsnapping-v6.mp4',
-  poster: '/videos/brandfilm/de-ontsnapping-v6.jpg',
+  mp4: '/videos/brandfilm/fwp-tv-eigen-software.mp4',
+  poster: '/videos/brandfilm/fwp-tv-eigen-software.jpg',
 };
 
 const copy = {
   nl: {
-    kicker: 'Brand film',
-    title: 'Negen op hun plek. Eén die eruit stapt.',
-    sub: 'Elk project bestaat uit bouwstenen die precies goed moeten staan. Onthouden wordt het ene dat de rij verlaat. Dat is wat ik maak.',
+    kicker: 'Eigen werk',
+    title: 'Mijn tv was traag. Dus schreef ik nieuwe software.',
+    sub: 'Zelfde tv, eigen startscherm, telefoon als afstandsbediening en met één klik mijn clubradio met live visuals. In m’n eentje gebouwd, sneller dan de meeste bedrijven denken.',
     sound: 'Zet het geluid aan',
   },
   en: {
-    kicker: 'Brand film',
-    title: 'Nine in place. One that steps out.',
-    sub: 'Every project is built from pieces that have to sit exactly right. What people remember is the one that leaves the line. That is what I make.',
+    kicker: 'Own work',
+    title: 'My TV was slow. So I rewrote its software.',
+    sub: 'Same TV, my own home screen, my phone as the remote and one click for my club radio with live visuals. Built on my own, faster than most companies think.',
     sound: 'Turn the sound on',
   },
 };
