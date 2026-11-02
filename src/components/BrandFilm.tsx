@@ -43,8 +43,22 @@ const BrandFilm: React.FC = () => {
           </div>
         </Reveal>
         <Reveal delay={0.1}>
+          {/* telefoon: 9:16 */}
           <div
-            className="overflow-hidden rounded-lg border border-line bg-surface"
+            className="mx-auto max-w-sm overflow-hidden rounded-lg border border-line bg-surface sm:hidden"
+            style={{ aspectRatio: '9/16' }}
+          >
+            <AutoVideo
+              src={FILM.mp4Mobile}
+              poster={FILM.posterMobile}
+              className="h-full w-full object-cover"
+              controls
+              loop={false}
+            />
+          </div>
+          {/* breder scherm: 16:9 */}
+          <div
+            className="hidden overflow-hidden rounded-lg border border-line bg-surface sm:block"
             style={{ aspectRatio: '16/9' }}
           >
             <AutoVideo
