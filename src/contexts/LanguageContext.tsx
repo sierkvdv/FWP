@@ -210,7 +210,9 @@ export const LanguageProvider: React.FC<{ children: ReactNode }> = ({ children }
     if (saved && (saved === 'nl' || saved === 'en')) {
       return saved;
     }
-    return 'nl';
+    // Eerste bezoek: telefoon/browser op Nederlands → NL, anders EN.
+    const nav = (navigator.language || '').toLowerCase();
+    return nav.startsWith('nl') ? 'nl' : 'en';
   });
 
   const setLanguage = (lang: Language) => {

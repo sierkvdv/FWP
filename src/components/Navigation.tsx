@@ -49,9 +49,11 @@ const Navigation: React.FC = () => {
           <LangSwitch language={language} setLanguage={setLanguage} />
         </nav>
 
-        {/* Mobile toggle */}
+        {/* Mobile: taalkeuze altijd zichtbaar naast het menu-icoon */}
+        <div className="flex items-center gap-4 md:hidden">
+        <LangSwitch language={language} setLanguage={setLanguage} />
         <button
-          className="flex h-9 w-9 items-center justify-center text-muted hover:text-ink md:hidden"
+          className="flex h-9 w-9 items-center justify-center text-muted hover:text-ink"
           aria-label="Menu"
           aria-expanded={open}
           onClick={() => setOpen((v) => !v)}
@@ -69,6 +71,7 @@ const Navigation: React.FC = () => {
             />
           </span>
         </button>
+        </div>
       </div>
 
       {/* Mobile panel */}
@@ -86,9 +89,6 @@ const Navigation: React.FC = () => {
               {item.label[language]}
               </NavLink>
             ))}
-            <div className="pt-3">
-              <LangSwitch language={language} setLanguage={setLanguage} />
-            </div>
           </nav>
         </div>
       )}
@@ -100,13 +100,13 @@ const LangSwitch: React.FC<{
   language: 'nl' | 'en';
   setLanguage: (l: 'nl' | 'en') => void;
 }> = ({ language, setLanguage }) => (
-  <div className="flex items-center gap-1 text-xs">
+  <div className="flex items-center gap-1.5 text-xs">
     {(['nl', 'en'] as const).map((l, i) => (
       <React.Fragment key={l}>
         {i === 1 && <span className="text-line">/</span>}
         <button
           onClick={() => setLanguage(l)}
-          className={`uppercase tracking-label transition-colors ${
+          className={`uppercase tracking-label transition-colors px-1 py-2 ${
             language === l ? 'text-accent' : 'text-muted hover:text-ink'
           }`}
           aria-pressed={language === l}
