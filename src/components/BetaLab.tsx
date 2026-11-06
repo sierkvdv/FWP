@@ -6,7 +6,9 @@ import { CLUB_URL, useClubStatus } from '../lib/clubStatus';
 import AutoVideo from './AutoVideo';
 import { Container, Section, Kicker, Reveal } from './primitives';
 
+// De Diep-site heeft een Engelse landing op /en/; Engelse lezers gaan daarheen.
 const DIEPTE_URL = 'https://diep.sierk.dev/';
+const diepteUrl = (language: 'nl' | 'en') => (language === 'en' ? `${DIEPTE_URL}en/` : DIEPTE_URL);
 // Totale diepte van de wereld in DIEPTE (diep-site: 8 biomen, 557 m).
 const DIEPTE_METERS = 557;
 
@@ -234,7 +236,7 @@ const DiepteKaart: React.FC = () => {
         </div>
         <div className="mt-7 flex flex-wrap items-center gap-3">
           <a
-            href={`${DIEPTE_URL}#speel`}
+            href={`${diepteUrl(language)}#speel`}
             target="_blank"
             rel="noreferrer"
             className="inline-flex items-center gap-2 rounded-full bg-amber-400 px-6 py-3 text-sm font-medium text-black shadow-[0_0_30px_rgba(251,191,36,0.4)] transition hover:bg-amber-300"
@@ -242,7 +244,7 @@ const DiepteKaart: React.FC = () => {
             {c.knop} ↓
           </a>
           <a
-            href={`${DIEPTE_URL}#doe-mee`}
+            href={`${diepteUrl(language)}#doe-mee`}
             target="_blank"
             rel="noreferrer"
             className="inline-flex items-center gap-2 rounded-full border border-white/25 px-5 py-3 text-sm text-white transition hover:border-white/60"
