@@ -4,6 +4,10 @@
   "installCommand": "npm install",
   "rewrites": [
     {
+      "source": "/videos/:path*",
+      "destination": "https://fwp-media.sierk.dev/videos/:path*"
+    },
+    {
       "source": "/v/:slug",
       "destination": "/v/:slug/index.html"
     },

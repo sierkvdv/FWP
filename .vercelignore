@@ -1,0 +1,3 @@
+# Video-bestanden gaan niet mee in Vercel-deploys (anders 170 MB per deploy en loopt de opslag vol).
+# Ze staan op fwp-media.sierk.dev; vercel.json herschrijft /videos/* daarheen.
+public/videos
