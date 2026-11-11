@@ -21,5 +21,12 @@ React 18 + TypeScript (CRA), react-router 6, Tailwind 3, Framer Motion. Openbare
 - `vercel.json` gebruikt `rewrites` (niet `routes`), anders breken `/videos` en `/images`.
 - Demo bedrijfssysteem (`public/demo/systeem/`, case `bedrijfssysteem`): echte schermen van het uren-systeem, opgeslagen vanaf de database `uren_demo` (verzonnen data). Opnieuw maken: `scripts/demo-systeem/` (seed.cjs → start-demo.cjs → capture.mjs → bouw.py).
 
+## Huisstijl site
+- Donker #0a0a0c, surface #101014, lijn #1c1c22, tekst #f4f4f6, muted #7a7a86, accent cyaan #00e5c7 (spaarzaam: 1 CTA + 1 statement per scherm). Font Sora. Editorial: grote ExtraLight display, veel wit, hairlines, kalme fade-up (≤400 ms, cubic-bezier(0.16,1,0.3,1)). Geen glow, parallax, blobs, gradient-tekst; beelden in kleur.
+- Positionering: één maker die bedrijfsproblemen oplost met techniek én communicatie; taal van de klant, geen buzzwords, nooit "wij". NL is de standaardtaal. Sfeerbaas-case = configurator (niet track&trace).
+
+## Open (sinds 07-2026)
+- Harde cijfers per case; dev automatisch deployen (GitHub Actions + deploy-key); /en + hreflang en SEO (robots, sitemap, OG-beeld, structured data); Lighthouse-opruiming (ongebruikte deps/componenten).
+
 ## Stand
 - 11-11-2026: fwp.one en fwp.sierk.dev (dev) antwoorden 200; laatste commit 08-11-2026 op `redesign`. Open punten: onbekend.
