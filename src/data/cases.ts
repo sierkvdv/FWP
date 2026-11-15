@@ -40,7 +40,7 @@ export const cases: CaseStudy[] = [
     // Openbare kijkversie: alleen soorten en lijnen, geen inhoud (repo sierkvdv/brein).
     id: 'brein',
     title: 'Brein',
-    client: 'Eigen systeem',
+    client: { nl: 'Eigen systeem', en: 'Own system' },
     image: '/images/cases/brein-netwerk.webp',
     track: 'automatiseren',
     problem: {
@@ -48,12 +48,12 @@ export const cases: CaseStudy[] = [
       en: 'An AI assistant starts from scratch every day. What went wrong yesterday goes wrong again tomorrow, and you keep explaining the same agreements.',
     },
     solution: {
-      nl: 'Een werksysteem dat zelf leert: regels, vaardigheden en geheugen die naar elkaar verwijzen en elke ochtend zichzelf bijwerken. Een fout wordt een regel, zodat hij niet terugkomt. Brein toont dat netwerk als een levende 3D-kaart.',
-      en: 'A work system that learns by itself: rules, skills and memory that point to each other and update themselves every morning. A mistake becomes a rule, so it doesn’t come back. Brein shows that network as a living 3D map.',
+      nl: 'Een werksysteem dat leert van fouten: regels, vaardigheden en geheugen die naar elkaar verwijzen. Een fout wordt één regel met de reden erbij, zodat hij niet terugkomt. Brein toont dat netwerk als een levende 3D-kaart.',
+      en: 'A work system that learns from its mistakes: rules, skills and memory that point to each other. A mistake becomes one rule with the reason attached, so it doesn’t come back. Brein shows that network as a living 3D map.',
     },
     result: {
-      nl: 'Elke ochtend staat wat er misging als regel klaar, en het systeem groeit week na week. In de openbare versie kijk je rond in het netwerk en zie je hoe het leert, zonder de inhoud te zien.',
-      en: 'Every morning, whatever went wrong is ready as a rule, and the system grows week after week. In the public version you can look around the network and see how it learns, without seeing what’s inside.',
+      nl: 'Elke ochtend meet een script de hele opzet opnieuw en laat het zien wat er veranderde en welke verbeterpunten nog open staan. In de openbare versie kijk je rond in het netwerk en zie je hoe het leert, zonder de inhoud te zien.',
+      en: 'Every morning a script measures the whole setup again and shows what changed and which improvement points are still open. In the public version you can look around the network and see how it learns, without seeing what’s inside.',
     },
     liveUrl: 'https://brein.sierk.dev/kijk/',
     liveLabel: { nl: 'Bekijk in 3D', en: 'View in 3D' },
@@ -266,7 +266,7 @@ export const cases: CaseStudy[] = [
   {
     id: 'clipfarm',
     title: 'Clipfarm',
-    client: 'Eigen product',
+    client: { nl: 'Eigen product', en: 'Own product' },
     image: '/images/cases/clipfarm.webp',
     video: '/videos/cases/clipfarm.mp4',
     videoPoster: '/videos/cases/clipfarm.jpg',
@@ -292,7 +292,7 @@ export const cases: CaseStudy[] = [
     // Openbare versie zonder login; persoonlijke delen staan alleen achter de inlogpoort.
     id: 'maquette',
     title: 'De Maquette',
-    client: 'Eigen product',
+    client: { nl: 'Eigen product', en: 'Own product' },
     image: '/images/cases/maquette-stad.webp',
     track: 'bouwen',
     problem: {
@@ -315,7 +315,7 @@ export const cases: CaseStudy[] = [
   {
     id: 'wondertale',
     title: 'Wondertale',
-    client: 'Eigen product',
+    client: { nl: 'Eigen product', en: 'Own product' },
     image: '/images/cases/wondertale.webp',
     video: '/videos/cases/wondertale.mp4',
     videoPoster: '/videos/cases/wondertale.jpg',
@@ -437,10 +437,10 @@ export const cases: CaseStudy[] = [
   {
     id: 'codebuddy',
     title: 'CodeBuddy',
-    client: 'Eigen product',
-    image: '/images/cases/codebuddy.webp',
-    video: '/videos/cases/codebuddy.mp4',
-    videoPoster: '/videos/cases/codebuddy.jpg',
+    client: { nl: 'Eigen product', en: 'Own product' },
+    image: '/images/cases/codebuddy-robot.webp',
+    video: '/videos/cases/codebuddy-robot.mp4',
+    videoPoster: '/videos/cases/codebuddy-robot.jpg',
     track: 'bouwen',
     problem: {
       nl: 'Programmeren leren begint voor beginners met installeren, accounts en een leeg scherm. De meesten haken af voordat ze iets gemaakt hebben.',
@@ -588,7 +588,7 @@ export const cases: CaseStudy[] = [
   {
     id: 'bloodline',
     title: 'Bloodline Project',
-    client: 'Eigen label',
+    client: { nl: 'Eigen label', en: 'Own label' },
     image: '/images/cases/bloodline.webp',
     video: '/videos/cases/bloodline.mp4',
     videoPoster: '/videos/cases/bloodline.jpg',
@@ -649,7 +649,7 @@ export const cases: CaseStudy[] = [
   {
     id: 'zalm',
     title: 'Zalmtrek',
-    client: 'Eigen project',
+    client: { nl: 'Eigen project', en: 'Own project' },
     image: '/images/cases/zalm.webp',
     video: '/videos/cases/zalm.mp4',
     videoPoster: '/videos/cases/zalm.jpg',
@@ -676,3 +676,17 @@ export const cases: CaseStudy[] = [
 export function casesByTrack(track: Track): CaseStudy[] {
   return cases.filter((c) => c.track === track);
 }
+
+/**
+ * Live-link in de taal van de bezoeker. Pagina's met een liveLabel (Maquette, Brein-kijkversie) zijn eigen
+ * openbare pagina's die ?lang=nl|en begrijpen; zo komt een bezoeker van de EN-case in het Engels binnen.
+ */
+export const liveHref = (c: Pick<CaseStudy, 'liveUrl' | 'liveLabel'>, lang: 'nl' | 'en'): string => {
+  if (!c.liveUrl) return '';
+  if (!c.liveLabel) return c.liveUrl;
+  return c.liveUrl + (c.liveUrl.includes('?') ? '&' : '?') + 'lang=' + lang;
+};
+
+/** Klantnaam: merknamen zijn taalneutraal, "Eigen product" e.d. tweetalig. */
+export const clientLabel = (client: CaseStudy['client'], lang: 'nl' | 'en'): string =>
+  !client ? '' : typeof client === 'string' ? client : client[lang];
