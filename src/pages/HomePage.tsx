@@ -39,8 +39,9 @@ const t = {
 const HomePage: React.FC = () => {
   const { language } = useLanguage();
   const c = t[language];
-  // Sterkste, volledige campagnes eerst — sluiten aan op de reclamevideo's.
-  const lead = ['wondertale', 'schelpenfissa'];
+  // Sterkste campagnes eerst (sluiten aan op de reclamevideo's), met het
+  // nieuwste werk ertussen: de twee 3D-cases die je zelf kunt openen.
+  const lead = ['wondertale', 'maquette', 'schelpenfissa', 'brein'];
   const rank = (id: string) => {
     const i = lead.indexOf(id);
     return i === -1 ? lead.length + 1 : i;

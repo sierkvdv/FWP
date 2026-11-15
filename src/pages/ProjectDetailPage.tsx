@@ -21,6 +21,7 @@ const t = {
     demo: 'Klik er doorheen · demo met verzonnen cijfers',
     live: 'Bekijk live ↗',
     video: 'Bekijk video ↗',
+    open: 'openbaar, zonder account',
     notFound: 'Niet gevonden.',
     next: 'Volgende case',
     ctaTitle: 'Een vergelijkbaar probleem?',
@@ -35,6 +36,7 @@ const t = {
     demo: 'Click through it · demo with made-up numbers',
     live: 'View live ↗',
     video: 'Watch video ↗',
+    open: 'public, no account needed',
     notFound: 'Not found.',
     next: 'Next case',
     ctaTitle: 'A similar problem?',
@@ -100,6 +102,22 @@ const ProjectDetailPage: React.FC = () => {
             <h1 className="mt-5 max-w-3xl text-4xl font-extralight tracking-display sm:text-5xl lg:text-6xl">
               {caseStudy.title}
             </h1>
+
+            {caseStudy.liveUrl && caseStudy.liveLabel && (
+              <div className="mt-8 flex flex-wrap items-center gap-x-5 gap-y-3">
+                <a
+                  href={caseStudy.liveUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 rounded-md border border-ink/80 px-5 py-3 text-sm text-ink transition-colors duration-200 ease-editorial hover:border-accent hover:text-accent"
+                >
+                  {caseStudy.liveLabel[language]} ↗
+                </a>
+                <span className="text-sm text-muted">
+                  {domainOf(caseStudy.liveUrl)} · {c.open}
+                </span>
+              </div>
+            )}
           </Container>
         </Section>
 
@@ -116,6 +134,24 @@ const ProjectDetailPage: React.FC = () => {
                   </Suspense>
                 </div>
               </>
+            ) : caseStudy.liveUrl && caseStudy.liveLabel && !caseStudy.video ? (
+              <a
+                href={caseStudy.liveUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={`${caseStudy.liveLabel[language]}: ${caseStudy.title}`}
+                className="group relative block"
+              >
+                <CaseMedia
+                  src={caseStudy.image}
+                  label={caseStudy.title}
+                  ratio="16/10"
+                  className="transition-colors duration-200 ease-editorial group-hover:border-accent"
+                />
+                <span className="pointer-events-none absolute bottom-4 left-4 rounded-md border border-line bg-bg/85 px-4 py-2 text-sm text-ink transition-colors group-hover:text-accent">
+                  {caseStudy.liveLabel[language]} ↗
+                </span>
+              </a>
             ) : (
               <CaseMedia
                 src={caseStudy.image}
@@ -175,7 +211,10 @@ const ProjectDetailPage: React.FC = () => {
                 rel="noopener noreferrer"
                 className="mt-12 inline-block text-sm text-ink underline-offset-4 transition-colors hover:text-accent hover:underline"
               >
-                {domainOf(caseStudy.liveUrl)} ↗
+                {caseStudy.liveLabel
+                  ? `${caseStudy.liveLabel[language]} · ${domainOf(caseStudy.liveUrl)}`
+                  : domainOf(caseStudy.liveUrl)}{' '}
+                ↗
               </a>
             )}
 

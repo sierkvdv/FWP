@@ -56,6 +56,8 @@ export interface CaseStudy {
   /** Wat het systeem concreet doet: korte blokken onder probleem/oplossing/resultaat. */
   features?: { title: Localized; text: Localized }[];
   liveUrl?: string;
+  /** Knoptekst voor liveUrl (bv. "Bekijk in 3D"); zonder = kale domeinnaam. Maakt het hoofdbeeld ook klikbaar. */
+  liveLabel?: Localized;
   year: number;
   /** Toont op de homepage. */
   featured?: boolean;

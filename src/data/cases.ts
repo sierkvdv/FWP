@@ -37,6 +37,30 @@ export const tracks: TrackMeta[] = [
 export const cases: CaseStudy[] = [
   // ---------------------------- AUTOMATISEREN ----------------------------
   {
+    // Openbare kijkversie: alleen soorten en lijnen, geen inhoud (repo sierkvdv/brein).
+    id: 'brein',
+    title: 'Brein',
+    client: 'Eigen systeem',
+    image: '/images/cases/brein-netwerk.webp',
+    track: 'automatiseren',
+    problem: {
+      nl: 'Een AI-assistent begint elke dag opnieuw. Wat gisteren misging, gaat morgen weer mis, en dezelfde afspraken leg je steeds opnieuw uit.',
+      en: 'An AI assistant starts from scratch every day. What went wrong yesterday goes wrong again tomorrow, and you keep explaining the same agreements.',
+    },
+    solution: {
+      nl: 'Een werksysteem dat zelf leert: regels, vaardigheden en geheugen die naar elkaar verwijzen en elke ochtend zichzelf bijwerken. Een fout wordt een regel, zodat hij niet terugkomt. Brein toont dat netwerk als een levende 3D-kaart.',
+      en: 'A work system that learns by itself: rules, skills and memory that point to each other and update themselves every morning. A mistake becomes a rule, so it doesn’t come back. Brein shows that network as a living 3D map.',
+    },
+    result: {
+      nl: 'Elke ochtend staat wat er misging als regel klaar, en het systeem groeit week na week. In de openbare versie kijk je rond in het netwerk en zie je hoe het leert, zonder de inhoud te zien.',
+      en: 'Every morning, whatever went wrong is ready as a rule, and the system grows week after week. In the public version you can look around the network and see how it learns, without seeing what’s inside.',
+    },
+    liveUrl: 'https://brein.sierk.dev/kijk/',
+    liveLabel: { nl: 'Bekijk in 3D', en: 'View in 3D' },
+    year: 2026,
+    featured: true,
+  },
+  {
     id: 'qwic',
     title: 'Qwic',
     client: 'Qwic',
@@ -264,6 +288,30 @@ export const cases: CaseStudy[] = [
     featured: false,
   },
   // ------------------------------- BOUWEN --------------------------------
+  {
+    // Openbare versie zonder login; persoonlijke delen staan alleen achter de inlogpoort.
+    id: 'maquette',
+    title: 'De Maquette',
+    client: 'Eigen product',
+    image: '/images/cases/maquette-stad.webp',
+    track: 'bouwen',
+    problem: {
+      nl: 'Het AI-landschap verandert elke dag: nieuwe modellen, nieuwe tools, nieuwe versies. Bijhouden wat ertoe doet kost uren lezen, en na een week weet je niet meer wat er veranderd is.',
+      en: 'The AI landscape changes every day: new models, new tools, new versions. Keeping up with what matters takes hours of reading, and a week later you’ve lost track of what changed.',
+    },
+    solution: {
+      nl: 'Een 3D-miniatuurstad waarin elke AI-tool een gebouw is, verdeeld over wijken. Een paar keer per dag komt het nieuws vanzelf binnen: waar iets nieuws is, staat een bouwkraan. Tik op een gebouw en een kaartje vertelt wat het is en waar het nieuws vandaan komt.',
+      en: 'A 3D miniature city in which every AI tool is a building, spread across districts. A few times a day the news comes in by itself: wherever something is new, there’s a crane. Tap a building and a card tells you what it is and where the news came from.',
+    },
+    result: {
+      nl: 'Eén blik op de stad en je ziet wat er veranderd is, zonder een nieuwsbrief te lezen. Iedereen kan rondkijken, zonder account.',
+      en: 'One look at the city shows you what changed, without reading a single newsletter. Anyone can look around, no account needed.',
+    },
+    liveUrl: 'https://maquette.sierk.dev',
+    liveLabel: { nl: 'Bekijk in 3D', en: 'View in 3D' },
+    year: 2026,
+    featured: true,
+  },
   {
     id: 'wondertale',
     title: 'Wondertale',

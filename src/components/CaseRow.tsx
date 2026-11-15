@@ -75,9 +75,13 @@ const CaseRow: React.FC<{ item: CaseStudy; index: number }> = ({ item, index }) 
               href={item.liveUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-muted underline-offset-4 transition-colors hover:text-ink hover:underline"
+              className={
+                item.liveLabel
+                  ? 'rounded-md border border-line px-4 py-2 text-ink transition-colors hover:border-accent hover:text-accent'
+                  : 'text-muted underline-offset-4 transition-colors hover:text-ink hover:underline'
+              }
             >
-              {domainOf(item.liveUrl)} ↗
+              {item.liveLabel ? item.liveLabel[language] : domainOf(item.liveUrl)} ↗
             </a>
           )}
         </div>
