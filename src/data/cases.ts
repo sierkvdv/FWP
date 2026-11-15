@@ -439,8 +439,6 @@ export const cases: CaseStudy[] = [
     title: 'CodeBuddy',
     client: { nl: 'Eigen product', en: 'Own product' },
     image: '/images/cases/codebuddy-robot.webp',
-    video: '/videos/cases/codebuddy-robot.mp4',
-    videoPoster: '/videos/cases/codebuddy-robot.jpg',
     track: 'bouwen',
     problem: {
       nl: 'Programmeren leren begint voor beginners met installeren, accounts en een leeg scherm. De meesten haken af voordat ze iets gemaakt hebben.',
