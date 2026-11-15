@@ -42,6 +42,8 @@ export const cases: CaseStudy[] = [
     title: 'Brein',
     client: { nl: 'Eigen systeem', en: 'Own system' },
     image: '/images/cases/brein-netwerk.webp',
+    video: '/videos/cases/brein-loop.mp4',
+    videoPoster: '/videos/cases/brein-loop.jpg',
     track: 'automatiseren',
     problem: {
       nl: 'Een AI-assistent begint elke dag opnieuw. Wat gisteren misging, gaat morgen weer mis, en dezelfde afspraken leg je steeds opnieuw uit.',
@@ -294,6 +296,8 @@ export const cases: CaseStudy[] = [
     title: 'De Maquette',
     client: { nl: 'Eigen product', en: 'Own product' },
     image: '/images/cases/maquette-stad.webp',
+    video: '/videos/cases/maquette-loop.mp4',
+    videoPoster: '/videos/cases/maquette-loop.jpg',
     track: 'bouwen',
     problem: {
       nl: 'Het AI-landschap verandert elke dag: nieuwe modellen, nieuwe tools, nieuwe versies. Bijhouden wat ertoe doet kost uren lezen, en na een week weet je niet meer wat er veranderd is.',
