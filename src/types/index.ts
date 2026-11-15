@@ -30,7 +30,8 @@ export interface Localized {
 export interface CaseStudy {
   id: string;
   title: string;
-  client?: string;
+  /** Merknaam (taalneutraal) of tweetalig label zoals "Eigen product". */
+  client?: string | Localized;
   track: Track;
   problem: Localized;
   solution: Localized;

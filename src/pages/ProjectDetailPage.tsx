@@ -1,7 +1,7 @@
 import React, { Suspense, lazy } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { useLanguage } from '../contexts/LanguageContext';
-import { cases, tracks } from '../data/cases';
+import { cases, tracks, liveHref, clientLabel } from '../data/cases';
 import { moreWork } from '../data/moreWork';
 import CaseMedia from '../components/CaseMedia';
 import { domainOf } from '../components/CaseRow';
@@ -94,7 +94,7 @@ const ProjectDetailPage: React.FC = () => {
               {caseStudy.client && (
                 <>
                   <span className="text-line">·</span>
-                  <Kicker>{caseStudy.client}</Kicker>
+                  <Kicker>{clientLabel(caseStudy.client, language)}</Kicker>
                 </>
               )}
             </div>
@@ -106,7 +106,7 @@ const ProjectDetailPage: React.FC = () => {
             {caseStudy.liveUrl && caseStudy.liveLabel && (
               <div className="mt-8 flex flex-wrap items-center gap-x-5 gap-y-3">
                 <a
-                  href={caseStudy.liveUrl}
+                  href={liveHref(caseStudy, language)}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 rounded-md border border-ink/80 px-5 py-3 text-sm text-ink transition-colors duration-200 ease-editorial hover:border-accent hover:text-accent"
@@ -136,7 +136,7 @@ const ProjectDetailPage: React.FC = () => {
               </>
             ) : caseStudy.liveUrl && caseStudy.liveLabel && !caseStudy.video ? (
               <a
-                href={caseStudy.liveUrl}
+                href={liveHref(caseStudy, language)}
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={`${caseStudy.liveLabel[language]}: ${caseStudy.title}`}
@@ -148,9 +148,6 @@ const ProjectDetailPage: React.FC = () => {
                   ratio="16/10"
                   className="transition-colors duration-200 ease-editorial group-hover:border-accent"
                 />
-                <span className="pointer-events-none absolute bottom-4 left-4 rounded-md border border-line bg-bg/85 px-4 py-2 text-sm text-ink transition-colors group-hover:text-accent">
-                  {caseStudy.liveLabel[language]} ↗
-                </span>
               </a>
             ) : (
               <CaseMedia
@@ -206,7 +203,7 @@ const ProjectDetailPage: React.FC = () => {
 
             {caseStudy.liveUrl && (
               <a
-                href={caseStudy.liveUrl}
+                href={liveHref(caseStudy, language)}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="mt-12 inline-block text-sm text-ink underline-offset-4 transition-colors hover:text-accent hover:underline"

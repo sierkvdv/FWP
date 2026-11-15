@@ -11,7 +11,7 @@ React 18 + TypeScript (CRA), react-router 6, Tailwind 3, Framer Motion. Openbare
 
 ## Inhoud
 - Beta-blok "Nu in beta" (testers gezocht): `src/components/BetaLab.tsx`, op home onder de hero en bovenaan /projects. Nu: Deep SamSo Club en DIEPTE (diep.sierk.dev). Project klaar of nieuw: daar weghalen of toevoegen.
-- Cases: `src/data/cases.ts` (tweetalig NL/EN, drie sporen: automatiseren, bouwen, creëren). Oud werk: `src/data/moreWork.ts`. Volgorde op home: `lead` in `HomePage.tsx`, rest in bestandsvolgorde. `liveLabel` (bv. "Bekijk in 3D") maakt van de live-link een knop en het hoofdbeeld klikbaar; alleen voor openbare pagina's zonder login (Maquette, Brein-kijkversie).
+- Cases: `src/data/cases.ts` (tweetalig NL/EN, drie sporen: automatiseren, bouwen, creëren). Oud werk: `src/data/moreWork.ts`. Volgorde op home: `lead` in `HomePage.tsx`, rest in bestandsvolgorde. `liveLabel` (bv. "Bekijk in 3D") maakt van de live-link een knop en het hoofdbeeld klikbaar (zonder label erop); alleen voor openbare pagina's zonder login (Maquette, Brein-kijkversie). Die links krijgen `?lang=nl|en` mee (`liveHref`), zodat de bezoeker in de taal van de case binnenkomt. `client` mag tweetalig zijn (`clientLabel`); spoorlabels komen uit `tracks`.
 - Reclamevideo's staan op twee plekken: `src/data/showreel.ts` (homepage-blok; de eerste entry wordt groot getoond) en de `gallery` van case `reclamevideos` in `cases.ts`. Altijd allebei bijwerken en daarna `grep -rn <bestandsnaam> src public`.
 - Media staan in `public/videos/...`. Bij gewijzigde inhoud altijd een nieuwe bestandsnaam, want media worden een jaar gecachet.
 - Video's gaan NIET mee in Vercel-deploys (`.vercelignore`); productie haalt `/videos/*` via een rewrite in `vercel.json` van de aparte video-host (sinds 08-11-2026, anders liep de Vercel-opslag vol). Nieuwe of gewijzigde video: ook naar die host uploaden (zelfde pad onder `videos/`, details in de lokale Claude-config), dan pas naar `main` pushen, en daarna live testen met `curl -r 0-99 https://fwp.one/videos/<pad>` (moet 206 geven).
@@ -29,4 +29,5 @@ React 18 + TypeScript (CRA), react-router 6, Tailwind 3, Framer Motion. Openbare
 - Harde cijfers per case; dev automatisch deployen (GitHub Actions + deploy-key); /en + hreflang en SEO (robots, sitemap, OG-beeld, structured data); Lighthouse-opruiming (ongebruikte deps/componenten).
 
 ## Stand
+- 15-11-2026 avond: Brein-case zegt nu wat het systeem doet (ochtendscript meet, regels ontstaan in een sessie); EN-labels (Own system/product, Build/Automate); "Bekijk in 3D" niet meer op het beeld. Op fwp.sierk.dev, niet op `main`.
 - 15-11-2026: cases De Maquette (bouwen) en Brein (automatiseren) toegevoegd op `redesign`, met knop "Bekijk in 3D" naar de openbare versies; op home op plek 2 en 4. Staat op fwp.sierk.dev, nog niet op `main`/fwp.one (wacht op Sierks ok).

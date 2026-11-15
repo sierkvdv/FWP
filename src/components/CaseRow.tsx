@@ -4,12 +4,10 @@ import { CaseStudy } from '../types';
 import { useLanguage } from '../contexts/LanguageContext';
 import { Reveal } from './primitives';
 import CaseMedia from './CaseMedia';
+import { tracks, liveHref } from '../data/cases';
 
-const trackLabel: Record<CaseStudy['track'], string> = {
-  automatiseren: 'Automatiseren',
-  bouwen: 'Bouwen',
-  creeren: 'Creëren',
-};
+const trackLabel = (t: CaseStudy['track'], lang: 'nl' | 'en') =>
+  tracks.find((x) => x.id === t)?.label[lang] ?? t;
 
 /** URL → kale domeinnaam (portretto.org, wonder-tale.com, …). */
 export const domainOf = (url: string) =>
@@ -35,7 +33,7 @@ const CaseRow: React.FC<{ item: CaseStudy; index: number }> = ({ item, index }) 
       {/* Tekst */}
       <div className={flip ? 'md:order-1' : ''}>
         <div className="flex items-center gap-3">
-          <span className="kicker text-accent">{trackLabel[item.track]}</span>
+          <span className="kicker text-accent">{trackLabel(item.track, language)}</span>
           <span className="text-line">·</span>
           <span className="kicker">{item.year}</span>
         </div>
@@ -72,7 +70,7 @@ const CaseRow: React.FC<{ item: CaseStudy; index: number }> = ({ item, index }) 
           </Link>
           {item.liveUrl && (
             <a
-              href={item.liveUrl}
+              href={liveHref(item, language)}
               target="_blank"
               rel="noopener noreferrer"
               className={
